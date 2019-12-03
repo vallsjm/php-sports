@@ -1,0 +1,20 @@
+{
+    "name": "php-sports",
+    "description": "Safe Fit",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose María Rodríguez",
+            "email": "valls.jm@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "fit/",
+            "Fit\\": "fit/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

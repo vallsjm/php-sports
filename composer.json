@@ -1,0 +1,20 @@
+{
+    "name": "vallsjm/php-sports",
+    "description": "Import / Export from diferent source files",
+    "license": "MIT",
+    "keywords": ["garmin", "strava", "fit"],
+    "authors": [
+        {
+            "name": "Jose María Rodríguez",
+            "email": "valls.jm@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PhpSports\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0"
+    }
+}
