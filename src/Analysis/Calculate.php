@@ -2,42 +2,70 @@
 
 namespace PhpSports\Analysis;
 
+use PhpSports\Model\Point;
+
 class Calculate
 {
+
 	public static function calculateDistance(
-		array $from,
-		array $to
-	) {
-		if (empty($from['lat']) || empty($to['lat'])) {
-			return $to['distance'];
-		}
-
-		$latitude1  = (float) $from['lat'];
-		$latitude2  = (float) $to['lat'];
-		$longitude1 = (float) $from['lng'];
-		$longitude2 = (float) $to['lng'];
-
-        $theta = $longitude1 - $longitude2;
-        $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2)))
-            + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)))
+		Point $from,
+		Point $to
+	) : int // Retorn meters
+	{
+		$theta = $from->getLongitude() - $to->getLongitude();
+		$distance = (sin(deg2rad($from->getLatitude())) * sin(deg2rad($to->getLatitude())))
+            + (cos(deg2rad($from->getLatitude())) * cos(deg2rad($to->getLatitude())) * cos(deg2rad($theta)))
         ;
-        $distance = acos($distance);
+		$distance = acos($distance);
         $distance = rad2deg($distance);
         $distance = $distance * 60 * 1.1515;
-	  	$distance = (is_nan($distance)) ? 0 : $distance * 1.609344 * 1000;
+		$distance = $distance * 1.609344 * 1000;
 
-        return  ($distance) ? $distance : 0; // Retorna m
-    }
+		return  ($distance) ? $distance : 0;
+	}
 
-    public static function calculateDuration(
-    	array $from,
-    	array $to
-    ) {
-		$ini      = $from['time'];
-		$fin      = $to['time'];
-		$time = ($fin - $ini) / 60; // Retorna m
-		return ($time) ? $time : null;
-    }
+	public static function calculateDuration(
+		Point $from,
+		Point $to
+	) : int // Retorna seconds
+	{
+		return $to->getTimestramp() - $from->getTimestramp();
+	}
+
+	// public static function calculateDistance(
+	// 	array $from,
+	// 	array $to
+	// ) {
+	// 	if (empty($from['lat']) || empty($to['lat'])) {
+	// 		return $to['distance'];
+	// 	}
+	//
+	// 	$latitude1  = (float) $from['lat'];
+	// 	$latitude2  = (float) $to['lat'];
+	// 	$longitude1 = (float) $from['lng'];
+	// 	$longitude2 = (float) $to['lng'];
+	//
+    //     $theta = $longitude1 - $longitude2;
+    //     $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2)))
+    //         + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)))
+    //     ;
+    //     $distance = acos($distance);
+    //     $distance = rad2deg($distance);
+    //     $distance = $distance * 60 * 1.1515;
+	//   	$distance = (is_nan($distance)) ? 0 : $distance * 1.609344 * 1000;
+	//
+    //     return  ($distance) ? $distance : 0; // Retorna m
+    // }
+
+    // public static function calculateDuration(
+    // 	array $from,
+    // 	array $to
+    // ) {
+	// 	$ini      = $from['time'];
+	// 	$fin      = $to['time'];
+	// 	$time = ($fin - $ini) / 60; // Retorna m
+	// 	return ($time) ? $time : null;
+    // }
 
     public static function calculateIncline(
     	array $from,

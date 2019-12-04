@@ -2,13 +2,23 @@
 
 namespace PhpSports\Model;
 
-class Point
+final class Point
 {
+    private $timestamp;
     private $latitude;
     private $longitude;
-    private $distanceMeters;
-    private $durationSeconds;
     private $elevationMeters;
+
+    public function getTimestamp() : int
+    {
+        return $this->timestamp;
+    }
+
+    public function setTimestamp(int $timestamp) : Point
+    {
+        $this->timestamp = $timestamp;
+        return $this;
+    }
 
     public function getLatitude() : float
     {
@@ -29,28 +39,6 @@ class Point
     public function setLongitude(float $longitude) : Point
     {
         $this->longitude = $longitude;
-        return $this;
-    }
-
-    public function getDistanceMeters() : int
-    {
-        return $this->distanceMeters;
-    }
-
-    public function setDistanceMeters(int $distanceMeters) : Point
-    {
-        $this->distanceMeters = $distanceMeters;
-        return $this;
-    }
-
-    public function getDurationSeconds() : int
-    {
-        return $this->durationSeconds;
-    }
-
-    public function setDurationSeconds(int $durationSeconds) : Point
-    {
-        $this->durationSeconds = $durationSeconds;
         return $this;
     }
 
