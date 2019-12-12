@@ -2,12 +2,14 @@
 
 namespace PhpSports\Model;
 
-final class Point
+use \JsonSerializable;
+
+final class Point implements JsonSerializable
 {
     private $timestamp;
     private $latitude;
     private $longitude;
-    private $elevationMeters;
+    private $altitudeMeters;
 
     public function getTimestamp() : int
     {
@@ -42,15 +44,24 @@ final class Point
         return $this;
     }
 
-    public function getElevationMeters() : int
+    public function getAltitudeMeters() : int
     {
-        return $this->elevationMeters;
+        return $this->altitudeMeters;
     }
 
-    public function setElevationMeters(int $elevationMeters) : Point
+    public function setAlitudeMeters(int $altitudeMeters) : Point
     {
-        $this->elevationMeters = $elevationMeters;
+        $this->altitudeMeters = $altitudeMeters;
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'timestamp'      => $this->timestamp,
+            'latitude'       => $this->latitude,
+            'longitude'      => $this->longitude,
+            'altitudeMeters' => $this->altitudeMeters
+        ];
     }
 
 }

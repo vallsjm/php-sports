@@ -3,9 +3,11 @@
 namespace PhpSports\Model;
 
 use PhpSports\Model\Point;
+use PhpSports\Model\PointsArray;
 use PhpSports\Analysis\Calculate;
+use \JsonSerializable;
 
-final class Lap
+final class Lap implements JsonSerializable
 {
     private $name;
     private $points;
@@ -14,7 +16,7 @@ final class Lap
 
     public function __construct()
     {
-        $this->points          = [];
+        $this->points          = new PointsArray();
         $this->distanceMeters  = 0;
         $this->durationSeconds = 0;
     }
@@ -61,5 +63,21 @@ final class Lap
         }
         $this->points[] = $point;
         return $this;
+    }
+
+    public function getPoints() : PointsArray
+    {
+        return $this->points;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'name' => $this->name,
+            'resume' => [
+                'distanceMeters'  => $this->distanceMeters,
+                'durationSeconds' => $this->durationSeconds
+            ],
+            'points' => $this->points
+        ];
     }
 }

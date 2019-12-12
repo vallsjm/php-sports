@@ -3,8 +3,10 @@
 namespace PhpSports\Model;
 
 use PhpSports\Model\Lap;
+use PhpSports\Model\LapsArray;
+use \JsonSerializable;
 
-class Activity
+class Activity implements JsonSerializable
 {
     private $name;
     private $laps;
@@ -13,7 +15,7 @@ class Activity
 
     public function __construct()
     {
-        $this->laps            = [];
+        $this->laps            = new LapsArray();
         $this->distanceMeters  = 0;
         $this->durationSeconds = 0;
     }
@@ -58,4 +60,21 @@ class Activity
         $this->laps[] = $lap;
         return $this;
     }
+
+    public function getLaps() : LapsArray
+    {
+        return $this->laps;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'name' => $this->name,
+            'resume' => [
+                'distanceMeters'  => $this->distanceMeters,
+                'durationSeconds' => $this->durationSeconds
+            ],
+            'laps' => $this->laps
+        ];
+    }
+
 }

@@ -41,6 +41,10 @@ final class ActivityTest extends TestCase
             20,
             $activity->getDistanceMeters()
         );
+
+        // $obj = json_encode($activity, JSON_PRETTY_PRINT);
+
+        print_r($obj);
     }
 
 }
