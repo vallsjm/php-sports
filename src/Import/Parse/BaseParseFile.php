@@ -1,16 +1,16 @@
 <?php
 
-namespace PhpSports\Import;
+namespace PhpSports\Import\Parse;
 
-use PhpSports\Import\BaseParse;
-use PhpSports\Model\ActivitiesArray;
+use PhpSports\Import\Parse\BaseParse;
+use PhpSports\Model\ActivityCollection;
 
 abstract class BaseParseFile extends BaseParse
 {
-    abstract public function loadFromFile(string $fileName) : ActivitiesArray;
-    abstract public function saveToFile(ActivitiesArray $activities, string $fileName);
+    abstract public function loadFromFile(string $fileName) : ActivityCollection;
+    abstract public function saveToFile(ActivityCollection $activities, string $fileName);
 
-    abstract public function loadFromBinary(string $data) : ActivitiesArray;
+    abstract public function loadFromBinary(string $data) : ActivityCollection;
     abstract public function saveToBinary() : string;
 
     public function getFormat()

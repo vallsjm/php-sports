@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
+use PhpSports\Model\Point;
 
 final class ActivityTest extends TestCase
 {
@@ -42,9 +43,30 @@ final class ActivityTest extends TestCase
             $activity->getDistanceMeters()
         );
 
-        // $obj = json_encode($activity, JSON_PRETTY_PRINT);
+        $p1 = new Point();
+        $p1->setTimestamp(1575990461);
+        $p1->setLatitude(41.31734714181024);
+        $p1->setLongitude(2.094990443212767);
 
-        print_r($obj);
+        $p2 = new Point();
+        $p2->setTimestamp(1575990464);
+        $p2->setLatitude(41.32033364596318);
+        $p2->setLongitude(2.0984703316472952);
+
+        $lap1->setDistanceMeters(0);
+        $lap1->addPoint($p1);
+        $lap1->addPoint($p2);
+        $this->assertEquals(
+            3,
+            $lap1->getDurationSeconds()
+        );
+        $this->assertEquals(
+            441,
+            $lap1->getDistanceMeters()
+        );
+
+        //   $obj = json_encode($activity, JSON_PRETTY_PRINT);
+        //   print_r($obj);
     }
 
 }

@@ -4,7 +4,7 @@ namespace PhpSports\Import\Parse\ParseFile;
 
 use adriangibbons\phpFITFileAnalysis;
 use PhpSports\Import\Parse\BaseParseFile;
-use PhpSports\Model\ActivitiesArray;
+use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
@@ -52,12 +52,12 @@ class ParseFileFIT extends BaseParseFile
         return $data;
     }
 
-    public function load(array $data) : ActivitiesArray
+    public function load(array $data) : ActivityCollection
     {
-        $activities = new ActivitiesArray();
+        $activities = new ActivityCollection();
         $activity = new Activity();
         $nlap = 1;
-        foreach ($this->data['points'] as $lapId => $points) {
+        foreach ($data['points'] as $lapId => $points) {
             $lap = new Lap();
             $lap->setName("L{$nlap}");
             foreach ($points as $timestamp => $values) {
@@ -131,19 +131,19 @@ class ParseFileFIT extends BaseParseFile
     }
 
 
-    public function loadFromFile(string $fileName) : ActivitiesArray
+    public function loadFromFile(string $fileName) : ActivityCollection
     {
         $parse = new phpFITFileAnalysis($fileName);
         $data  = $this->normalize($parse);
         return $this->load($data);
     }
 
-    public function saveToFile(ActivitiesArray $activities, string $fileName)
+    public function saveToFile(ActivityCollection $activities, string $fileName)
     {
 
     }
 
-    public function loadFromBinary(string $data) : ActivitiesArray
+    public function loadFromBinary(string $data) : ActivityCollection
     {
 
     }

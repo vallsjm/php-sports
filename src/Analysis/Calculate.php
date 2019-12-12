@@ -29,7 +29,7 @@ class Calculate
 		Point $to
 	) : int
 	{
-		return $to->getTimestramp() - $from->getTimestramp();
+		return $to->getTimestamp() - $from->getTimestamp();
 	}
 
     public static function calculateInclineMeters(

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1"
+	 xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+	 xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+	 creator="Velo Hero"
+	 version="1.1"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtension/v1/TrackPointExtensionv1.xsd">
+	<metadata>
+		<copyright author="Velo Hero" />
+		<link href="https://app.velohero.com/activity/2933869">
+			<text>Ejercicio 29.10.2017</text>
+		</link>
+		<time>2017-10-29T12:53:50Z</time>
+	</metadata>
+	
+	<trk>
+		<name>Ejercicio 29.10.2017</name>
+		<trkseg>
+			
+			<trkpt lat="41.587540" lon="-4.727252">
+				<time>2017-10-29T12:54:11Z</time>
+				<ele>577.400024</ele>
+				<extensions>
+					<gpxtpx:TrackPointExtension>
+						<gpxtpx:speed>6.04600000000005</gpxtpx:speed>
+						<gpxtpx:hr>104</gpxtpx:hr>
+						<gpxtpx:cad>82</gpxtpx:cad>
+						<gpxtpx:power>159</gpxtpx:power>
+					</gpxtpx:TrackPointExtension>
+				</extensions>
+			</trkpt>
+			
+			<trkpt lat="41.587540" lon="-4.727252">
+				<time>2017-10-29T12:54:12Z</time>
+				<ele>578.400024</ele>
+				<extensions>
+					<gpxtpx:TrackPointExtension>
+						<gpxtpx:speed>5.96200000000005</gpxtpx:speed>
+						<gpxtpx:hr>104</gpxtpx:hr>
+						<gpxtpx:cad>83</gpxtpx:cad>
+						<gpxtpx:power>176</gpxtpx:power>
+					</gpxtpx:TrackPointExtension>
+				</extensions>
+			</trkpt>
+			
+			<trkpt lat="41.587559" lon="-4.727330">
+				<time>2017-10-29T12:54:13Z</time>
+				<ele>579.400024</ele>
+				<extensions>
+					<gpxtpx:TrackPointExtension>
+						<gpxtpx:speed>6.10199972222227</gpxtpx:speed>
+						<gpxtpx:hr>105</gpxtpx:hr>
+						<gpxtpx:cad>83</gpxtpx:cad>
+						<gpxtpx:power>165</gpxtpx:power>
+					</gpxtpx:TrackPointExtension>
+				</extensions>
+			</trkpt>
+			
+			<trkpt lat="41.587536" lon="-4.727418">
+				<time>2017-10-29T12:54:14Z</time>
+				<ele>578.400024</ele>
+				<extensions>
+					<gpxtpx:TrackPointExtension>
+						<gpxtpx:speed>6.14900000000005</gpxtpx:speed>
+						<gpxtpx:hr>105</gpxtpx:hr>
+						<gpxtpx:cad>83</gpxtpx:cad>
+						<gpxtpx:power>148</gpxtpx:power>
+					</gpxtpx:TrackPointExtension>
+				</extensions>
+			</trkpt>
+		
+		</trkseg>
+	</trk>
+	
+</gpx>

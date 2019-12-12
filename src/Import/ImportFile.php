@@ -8,10 +8,10 @@ class ImportFile
     public static function getFileTypes() : array
     {
         $classNames = [
-            'PhpSports\Import\Parse\ParseFile\ParseFileTCX',
-            'PhpSports\Import\Parse\ParseFile\ParseFileGPX',
-            'PhpSports\Import\Parse\ParseFile\ParseFileFIT',
-            'PhpSports\Import\Parse\ParseFile\ParseFileKNH'
+            'PhpSports\Import\Parse\ParseFile\ParseFileFIT'
+            // 'PhpSports\Import\Parse\ParseFile\ParseFileTCX',
+            // 'PhpSports\Import\Parse\ParseFile\ParseFileGPX',
+            // 'PhpSports\Import\Parse\ParseFile\ParseFileKNH'
         ];
 
         $formats = [];
