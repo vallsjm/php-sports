@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSports\Import\Parse;
+namespace PhpSports\Activity\Parse;
 
 abstract class BaseParse
 {

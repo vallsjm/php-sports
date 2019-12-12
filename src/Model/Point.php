@@ -10,6 +10,9 @@ final class Point implements JsonSerializable
     private $latitude;
     private $longitude;
     private $altitudeMeters;
+    private $cadenceRPM;
+    private $powerWatts;
+    private $hrBPM;
 
     public function getTimestamp() : int
     {
@@ -55,12 +58,48 @@ final class Point implements JsonSerializable
         return $this;
     }
 
+    public function getCadenceRPM() : int
+    {
+        return $this->cadenceRPM;
+    }
+
+    public function setCadenceRPM(int $cadenceRPM) : Point
+    {
+        $this->cadenceRPM = $cadenceRPM;
+        return $this;
+    }
+
+    public function getPowerWatts() : int
+    {
+        return $this->powerWatts;
+    }
+
+    public function setPowerWatts(int $powerWatts) : Point
+    {
+        $this->powerWatts = $powerWatts;
+        return $this;
+    }
+
+    public function getHrBPM() : int
+    {
+        return $this->hrBPM;
+    }
+
+    public function setHrBPM(int $hrBPM) : Point
+    {
+        $this->hrBPM = $hrBPM;
+        return $this;
+    }
+
     public function jsonSerialize() {
         return [
             'timestamp'      => $this->timestamp,
             'latitude'       => $this->latitude,
             'longitude'      => $this->longitude,
-            'altitudeMeters' => $this->altitudeMeters
+            'altitudeMeters' => $this->altitudeMeters,
+            'cadenceRPM'     => $this->cadenceRPM,
+            'powerWatts'     => $this->powerWatts,
+            'hrBPM'          => $this->hrBPM
         ];
     }
 

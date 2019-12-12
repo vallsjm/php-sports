@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSports\Import\Parse;
+namespace PhpSports\Activity\Parse;
 
-use PhpSports\Import\Parse\BaseParse;
+use PhpSports\Activity\Parse\BaseParse;
 use PhpSports\Model\ActivityCollection;
 
 abstract class BaseParseFile extends BaseParse
@@ -15,6 +15,6 @@ abstract class BaseParseFile extends BaseParse
 
     public function getFormat()
     {
-        self::FILETYPE;
+        return $this::FILETYPE;
     }
 }

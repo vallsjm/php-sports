@@ -1,5 +1,5 @@
 <?php
-namespace PhpSports\Import;
+namespace PhpSports\Activity;
 
 class ImportFile
 {
@@ -8,10 +8,10 @@ class ImportFile
     public static function getFileTypes() : array
     {
         $classNames = [
-            'PhpSports\Import\Parse\ParseFile\ParseFileFIT'
-            // 'PhpSports\Import\Parse\ParseFile\ParseFileTCX',
-            // 'PhpSports\Import\Parse\ParseFile\ParseFileGPX',
-            // 'PhpSports\Import\Parse\ParseFile\ParseFileKNH'
+            'PhpSports\Activity\Parse\ParseFile\ParseFileFIT',
+            'PhpSports\Activity\Parse\ParseFile\ParseFileGPX'
+            // 'PhpSports\Activity\Parse\ParseFile\ParseFileTCX',
+            // 'PhpSports\Activity\Parse\ParseFile\ParseFileKNH'
         ];
 
         $formats = [];
@@ -41,7 +41,6 @@ class ImportFile
 
         if (!is_null( self::$instance )) {
             if (self::$instance->getFormat() != $format) {
-                unset(self::$instance);
                 self::$instance = null;
             }
         }
@@ -64,7 +63,6 @@ class ImportFile
 
         if (!is_null( self::$instance )) {
             if (self::$instance->getFormat() != $format) {
-                unset(self::$instance);
                 self::$instance = null;
             }
         }

@@ -6,22 +6,26 @@ use PhpSports\Model\Point;
 
 class Calculate
 {
-
 	public static function calculateDistanceMeters(
 		Point $from,
 		Point $to
 	) : int
 	{
-		$theta = $from->getLongitude() - $to->getLongitude();
-		$distance = (sin(deg2rad($from->getLatitude())) * sin(deg2rad($to->getLatitude())))
-            + (cos(deg2rad($from->getLatitude())) * cos(deg2rad($to->getLatitude())) * cos(deg2rad($theta)))
-        ;
-		$distance = acos($distance);
-        $distance = rad2deg($distance);
-        $distance = $distance * 60 * 1.1515;
-		$distance = $distance * 1.609344 * 1000;
+		$earthRadius = 6371000;
 
-		return  ($distance) ? $distance : 0;
+		// convert from degrees to radians
+		$latFrom  = deg2rad($from->getLatitude());
+		$lonFrom  = deg2rad($from->getLongitude());
+		$latTo    = deg2rad($to->getLatitude());
+		$lonTo    = deg2rad($to->getLongitude());
+
+		$latDelta = $latTo - $latFrom;
+		$lonDelta = $lonTo - $lonFrom;
+
+		$angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+			cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+
+	  	return $angle * $earthRadius;
 	}
 
 	public static function calculateDurationSeconds(
