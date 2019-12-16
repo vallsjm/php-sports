@@ -12,16 +12,25 @@ final class ImportFileTest extends TestCase
         $this->base_dir = __DIR__ . '/../../samples/';
     }
 
+    public function consoleLog($text)
+    {
+        fwrite(STDERR, $text . PHP_EOL);
+    }
+
     public function testImportFileFIT()
     {
+        $timeStart = microtime(true);
         $filePath = $this->base_dir . 'sample_file.fit';
         $activities = ImportFile::createFromFile($filePath);
-        echo $filePath . PHP_EOL;
+        $timeEnd = microtime(true);
+
+        $this->consoleLog('FILE:' . $filePath);
+        $this->consoleLog('TIME: '. round($timeEnd - $timeStart, 4) . ' s.' . PHP_EOL);
         foreach ($activities as $activity) {
-            echo 'TOTAL: ' . $activity->getName() . ' ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ' ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km' . PHP_EOL;
             foreach ($activity->getLaps() as $lap) {
-                echo $lap->getName() . ' ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' ' . round($lap->getDistanceMeters() / 1000, 2) . ' km' . PHP_EOL;
+                $this->consoleLog($lap->getName() . ' ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' ' . round($lap->getDistanceMeters() / 1000, 2) . ' km');
             }
+            $this->consoleLog(PHP_EOL . 'TOTAL: ' . $activity->getName() . ' ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ' ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km ');
             $this->assertEquals(
                 6,
                 count($activity->getLaps())
@@ -47,14 +56,18 @@ final class ImportFileTest extends TestCase
 
     public function testImportFileGPX()
     {
+        $timeStart = microtime(true);
         $filePath = $this->base_dir . 'segundo_ejemplo.gpx';
         $activities = ImportFile::createFromFile($filePath);
-        echo $filePath . PHP_EOL;
+        $timeEnd = microtime(true);
+
+        $this->consoleLog('FILE:' . $filePath);
+        $this->consoleLog('TIME: '. round($timeEnd - $timeStart, 4) . ' s.' . PHP_EOL);
         foreach ($activities as $activity) {
-            echo 'TOTAL: ' . $activity->getName() . ' ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ' ' . round($activity->getDistanceMeters() / 1000, 2) . ' km' . PHP_EOL;
             foreach ($activity->getLaps() as $lap) {
-                echo $lap->getName() . ' ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' ' . round($lap->getDistanceMeters() / 1000, 2) . ' km' . PHP_EOL;
+                $this->consoleLog($lap->getName() . ' ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' ' . round($lap->getDistanceMeters() / 1000, 2) . ' km');
             }
+            $this->consoleLog(PHP_EOL . 'TOTAL: ' . $activity->getName() . ' ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ' ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km ');
             $this->assertEquals(
                 1,
                 count($activity->getLaps())

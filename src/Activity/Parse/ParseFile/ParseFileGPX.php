@@ -7,35 +7,33 @@ use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
-use \DOMDocument;
+use \SimpleXMLElement;
 
-// https://github.com/spatie/array-to-xml
 class ParseFileGPX extends BaseParseFile
 {
     const FILETYPE = 'GPX';
 
-    private function load(DOMDocument $data) : ActivityCollection
+    private function load(SimpleXMLElement $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
-        foreach ($data->getElementsByTagName('trk') as $domTrk) {
+        foreach ($data->trk as $trk) {
             $activity = new Activity();
-            $activity->setName('activity');
+            $activity->setName($trk->name);
 
             $nlap = 1;
-            foreach ($domTrk->getElementsByTagName('trkseg') as $domTrkseg) {
+            foreach ($trk->trkseg as $trkseg) {
                 $lap = new Lap();
                 $lap->setName("L{$nlap}");
-                foreach ($domTrkseg->getElementsByTagName('trkpt') as $domTrkpt) {
-                    $item = simplexml_import_dom($domTrkpt);
-                    $time = new \DateTime((string) $item->time);
+                foreach ($trkseg->trkpt as $trkpt) {
+                    $time = new \DateTime((string) $trkpt->time);
 
                     $point = new Point();
                     $point->setTimestamp($time->getTimestamp());
-                    $point->setLatitude((float) $item->attributes()->lat);
-                    $point->setLongitude((float) $item->attributes()->lon);
-                    $point->setAlitudeMeters((int) $item->ele);
+                    $point->setLatitude((float) $trkpt->attributes()->lat);
+                    $point->setLongitude((float) $trkpt->attributes()->lon);
+                    $point->setAlitudeMeters((int) $trkpt->ele);
 
-                    if ($extensions = $item->extensions) {
+                    if ($extensions = $trkpt->extensions) {
     					$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
                         if (count($extensions)) {
                             if ($extensions[0]->hr) {
@@ -54,97 +52,66 @@ class ParseFileGPX extends BaseParseFile
                 $activity->addLap($lap);
                 $nlap++;
             }
-
             $activities->addActivity($activity);
         }
 
         return $activities;
     }
 
+    private function save(ActivityCollection $data) : SimpleXMLElement
+    {
+        $str = <<<'EOD'
+<gpx xmlns="http://www.topografix.com/GPX/1/1"
+     xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+     xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+     creator="Trainerer.com"
+     version="1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtension/v1/TrackPointExtensionv1.xsd" />
+EOD;
+
+        $sxml = new SimpleXMLElement($str);
+        $ntrk = 0;
+        foreach ($data as $activity) {
+            $sxml->addChild('trk');
+            $sxml->trk[$ntrk]->addChild('name', $activity->getName());
+            $ntrkseg = 0;
+            foreach ($activity->getLaps() as $lap) {
+                $sxml->trk[$ntrk]->addChild('trkseg');
+                $ntrkpt = 0;
+                foreach ($lap->getPoints() as $point) {
+                    $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
+                    $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
+                    $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
+                }
+            }
+        }
+
+        return $sxml;
+    }
+
     public function loadFromFile(string $fileName) : ActivityCollection
     {
         $data = file_get_contents($fileName, true);
-        $dom = new DOMDocument();
-        $dom->loadXml($data);
-        return $this->load($dom);
+        $sxml = new SimpleXMLElement($data);
+        return $this->load($sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName)
     {
-
+        $data = $this->save($activities);
+        return $data->asXML($fileName);
     }
 
     public function loadFromBinary(string $data) : ActivityCollection
     {
-        $dom = new DOMDocument();
-        $dom->loadXml($data);
-        return $this->load($dom);
+        $sxml = new SimpleXMLElement($data);
+        return $this->load($sxml);
     }
 
     public function saveToBinary() : string
     {
-
+        $data = $this->save($activities);
+        return $data->asXML();
     }
-
-    // public function load($fileName)
-    // {
-    //     $data = file_get_contents($fileName, true);
-    //     $this->setData($data);
-    // }
-    //
-    // public function setData($data)
-    // {
-    //     $dom = new DOMDocument();
-    //     $dom->loadXml($data);
-    //     parent::setData($dom);
-    // }
-    //
-    // public function parse()
-    // {
-    //     $ids = array();
-    //     foreach ($this->data->getElementsByTagName('trk') as $domTrk) {
-    //         $domTime = $domTrk->getElementsByTagName('time')->item(0);
-    //         $ids[] = $this->service->startTrack(new DateTime((string) $domTime->textContent));
-    //
-    //         $intervals = 1;
-    //         foreach ($domTrk->getElementsByTagName('trkseg') as $domTrkseg) {
-    //             $this->service->startTrackInterval('L' . $intervals);
-    //     		foreach ($domTrkseg->getElementsByTagName('trkpt') as $domTrkpt) {
-    //     			$item = simplexml_import_dom($domTrkpt);
-    //                 $time = new DateTime((string) $item->time);
-    //
-    //     			$data = array(
-    //                     'lat'          => (float) $item->attributes()->lat,
-    //                     'lng'          => (float) $item->attributes()->lon,
-    //                     'elevation'    => (float) $item->ele,
-    //                     'time'         => $time->getTimestamp()
-    //     			);
-    //
-    //     			if ($extensions = $item->extensions) {
-    //                     //$nameSpaces = $extensions->getNamespaces(true);
-    // 					$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
-    //                     if (count($extensions)) {
-    //                         if ($extensions[0]->hr) {
-    //         				    $data['hr'] = (int) $extensions[0]->hr;
-    //                         }
-    //                         if ($extensions[0]->cad) {
-    //                             $data['cadence'] = (int) $extensions[0]->cad;
-    //                         }
-    //                         if ($extensions[0]->power) {
-    //                             $data['power'] = (int) $extensions[0]->power;
-    //                         }
-    //                     }
-    //     			}
-    //
-    //     			$this->service->addTrackPoint($data);
-    //     		}
-    //             $this->service->endTrackInterval();
-    //             $intervals++;
-    //         }
-    //
-    // 		$this->service->endTrack();
-    // 	}
-    //
-    //     return $ids;
-    // }
 }
