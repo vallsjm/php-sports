@@ -11,14 +11,14 @@ final class Lap implements JsonSerializable
 {
     private $name;
     private $points;
-    private $distanceMeters;
+    private $distanceMillimeters;
     private $durationSeconds;
 
     public function __construct()
     {
-        $this->points          = new PointCollection();
-        $this->distanceMeters  = 0;
-        $this->durationSeconds = 0;
+        $this->points              = new PointCollection();
+        $this->distanceMillimeters = 0;
+        $this->durationSeconds     = 0;
     }
 
     public function getName() : string
@@ -34,12 +34,12 @@ final class Lap implements JsonSerializable
 
     public function getDistanceMeters() : int
     {
-        return $this->distanceMeters;
+        return round($this->distanceMillimeters / 1000);
     }
 
     public function setDistanceMeters(int $distanceMeters) : Lap
     {
-        $this->distanceMeters = $distanceMeters;
+        $this->distanceMillimeters = $distanceMeters * 1000;
         return $this;
     }
 
@@ -58,8 +58,8 @@ final class Lap implements JsonSerializable
     {
         if (count($this->points)) {
             $last = end($this->points);
-            $this->distanceMeters  += Calculate::calculateDistanceMeters($last, $point);
-            $this->durationSeconds += Calculate::calculateDurationSeconds($last, $point);
+            $this->distanceMillimeters += Calculate::calculateDistanceMillimeters($last, $point);
+            $this->durationSeconds     += Calculate::calculateDurationSeconds($last, $point);
         }
         $this->points[] = $point;
         return $this;
@@ -74,7 +74,7 @@ final class Lap implements JsonSerializable
         return [
             'name' => $this->name,
             'resume' => [
-                'distanceMeters'  => $this->distanceMeters,
+                'distanceMeters'  => $this->getDistanceMeters(),
                 'durationSeconds' => $this->durationSeconds
             ],
             'points' => $this->points

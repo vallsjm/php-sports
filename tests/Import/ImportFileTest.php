@@ -18,7 +18,7 @@ final class ImportFileTest extends TestCase
         $activities = ImportFile::createFromFile($filePath);
         echo $filePath . PHP_EOL;
         foreach ($activities as $activity) {
-            echo 'TOTAL: ' . $activity->getName() . ' ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ' ' . round($activity->getDistanceMeters() / 1000, 2) . ' km' . PHP_EOL;
+            echo 'TOTAL: ' . $activity->getName() . ' ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ' ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km' . PHP_EOL;
             foreach ($activity->getLaps() as $lap) {
                 echo $lap->getName() . ' ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' ' . round($lap->getDistanceMeters() / 1000, 2) . ' km' . PHP_EOL;
             }
@@ -64,7 +64,7 @@ final class ImportFileTest extends TestCase
                 $activity->getDurationSeconds()
             );
             $this->assertEquals(
-                49606,
+                52945,
                 $activity->getDistanceMeters()
             );
         }

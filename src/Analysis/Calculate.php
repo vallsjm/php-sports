@@ -6,7 +6,7 @@ use PhpSports\Model\Point;
 
 class Calculate
 {
-	public static function calculateDistanceMeters(
+	public static function calculateDistanceMillimeters(
 		Point $from,
 		Point $to
 	) : int
@@ -25,7 +25,7 @@ class Calculate
 		$angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
 			cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
 
-	  	return $angle * $earthRadius;
+		return $angle * $earthRadius * 1000;
 	}
 
 	public static function calculateDurationSeconds(
