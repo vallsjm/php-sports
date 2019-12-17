@@ -17,24 +17,20 @@ class ParseFileTCX extends BaseParseFile
     {
         $activities = new ActivityCollection();
         foreach ($data->Activities->Activity as $act) {
-            $activity = new Activity();
-            $activity->setName($act->attributes()->Sport);
+            $activity = new Activity($act->attributes()->Sport);
 
             $nlap = 1;
             foreach ($act->Lap as $lp) {
-                $lap = new Lap();
-                $lap->setName("L{$nlap}");
+                $lap = new Lap("L{$nlap}");
                 foreach ($lp->Track->Trackpoint as $pt) {
-                    $time = new \DateTime((string) $pt->Time);
-
-                    $point = new Point();
-                    $point->setTimestamp($time->getTimestamp());
+                    $time  = new \DateTime((string) $pt->Time);
+                    $point = new Point($time->getTimestamp());
                     if ($pt->Position) {
                         $point->setLatitude((float) $pt->Position->LatitudeDegrees);
                         $point->setLongitude((float) $pt->Position->LongitudeDegrees);
                     }
                     if ($pt->AltitudeMeters) {
-                        $point->setAlitudeMeters((int) $pt->AltitudeMeters);
+                        $point->setAlitudeMeters((float) $pt->AltitudeMeters);
                     }
 
                     // if ($extensions = $trkpt->extensions) {

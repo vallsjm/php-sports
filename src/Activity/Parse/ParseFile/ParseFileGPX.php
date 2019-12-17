@@ -17,25 +17,24 @@ class ParseFileGPX extends BaseParseFile
     {
         $activities = new ActivityCollection();
         foreach ($data->trk as $trk) {
-            $activity = new Activity();
-            $activity->setName($trk->name);
+            $activity = new Activity($trk->name);
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
-                $lap = new Lap();
-                $lap->setName("L{$nlap}");
+                $lap = new Lap("L{$nlap}");
                 foreach ($trkseg->trkpt as $trkpt) {
-                    $time = new \DateTime((string) $trkpt->time);
-
-                    $point = new Point();
-                    $point->setTimestamp($time->getTimestamp());
+                    $time  = new \DateTime((string) $trkpt->time);
+                    $point = new Point($time->getTimestamp());
                     $point->setLatitude((float) $trkpt->attributes()->lat);
                     $point->setLongitude((float) $trkpt->attributes()->lon);
-                    $point->setAlitudeMeters((int) $trkpt->ele);
+                    $point->setAlitudeMeters((float) $trkpt->ele);
 
                     if ($extensions = $trkpt->extensions) {
     					$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
                         if (count($extensions)) {
+                            if ($extensions[0]->speed) {
+                                $point->setSpeedMetersPerSecond((float) $extensions[0]->speed);
+                            }
                             if ($extensions[0]->hr) {
                                 $point->setHrBPM((int) $extensions[0]->hr);
                             }

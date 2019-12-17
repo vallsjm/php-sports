@@ -55,18 +55,18 @@ class ParseFileFIT extends BaseParseFile
     private function load(array $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
-        $activity = new Activity();
-        $activity->setName('activity');
+        $activity = new Activity('activity');
         $nlap = 1;
         foreach ($data['points'] as $lapId => $points) {
-            $lap = new Lap();
-            $lap->setName("L{$nlap}");
+            $lap = new Lap("L{$nlap}");
             foreach ($points as $timestamp => $values) {
-                $point = new Point();
-                $point->setTimestamp($timestamp);
+                $point = new Point($timestamp);
                 if (isset($values['position_lat'])) {
                     $point->setLatitude($values['position_lat']);
                     $point->setLongitude($values['position_long']);
+                }
+                if (isset($values['distance'])) {
+                    $point->setDistanceMeters($values['distance']);
                 }
                 if (isset($values['altitude'])) {
                     $point->setAlitudeMeters($values['altitude']);

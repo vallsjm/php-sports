@@ -10,9 +10,24 @@ final class Point implements JsonSerializable
     private $latitude;
     private $longitude;
     private $altitudeMeters;
+    private $distanceMeters;
+    private $speedMetersPerSecond;
     private $cadenceRPM;
     private $powerWatts;
     private $hrBPM;
+
+    public function __construct($timestamp = null)
+    {
+        $this->timestamp            = $timestamp;
+        $this->latitude             = null;
+        $this->longitude            = null;
+        $this->altitudeMeters       = null;
+        $this->distanceMeters       = null;
+        $this->speedMetersPerSecond = null;
+        $this->cadenceRPM           = null;
+        $this->powerWatts           = null;
+        $this->hrBPM                = null;
+    }
 
     public function getTimestamp() : int
     {
@@ -47,12 +62,23 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getAltitudeMeters() : int
+    public function getDistanceMeters() : int
+    {
+        return $this->distanceMeters;
+    }
+
+    public function setDistanceMeters(int $distanceMeters) : Point
+    {
+        $this->distanceMeters = $distanceMeters;
+        return $this;
+    }
+
+    public function getAltitudeMeters() : float
     {
         return $this->altitudeMeters;
     }
 
-    public function setAlitudeMeters(int $altitudeMeters) : Point
+    public function setAlitudeMeters(float $altitudeMeters) : Point
     {
         $this->altitudeMeters = $altitudeMeters;
         return $this;
@@ -91,15 +117,28 @@ final class Point implements JsonSerializable
         return $this;
     }
 
+    public function getSpeedMetersPerSecond() : float
+    {
+        return $this->speedMetersPerSecond;
+    }
+
+    public function setSpeedMetersPerSecond(float $speedMetersPerSecond) : Point
+    {
+        $this->speedMetersPerSecond = $speedMetersPerSecond;
+        return $this;
+    }
+
     public function jsonSerialize() {
         return [
-            'timestamp'      => $this->timestamp,
-            'latitude'       => $this->latitude,
-            'longitude'      => $this->longitude,
-            'altitudeMeters' => $this->altitudeMeters,
-            'cadenceRPM'     => $this->cadenceRPM,
-            'powerWatts'     => $this->powerWatts,
-            'hrBPM'          => $this->hrBPM
+            'timestamp' => $this->timestamp,
+            'distance'  => $this->distanceMeters,
+            'latitude'  => $this->latitude,
+            'longitude' => $this->longitude,
+            'altitude'  => $this->altitudeMeters,
+            'cadence'   => $this->cadenceRPM,
+            'power'     => $this->powerWatts,
+            'hr'        => $this->hrBPM,
+            'speed'     => $this->speedMetersPerSecond
         ];
     }
 

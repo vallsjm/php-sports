@@ -5,19 +5,23 @@ namespace PhpSports\Model;
 use PhpSports\Model\Lap;
 use PhpSports\Model\LapCollection;
 use \JsonSerializable;
+use \DateTime;
 
 class Activity implements JsonSerializable
 {
+    private $startedAt;
     private $name;
     private $laps;
     private $distanceMeters;
     private $durationSeconds;
 
-    public function __construct()
+    public function __construct($name = null)
     {
         $this->laps            = new LapCollection();
         $this->distanceMeters  = 0;
         $this->durationSeconds = 0;
+        $this->startedAt       = null;
+        $this->name            = $name;
     }
 
     public function getName() : string
@@ -25,7 +29,7 @@ class Activity implements JsonSerializable
         return $this->name;
     }
 
-    public function setName(string $name) : Activity
+    public function setName(string $name = null) : Activity
     {
         $this->name = $name;
         return $this;
@@ -57,6 +61,9 @@ class Activity implements JsonSerializable
     {
         $this->distanceMeters  += $lap->getDistanceMeters();
         $this->durationSeconds += $lap->getDurationSeconds();
+        if (!$this->startedAt) {
+            $this->setStartedAt($lap->getStartedAt());
+        }
         $this->laps[] = $lap;
         return $this;
     }
@@ -64,6 +71,17 @@ class Activity implements JsonSerializable
     public function getLaps() : LapCollection
     {
         return $this->laps;
+    }
+
+    public function getStartedAt()
+    {
+        return $this->startedAt;
+    }
+
+    public function setStartedAt(DateTime $startedAt = null) : Activity
+    {
+        $this->startedAt = $startedAt;
+        return $this;
     }
 
     public function jsonSerialize() {
