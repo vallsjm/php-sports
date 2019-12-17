@@ -30,7 +30,7 @@ class ParseFileTCX extends BaseParseFile
                         $point->setLongitude((float) $pt->Position->LongitudeDegrees);
                     }
                     if ($pt->AltitudeMeters) {
-                        $point->setAlitudeMeters((float) $pt->AltitudeMeters);
+                        $point->setAltitudeMeters((float) $pt->AltitudeMeters);
                     }
                     if ($pt->DistanceMeters) {
                         $point->setDistanceMeters((float) $pt->DistanceMeters);
@@ -108,7 +108,7 @@ class ParseFileTCX extends BaseParseFile
         return $this->read($sxml);
     }
 
-    public function saveToFile(ActivityCollection $activities, string $fileName)
+    public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
         $data = $this->save($activities);
         return $data->asXML($fileName);
@@ -120,7 +120,7 @@ class ParseFileTCX extends BaseParseFile
         return $this->read($sxml);
     }
 
-    public function saveToBinary(ActivityCollection $activities) : string
+    public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $data = $this->save($activities);
         return $data->asXML();

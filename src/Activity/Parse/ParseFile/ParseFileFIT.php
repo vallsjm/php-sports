@@ -69,7 +69,7 @@ class ParseFileFIT extends BaseParseFile
                     $point->setDistanceMeters($values['distance']);
                 }
                 if (isset($values['altitude'])) {
-                    $point->setAlitudeMeters($values['altitude']);
+                    $point->setAltitudeMeters($values['altitude']);
                 }
                 if (isset($values['cadence'])) {
                     $point->setCadenceRPM($values['cadence']);
@@ -155,7 +155,7 @@ class ParseFileFIT extends BaseParseFile
         return $this->read($data);
     }
 
-    public function saveToFile(ActivityCollection $activities, string $fileName)
+    public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
     }
 
@@ -166,7 +166,7 @@ class ParseFileFIT extends BaseParseFile
         return $this->read($data);
     }
 
-    public function saveToBinary(ActivityCollection $activities) : string
+    public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
 
     }

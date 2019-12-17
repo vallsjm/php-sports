@@ -78,7 +78,7 @@ final class Point implements JsonSerializable
         return $this->altitudeMeters;
     }
 
-    public function setAlitudeMeters(float $altitudeMeters) : Point
+    public function setAltitudeMeters(float $altitudeMeters) : Point
     {
         $this->altitudeMeters = $altitudeMeters;
         return $this;

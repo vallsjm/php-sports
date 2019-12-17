@@ -62,7 +62,7 @@ final class ExportFileTest extends TestCase
 
         $timeStart = microtime(true);
         $filePath = $this->base_dir . 'sample_file2.gpx';
-        ExportFile::saveToFile($activities, $filePath);
+        ExportFile::saveToFile($activities, $filePath, true);
         $timeEnd = microtime(true);
 
     }

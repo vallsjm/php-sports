@@ -27,7 +27,7 @@ class ParseFileGPX extends BaseParseFile
                     $point = new Point($time->getTimestamp());
                     $point->setLatitude((float) $trkpt->attributes()->lat);
                     $point->setLongitude((float) $trkpt->attributes()->lon);
-                    $point->setAlitudeMeters((float) $trkpt->ele);
+                    $point->setAltitudeMeters((float) $trkpt->ele);
 
                     if ($extensions = $trkpt->extensions) {
     					$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
@@ -82,6 +82,24 @@ EOD;
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
+                    $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('time', date("Y-m-d\TH:i:s\Z", $point->getTimestamp()));
+                    if ($point->getAltitudeMeters()) {
+                        $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('ele', $point->getAltitudeMeters());
+                    }
+                    $extensions = $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('extensions');
+                    $gpxtpx = $extensions[0]->addChild('gpxtpx:TrackPointExtension', null, "http://www.garmin.com/xmlschemas/TrackPointExtension/v1");
+                    if ($point->getSpeedMetersPerSecond()) {
+                        $gpxtpx->addChild('gpxtpx:speed', $point->getSpeedMetersPerSecond(), "http://www.garmin.com/xmlschemas/TrackPointExtension/v1");
+                    }
+                    if ($point->getHrBPM()) {
+                        $gpxtpx->addChild('gpxtpx:hr', $point->getHrBPM(), "http://www.garmin.com/xmlschemas/TrackPointExtension/v1");
+                    }
+                    if ($point->getCadenceRPM()) {
+                        $gpxtpx->addChild('gpxtpx:cad', $point->getCadenceRPM(), "http://www.garmin.com/xmlschemas/TrackPointExtension/v1");
+                    }
+                    if ($point->getPowerWatts()) {
+                        $gpxtpx->addChild('gpxtpx:power', $point->getPowerWatts(), "http://www.garmin.com/xmlschemas/TrackPointExtension/v1");
+                    }
                     $ntrkpt++;
                 }
                 $ntrkseg++;
@@ -99,10 +117,9 @@ EOD;
         return $this->read($sxml);
     }
 
-    public function saveToFile(ActivityCollection $activities, string $fileName)
+    public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
         $data   = $this->save($activities);
-        $pretty = false;
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
@@ -120,7 +137,7 @@ EOD;
         return $this->read($sxml);
     }
 
-    public function saveToBinary(ActivityCollection $activities) : string
+    public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $data = $this->save($activities);
         return $data->asXML();
