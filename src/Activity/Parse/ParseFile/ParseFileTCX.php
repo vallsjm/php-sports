@@ -13,7 +13,7 @@ class ParseFileTCX extends BaseParseFile
 {
     const FILETYPE = 'TCX';
 
-    private function load(SimpleXMLElement $data) : ActivityCollection
+    private function read(SimpleXMLElement $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
         foreach ($data->Activities->Activity as $act) {
@@ -32,21 +32,32 @@ class ParseFileTCX extends BaseParseFile
                     if ($pt->AltitudeMeters) {
                         $point->setAlitudeMeters((float) $pt->AltitudeMeters);
                     }
+                    if ($pt->DistanceMeters) {
+                        $point->setDistanceMeters((float) $pt->DistanceMeters);
+                    }
+                    if ($pt->HeartRateBpm) {
+                        $point->setHrBPM((int) $pt->HeartRateBpm->Value);
+                    }
+                    if ($pt->Cadence) {
+                        $point->setCadenceRPM((int) $pt->Cadence);
+                    }
 
-                    // if ($extensions = $trkpt->extensions) {
-    				// 	$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
-                    //     if (count($extensions)) {
-                    //         if ($extensions[0]->hr) {
-                    //             $point->setHrBPM((int) $extensions[0]->hr);
-                    //         }
-                    //         if ($extensions[0]->cad) {
-                    //             $point->setCadenceRPM((int) $extensions[0]->cad);
-                    //         }
-                    //         if ($extensions[0]->power) {
-                    //             $point->setPowerWatts((int) $extensions[0]->power);
-                    //         }
-                    //     }
-        			// }
+
+                    if ($extensions = $pt->Extensions) {
+                        $extensions = $extensions->children('http://www.garmin.com/xmlschemas/ActivityExtension/v2');
+                        if (count($extensions)) {
+                            if ($extensions[0]->RunCadence) {
+                                $point->setCadenceRPM((int) $extensions[0]->RunCadence);
+                            }
+                            if ($extensions[0]->Speed) {
+                                $point->setSpeedMetersPerSecond((float) $extensions[0]->Speed);
+                            }
+                            if ($extensions[0]->Watts) {
+                                $point->setPowerWatts((int) $extensions[0]->Watts);
+                            }
+                        }
+                    }
+
                     $lap->addPoint($point);
                 }
                 $activity->addLap($lap);
@@ -90,11 +101,11 @@ class ParseFileTCX extends BaseParseFile
 //         return $sxml;
     }
 
-    public function loadFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->load($sxml);
+        return $this->read($sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName)
@@ -103,13 +114,13 @@ class ParseFileTCX extends BaseParseFile
         return $data->asXML($fileName);
     }
 
-    public function loadFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data) : ActivityCollection
     {
         $sxml = new SimpleXMLElement($data);
-        return $this->load($sxml);
+        return $this->read($sxml);
     }
 
-    public function saveToBinary() : string
+    public function saveToBinary(ActivityCollection $activities) : string
     {
         $data = $this->save($activities);
         return $data->asXML();

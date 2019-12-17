@@ -40,7 +40,7 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getLatitude() : float
+    public function getLatitude()
     {
         return $this->latitude;
     }
@@ -51,7 +51,7 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getLongitude() : float
+    public function getLongitude()
     {
         return $this->longitude;
     }
@@ -62,18 +62,18 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getDistanceMeters() : int
+    public function getDistanceMeters()
     {
         return $this->distanceMeters;
     }
 
-    public function setDistanceMeters(int $distanceMeters) : Point
+    public function setDistanceMeters(float $distanceMeters) : Point
     {
         $this->distanceMeters = $distanceMeters;
         return $this;
     }
 
-    public function getAltitudeMeters() : float
+    public function getAltitudeMeters()
     {
         return $this->altitudeMeters;
     }
@@ -84,7 +84,7 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getCadenceRPM() : int
+    public function getCadenceRPM()
     {
         return $this->cadenceRPM;
     }
@@ -95,7 +95,7 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getPowerWatts() : int
+    public function getPowerWatts()
     {
         return $this->powerWatts;
     }
@@ -106,7 +106,7 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getHrBPM() : int
+    public function getHrBPM()
     {
         return $this->hrBPM;
     }
@@ -117,7 +117,7 @@ final class Point implements JsonSerializable
         return $this;
     }
 
-    public function getSpeedMetersPerSecond() : float
+    public function getSpeedMetersPerSecond()
     {
         return $this->speedMetersPerSecond;
     }

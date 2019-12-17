@@ -13,7 +13,7 @@ class ParseFileGPX extends BaseParseFile
 {
     const FILETYPE = 'GPX';
 
-    private function load(SimpleXMLElement $data) : ActivityCollection
+    private function read(SimpleXMLElement $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
         foreach ($data->trk as $trk) {
@@ -69,7 +69,7 @@ class ParseFileGPX extends BaseParseFile
      xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtension/v1/TrackPointExtensionv1.xsd" />
 EOD;
 
-        $sxml = new SimpleXMLElement($str);
+        $sxml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . $str);
         $ntrk = 0;
         foreach ($data as $activity) {
             $sxml->addChild('trk');
@@ -82,33 +82,45 @@ EOD;
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
+                    $ntrkpt++;
                 }
+                $ntrkseg++;
             }
+            $ntrk++;
         }
 
         return $sxml;
     }
 
-    public function loadFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->load($sxml);
+        return $this->read($sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName)
     {
-        $data = $this->save($activities);
-        return $data->asXML($fileName);
+        $data   = $this->save($activities);
+        $pretty = false;
+        if ($pretty) {
+            $dom = new \DomDocument('1.0');
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($data->asXML());
+            return $dom->save($fileName);
+        } else {
+            return $data->asXML($fileName);
+        }
     }
 
-    public function loadFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data) : ActivityCollection
     {
         $sxml = new SimpleXMLElement($data);
-        return $this->load($sxml);
+        return $this->read($sxml);
     }
 
-    public function saveToBinary() : string
+    public function saveToBinary(ActivityCollection $activities) : string
     {
         $data = $this->save($activities);
         return $data->asXML();

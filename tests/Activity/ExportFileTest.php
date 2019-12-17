@@ -1,9 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use PhpSports\Activity\ExportFile;
 use PhpSports\Activity\ImportFile;
 
-final class ImportFileTest extends TestCase
+final class ExportFileTest extends TestCase
 {
     private $base_dir;
 
@@ -25,7 +26,7 @@ final class ImportFileTest extends TestCase
         $asserts = []
     )
     {
-        $this->consoleLog('FILE:' . $filePath);
+        $this->consoleLog(PHP_EOL . PHP_EOL . 'FILE:' . $filePath);
         $this->consoleLog('TIME: ' . round($timeEnd - $timeStart, 4) . ' s.' . PHP_EOL);
         foreach ($activities as $activity) {
             foreach ($activity->getLaps() as $lap) {
@@ -49,44 +50,21 @@ final class ImportFileTest extends TestCase
         // print_r($obj);
     }
 
-    public function testImportFileFIT()
+    public function testExportFileFIT()
     {
-        $timeStart = microtime(true);
-        $filePath = $this->base_dir . 'sample_file.fit';
-        $activities = ImportFile::createFromFile($filePath);
-        $timeEnd = microtime(true);
-
-        $this->responseAnalysis(
-            $activities,
-            $filePath,
-            $timeStart,
-            $timeEnd,
-            [
-                'nlaps'           => 6,
-                'durationSeconds' => 2250,
-                'distanceMeters'  => 5070
-            ]
-        );
+        //TODO
     }
 
-    public function testImportFileGPX()
+    public function testExportFileGPX()
     {
+        $filePath = $this->base_dir . 'sample_file.fit';
+        $activities = ImportFile::readFromFile($filePath);
+
         $timeStart = microtime(true);
-        $filePath = $this->base_dir . 'segundo_ejemplo.gpx';
-        $activities = ImportFile::createFromFile($filePath);
+        $filePath = $this->base_dir . 'sample_file2.gpx';
+        ExportFile::saveToFile($activities, $filePath);
         $timeEnd = microtime(true);
 
-        $this->responseAnalysis(
-            $activities,
-            $filePath,
-            $timeStart,
-            $timeEnd,
-            [
-                'nlaps'           => 1,
-                'durationSeconds' => 7194,
-                'distanceMeters'  => 52945
-            ]
-        );
     }
 
 }

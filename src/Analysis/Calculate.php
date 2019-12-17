@@ -11,6 +11,10 @@ class Calculate
 		Point $to
 	) : int
 	{
+		if (!$from->getLatitude() || !$to->getLatitude()) {
+			return ($to->getDistanceMeters() - $from->getDistanceMeters()) * 1000;
+		}
+
 		$earthRadius = 6371000;
 
 		// convert from degrees to radians

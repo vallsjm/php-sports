@@ -52,7 +52,7 @@ class ParseFileFIT extends BaseParseFile
         return $data;
     }
 
-    private function load(array $data) : ActivityCollection
+    private function read(array $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
         $activity = new Activity('activity');
@@ -148,25 +148,25 @@ class ParseFileFIT extends BaseParseFile
     }
 
 
-    public function loadFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
         $parse = new phpFITFileAnalysis($fileName);
         $data  = $this->normalize($parse);
-        return $this->load($data);
+        return $this->read($data);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName)
     {
     }
 
-    public function loadFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data) : ActivityCollection
     {
         $parse = new phpFITFileAnalysis($data, ['input_is_data' => true]);
         $data  = $this->normalize($parse);
-        return $this->load($data);
+        return $this->read($data);
     }
 
-    public function saveToBinary() : string
+    public function saveToBinary(ActivityCollection $activities) : string
     {
 
     }
