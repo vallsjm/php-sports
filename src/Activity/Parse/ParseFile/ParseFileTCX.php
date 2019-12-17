@@ -71,34 +71,62 @@ class ParseFileTCX extends BaseParseFile
 
     private function save(ActivityCollection $data) : SimpleXMLElement
     {
-//         $str = <<<'EOD'
-// <gpx xmlns="http://www.topografix.com/GPX/1/1"
-//      xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
-//      xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
-//      creator="Trainerer.com"
-//      version="1.0"
-//      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-//      xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtension/v1/TrackPointExtensionv1.xsd" />
-// EOD;
-//
-//         $sxml = new SimpleXMLElement($str);
-//         $ntrk = 0;
-//         foreach ($data as $activity) {
-//             $sxml->addChild('trk');
-//             $sxml->trk[$ntrk]->addChild('name', $activity->getName());
-//             $ntrkseg = 0;
-//             foreach ($activity->getLaps() as $lap) {
-//                 $sxml->trk[$ntrk]->addChild('trkseg');
-//                 $ntrkpt = 0;
-//                 foreach ($lap->getPoints() as $point) {
-//                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
-//                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
-//                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
-//                 }
-//             }
-//         }
-//
-//         return $sxml;
+        $str = <<<'EOD'
+<TrainingCenterDatabase
+    xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd"
+    xmlns:ns5="http://www.garmin.com/xmlschemas/ActivityGoals/v1"
+    xmlns:ns3="http://www.garmin.com/xmlschemas/ActivityExtension/v2"
+    xmlns:ns2="http://www.garmin.com/xmlschemas/UserProfile/v2"
+    xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.garmin.com/xmlschemas/ProfileExtension/v1" />
+EOD;
+
+        $sxml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>' . $str);
+        $sxml->addChild('Activities');
+
+        $nactivity = 0;
+        foreach ($data as $activity) {
+            $sxml->Activities->addChild('Activity');
+            $sxml->Activities->Activity[$nactivity]->addChild('Id', $activity->getName());
+            $nlap = 0;
+            foreach ($activity->getLaps() as $lap) {
+                $sxml->Activities->Activity[$nactivity]->addChild('Lap');
+                $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addAttribute('StartTime', date("Y-m-d\TH:i:s\Z", $lap->getStartedAt()->getTimestamp()));
+                $track = $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Track');
+                $ntrkpt = 0;
+                foreach ($lap->getPoints() as $point) {
+                    $track->addChild('Trackpoint');
+                    $track->Trackpoint[$ntrkpt]->addChild('Time', date("Y-m-d\TH:i:s\Z", $point->getTimestamp()));
+                    if ($point->getLatitude()) {
+                        $track->Trackpoint[$ntrkpt]->addChild('Position');
+                        $track->Trackpoint[$ntrkpt]->Position->addChild('LatitudeDegrees', $point->getLatitude());
+                        $track->Trackpoint[$ntrkpt]->Position->addChild('LongitudeDegrees', $point->getLongitude());
+                    }
+                    if ($point->getAltitudeMeters()) {
+                        $track->Trackpoint[$ntrkpt]->addChild('AltitudeMeters', $point->getAltitudeMeters());
+                    }
+                    if ($point->getDistanceMeters()) {
+                        $track->Trackpoint[$ntrkpt]->addChild('DistanceMeters', $point->getDistanceMeters());
+                    }
+                    $track->Trackpoint[$ntrkpt]->addChild('Extensions');
+                    $tpx = $track->Trackpoint[$ntrkpt]->Extensions->addChild('TPX', null, "http://www.garmin.com/xmlschemas/TrackPointExtension/v2");
+                    if ($point->getSpeedMetersPerSecond()) {
+                        $tpx->addChild('Speed', $point->getSpeedMetersPerSecond());
+                    }
+                    if ($point->getCadenceRPM()) {
+                        $tpx->addChild('RunCadence', $point->getCadenceRPM());
+                    }
+                    if ($point->getPowerWatts()) {
+                        $tpx->addChild('Watts', $point->getPowerWatts());
+                    }
+                    $ntrkpt++;
+                }
+                $nlap++;
+            }
+            $nactivity++;
+        }
+
+        return $sxml;
     }
 
     public function readFromFile(string $fileName) : ActivityCollection
@@ -110,8 +138,16 @@ class ParseFileTCX extends BaseParseFile
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
-        $data = $this->save($activities);
-        return $data->asXML($fileName);
+        $data   = $this->save($activities);
+        if ($pretty) {
+            $dom = new \DomDocument('1.0');
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($data->asXML());
+            return $dom->save($fileName);
+        } else {
+            return $data->asXML($fileName);
+        }
     }
 
     public function readFromBinary(string $data) : ActivityCollection
@@ -123,6 +159,14 @@ class ParseFileTCX extends BaseParseFile
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $data = $this->save($activities);
-        return $data->asXML();
+        if ($pretty) {
+            $dom = new \DomDocument('1.0');
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($data->asXML());
+            return $dom->saveXML();
+        } else {
+            return $data->asXML();
+        }
     }
 }

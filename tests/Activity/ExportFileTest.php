@@ -67,4 +67,15 @@ final class ExportFileTest extends TestCase
 
     }
 
+    public function testExportFileTCX()
+    {
+        $filePath = $this->base_dir . 'sample_file.fit';
+        $activities = ImportFile::readFromFile($filePath);
+
+        $timeStart = microtime(true);
+        $filePath = $this->base_dir . 'sample_file2.tcx';
+        ExportFile::saveToFile($activities, $filePath, true);
+        $timeEnd = microtime(true);
+    }
+
 }

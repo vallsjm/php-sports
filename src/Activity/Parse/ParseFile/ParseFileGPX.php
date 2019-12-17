@@ -61,12 +61,12 @@ class ParseFileGPX extends BaseParseFile
     {
         $str = <<<'EOD'
 <gpx xmlns="http://www.topografix.com/GPX/1/1"
-     xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
-     xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
-     creator="Trainerer.com"
-     version="1.0"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtension/v1/TrackPointExtensionv1.xsd" />
+    xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+    xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+    creator="Trainerer.com"
+    version="1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtension/v1/TrackPointExtensionv1.xsd" />
 EOD;
 
         $sxml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . $str);
@@ -140,6 +140,14 @@ EOD;
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $data = $this->save($activities);
-        return $data->asXML();
+        if ($pretty) {
+            $dom = new \DomDocument('1.0');
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($data->asXML());
+            return $dom->saveXML();
+        } else {
+            return $data->asXML();
+        }
     }
 }

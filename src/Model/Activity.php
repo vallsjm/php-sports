@@ -9,11 +9,12 @@ use \DateTime;
 
 class Activity implements JsonSerializable
 {
-    private $startedAt;
+    private $id;
     private $name;
     private $laps;
     private $distanceMeters;
     private $durationSeconds;
+    private $startedAt;
 
     public function __construct($name = null)
     {
@@ -24,7 +25,18 @@ class Activity implements JsonSerializable
         $this->name            = $name;
     }
 
-    public function getName() : string
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id = null) : Activity
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName()
     {
         return $this->name;
     }

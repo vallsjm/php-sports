@@ -4,6 +4,8 @@ namespace PhpSports\Model;
 
 use PhpSports\Model\Point;
 use PhpSports\Model\PointCollection;
+use PhpSports\Model\Analysis;
+use PhpSports\Model\AnalysisCollection;
 use PhpSports\Analysis\Calculate;
 use \JsonSerializable;
 use \DateTime;
@@ -13,20 +15,21 @@ final class Lap implements JsonSerializable
     private $startedAt;
     private $name;
     private $points;
+    private $analysis;
     private $distanceMillimeters;
     private $durationSeconds;
-
 
     public function __construct($name = null)
     {
         $this->points              = new PointCollection();
+        $this->analysis            = new AnalysisCollection();
         $this->distanceMillimeters = 0;
         $this->durationSeconds     = 0;
         $this->startedAt           = null;
         $this->name                = $name;
     }
 
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -72,6 +75,7 @@ final class Lap implements JsonSerializable
                 $this->setStartedAt($startedAt);
             }
         }
+        $this->analysis->analyze($point);
         $this->points[] = $point;
         return $this;
     }
@@ -79,6 +83,17 @@ final class Lap implements JsonSerializable
     public function getPoints() : PointCollection
     {
         return $this->points;
+    }
+
+    public function addAnalysis(Analysis $analysis) : Lap
+    {
+        $this->analysis[] = $analysis;
+        return $this;
+    }
+
+    public function getAnalysis() : AnalysisCollection
+    {
+        return $this->analysis;
     }
 
     public function getStartedAt()
@@ -99,7 +114,8 @@ final class Lap implements JsonSerializable
                 'distanceMeters'  => $this->getDistanceMeters(),
                 'durationSeconds' => $this->durationSeconds
             ],
-            'points' => $this->points
+            'analysis' => $this->analysis,
+            'points'   => $this->points
         ];
     }
 }
