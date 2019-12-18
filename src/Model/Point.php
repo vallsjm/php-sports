@@ -44,6 +44,11 @@ final class Point implements JsonSerializable
         return array_keys(self::$structure);
     }
 
+    public static function setStructure(array $structure)
+    {
+        self::$structure = array_fill_keys($structure, true);
+    }
+
     public function getTimestamp() : int
     {
         return $this->timestamp;
@@ -173,7 +178,7 @@ final class Point implements JsonSerializable
     public function jsonSerialize() {
         $ret = [];
         foreach (self::$structure as $key => $value) {
-            $ret[$key] = $this->{$key};
+            $ret[] = $this->{$key};
         }
         return $ret;
     }

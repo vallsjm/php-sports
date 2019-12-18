@@ -16,14 +16,14 @@ class Analysis implements JsonSerializable
     private $valueTotal;
     private $npoints;
 
-    public function __construct($parameter = null)
+    public function __construct($parameter = null, $valueTotal = null)
     {
         $this->parameter  = $parameter;
         $this->valueMin   = null;
         $this->valueMax   = null;
         $this->valueAvg   = null;
-        $this->valueTotal = null;
-        $this->npoints    = 0;
+        $this->valueTotal = $valueTotal;
+        $this->npoints    = 1;
     }
 
     public function getParameter()
@@ -90,20 +90,18 @@ class Analysis implements JsonSerializable
             $this->valueMax = ($value > 0) ? max($this->valueMax, $value) : $this->valueMax;
             $this->valueTotal = (is_null($this->valueTotal)) ? 0 : $this->valueTotal;
             $this->valueTotal += ($value > 0) ? $value : 0;
-            $this->npoints++;
             $this->valueAvg = ($this->valueTotal / $this->npoints);
+            $this->npoints++;
         }
         return $this;
     }
 
     public function jsonSerialize() {
         return [
-            $this->parameter => [
-                'min'   => $this->valueMin,
-                'avg'   => $this->valueAvg,
-                'max'   => $this->valueMax,
-                'total' => $this->valueTotal
-            ]
+            'min'   => $this->valueMin,
+            'avg'   => $this->valueAvg,
+            'max'   => $this->valueMax,
+            'total' => $this->valueTotal
         ];
     }
 }

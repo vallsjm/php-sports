@@ -20,7 +20,9 @@ class AnalysisCollection extends \ArrayObject implements \JsonSerializable
 
     public function addAnalysis(Analysis $analysis) : AnalysisCollection
     {
-        parent::append($analysis);
+        // parent::append($analysis);
+        $pos = $analysis->getParameter();
+        $this[$pos] = $analysis;
         return $this;
     }
 

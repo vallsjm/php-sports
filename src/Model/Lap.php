@@ -16,6 +16,7 @@ final class Lap implements JsonSerializable
     private $name;
     private $points;
     private $analysis;
+    private $structure;
     private $distanceMillimeters;
     private $durationSeconds;
 
@@ -27,6 +28,7 @@ final class Lap implements JsonSerializable
         $this->durationSeconds     = 0;
         $this->startedAt           = null;
         $this->name                = $name;
+        $this->structure           = [];
 
         Point::clearStructure();
     }
@@ -71,6 +73,7 @@ final class Lap implements JsonSerializable
             $this->distanceMillimeters += Calculate::calculateDistanceMillimeters($last, $point);
             $this->durationSeconds     += Calculate::calculateDurationSeconds($last, $point);
         } else {
+            Point::clearStructure();
             if (!$this->startedAt) {
                 $startedAt = new DateTime();
                 $startedAt->setTimestamp($point->getTimestamp());
@@ -78,7 +81,8 @@ final class Lap implements JsonSerializable
             }
         }
         $this->analysis->analyze($point);
-        $this->points[] = $point;
+        $this->structure = Point::getStructure();
+        $this->points[]  = $point;
         return $this;
     }
 
@@ -89,13 +93,31 @@ final class Lap implements JsonSerializable
 
     public function addAnalysis(Analysis $analysis) : Lap
     {
-        $this->analysis[] = $analysis;
+        $this->analysis->addAnalysis($analysis);
         return $this;
     }
 
     public function getAnalysis() : AnalysisCollection
     {
         return $this->analysis;
+    }
+
+    public function getAnalysisOrCreate(string $parameter) : Analysis
+    {
+        if (isset($this->analysis[$parameter])) {
+            return $this->analysis[$parameter];
+        }
+        $analysis = new Analysis($parameter);
+        $this->analysis->addAnalysis($analysis);
+        return $analysis;
+    }
+
+    public function getAnalysisOrNull(string $parameter)
+    {
+        if (isset($this->analysis[$parameter])) {
+            return $this->analysis[$parameter];
+        }
+        return null;
     }
 
     public function getStartedAt()
@@ -110,6 +132,7 @@ final class Lap implements JsonSerializable
     }
 
     public function jsonSerialize() {
+        Point::setStructure($this->structure);
         return [
             'name' => $this->name,
             'resume' => [
@@ -117,7 +140,7 @@ final class Lap implements JsonSerializable
                 'durationSeconds' => $this->durationSeconds
             ],
             'analysis'  => $this->analysis,
-            'structure' => Point::getStructure(),
+            'structure' => $this->structure,
             'points'    => $this->points
         ];
     }

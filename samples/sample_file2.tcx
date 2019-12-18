@@ -4,6 +4,8 @@
     <Activity>
       <Id>activity</Id>
       <Lap StartTime="2015-01-20T13:26:30Z">
+        <DistanceMeters>1008</DistanceMeters>
+        <TotalTimeSeconds>489</TotalTimeSeconds>
         <Track>
           <Trackpoint>
             <Time>2015-01-20T13:26:30Z</Time>
@@ -731,6 +733,8 @@
         </Track>
       </Lap>
       <Lap StartTime="2015-01-20T13:34:47Z">
+        <DistanceMeters>979</DistanceMeters>
+        <TotalTimeSeconds>392</TotalTimeSeconds>
         <Track>
           <Trackpoint>
             <Time>2015-01-20T13:34:47Z</Time>
@@ -1449,6 +1453,8 @@
         </Track>
       </Lap>
       <Lap StartTime="2015-01-20T13:41:27Z">
+        <DistanceMeters>978</DistanceMeters>
+        <TotalTimeSeconds>390</TotalTimeSeconds>
         <Track>
           <Trackpoint>
             <Time>2015-01-20T13:41:27Z</Time>
@@ -2195,6 +2201,8 @@
         </Track>
       </Lap>
       <Lap StartTime="2015-01-20T13:48:06Z">
+        <DistanceMeters>979</DistanceMeters>
+        <TotalTimeSeconds>411</TotalTimeSeconds>
         <Track>
           <Trackpoint>
             <Time>2015-01-20T13:48:06Z</Time>
@@ -2913,6 +2921,8 @@
         </Track>
       </Lap>
       <Lap StartTime="2015-01-20T13:55:10Z">
+        <DistanceMeters>988</DistanceMeters>
+        <TotalTimeSeconds>505</TotalTimeSeconds>
         <Track>
           <Trackpoint>
             <Time>2015-01-20T13:55:10Z</Time>
@@ -3615,6 +3625,8 @@
         </Track>
       </Lap>
       <Lap StartTime="2015-01-20T14:03:43Z">
+        <DistanceMeters>44</DistanceMeters>
+        <TotalTimeSeconds>17</TotalTimeSeconds>
         <Track>
           <Trackpoint>
             <Time>2015-01-20T14:03:43Z</Time>

@@ -5,6 +5,8 @@ namespace PhpSports\Model;
 use PhpSports\Model\Lap;
 use PhpSports\Model\LapCollection;
 use PhpSports\Model\Type;
+use PhpSports\Model\Analysis;
+use PhpSports\Model\AnalysisCollection;
 use \JsonSerializable;
 use \DateTime;
 
@@ -16,11 +18,15 @@ class Activity implements JsonSerializable
     private $laps;
     private $distanceMeters;
     private $durationSeconds;
+    private $analysis;
     private $startedAt;
 
     public function __construct($name = null)
     {
         $this->laps            = new LapCollection();
+        $this->analysis        = new AnalysisCollection();
+        $this->id              = null;
+        $this->sport           = null;
         $this->distanceMeters  = 0;
         $this->durationSeconds = 0;
         $this->startedAt       = null;
@@ -101,6 +107,35 @@ class Activity implements JsonSerializable
         return $this->laps;
     }
 
+    public function addAnalysis(Analysis $analysis) : Activity
+    {
+        $this->analysis->addAnalysis($analysis);
+        return $this;
+    }
+
+    public function getAnalysis() : AnalysisCollection
+    {
+        return $this->analysis;
+    }
+
+    public function getAnalysisOrCreate(string $parameter) : Analysis
+    {
+        if (isset($this->analysis[$parameter])) {
+            return $this->analysis[$parameter];
+        }
+        $analysis = new Analysis($parameter);
+        $this->analysis->addAnalysis($analysis);
+        return $analysis;
+    }
+
+    public function getAnalysisOrNull(string $parameter)
+    {
+        if (isset($this->analysis[$parameter])) {
+            return $this->analysis[$parameter];
+        }
+        return null;
+    }
+
     public function getStartedAt()
     {
         return $this->startedAt;
@@ -114,14 +149,15 @@ class Activity implements JsonSerializable
 
     public function jsonSerialize() {
         return [
-            'id' => $this->id,
+            'id'    => $this->id,
             'sport' => $this->sport,
-            'name' => $this->name,
+            'name'  => $this->name,
             'resume' => [
                 'distanceMeters'  => $this->distanceMeters,
                 'durationSeconds' => $this->durationSeconds
             ],
-            'laps' => $this->laps
+            'analysis' => $this->analysis,
+            'laps'     => $this->laps
         ];
     }
 

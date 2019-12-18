@@ -80,8 +80,10 @@ EOD;
                 $ntrkpt = 0;
                 foreach ($lap->getPoints() as $point) {
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
-                    $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
-                    $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
+                    if ($point->getLatitude()) {
+                        $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
+                        $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
+                    }
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('time', date("Y-m-d\TH:i:s\Z", $point->getTimestamp()));
                     if ($point->getAltitudeMeters()) {
                         $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('ele', $point->getAltitudeMeters());

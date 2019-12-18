@@ -7,17 +7,56 @@ use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
+use PhpSports\Model\Analysis;
 use \SimpleXMLElement;
 
 class ParseFileTCX extends BaseParseFile
 {
     const FILETYPE = 'TCX';
 
+    const SPORTS = [
+        'RUNNING_MOUNTAIN' => 'Running',
+        'RUNNING_STREET'   => 'Running',
+        'RUNNING_INDOOR'   => 'Running',
+        'RUNNING'          => 'Running',
+        'CYCLING_MOUNTAIN' => 'Biking',
+        'CYCLING_STREET'   => 'Biking',
+        'CYCLING_INDOOR'   => 'Biking',
+        'CYCLING'          => 'Biking',
+        'SWIMMING'         => 'Other',
+        'FITNESS'          => 'Other',
+        'OTHER'            => 'Other'
+    ];
+
+    public function normalizeSport(string $sport = null)
+    {
+        if (!$sport) return null;
+        $key = ucfirst(strtolower($sport));
+        $mapSports = array_flip(self::SPORTS);
+        if (isset($mapSports[$key])) {
+            return $mapSports[$key];
+        }
+        return null;
+    }
+
+    public function denormalizeSport(string $sport = null)
+    {
+        if (!$sport) return null;
+        $key = strtoupper($sport);
+        if (isset(self::SPORTS[$key])) {
+            return self::SPORTS[$key];
+        }
+        return null;
+    }
+
     private function read(SimpleXMLElement $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity($act->attributes()->Sport);
+            $activity->setSport(
+                $this->normalizeSport($act->attributes()->Sport)
+            );
 
             $nlap = 1;
             foreach ($act->Lap as $lp) {
@@ -60,6 +99,22 @@ class ParseFileTCX extends BaseParseFile
 
                     $lap->addPoint($point);
                 }
+
+                if ($lp->DistanceMeters) {
+                    $activity->setDistanceMeters((float) $lp->DistanceMeters);
+                }
+                if ($lp->TotalTimeSeconds) {
+                    $activity->setDurationSeconds((float) $lp->TotalTimeSeconds);
+                }
+                if ($lp->MaximumSpeed) {
+                    $analysis = $lap->getAnalysisOrCreate('SPEED');
+                    $analysis->setMax((float) $lp->MaximumSpeed);
+                }
+                if ($lp->Calories) {
+                    $analysis = $lap->getAnalysisOrCreate('CALORIES');
+                    $analysis->setTotal((float) $lp->Calories);
+                }
+
                 $activity->addLap($lap);
                 $nlap++;
             }
@@ -87,11 +142,28 @@ EOD;
         $nactivity = 0;
         foreach ($data as $activity) {
             $sxml->Activities->addChild('Activity');
+            if ($activity->getSport()) {
+                $sxml->Activities->Activity[$nactivity]->addAttribute('Sport', $this->denormalizeSport($activity->getSport()));
+            }
             $sxml->Activities->Activity[$nactivity]->addChild('Id', $activity->getName());
             $nlap = 0;
             foreach ($activity->getLaps() as $lap) {
                 $sxml->Activities->Activity[$nactivity]->addChild('Lap');
                 $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addAttribute('StartTime', date("Y-m-d\TH:i:s\Z", $lap->getStartedAt()->getTimestamp()));
+
+                if ($lap->getDistanceMeters()) {
+                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('DistanceMeters', $lap->getDistanceMeters());
+                }
+                if ($lap->getDurationSeconds()) {
+                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('TotalTimeSeconds', $lap->getDurationSeconds());
+                }
+                if ($speed = $lap->getAnalysisOrNull('SPEED')) {
+                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('MaximumSpeed', $speed->getMax());
+                }
+                if ($calories = $lap->getAnalysisOrNull('CALORIES')) {
+                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Calories', $calories->getTotal());
+                }
+
                 $track = $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Track');
                 $ntrkpt = 0;
                 foreach ($lap->getPoints() as $point) {
