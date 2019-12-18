@@ -3,6 +3,7 @@
 namespace PhpSports\Model;
 
 use PhpSports\Model\Point;
+use PhpSports\Model\Type;
 use \JsonSerializable;
 use \DateTime;
 
@@ -13,26 +14,16 @@ class Analysis implements JsonSerializable
     private $valueMax;
     private $valueAvg;
     private $valueTotal;
-
-    const PARAMETERS = [
-        'HR',
-        'CADENCE',
-        'POWER',
-        'DISTANCE',
-        'DURATION',
-        'SPEED',
-        'ALTITUDE',
-        'INCLINE',
-        'CALORIES'
-    ];
+    private $npoints;
 
     public function __construct($parameter = null)
     {
-        $this->setParameter($parameter);
+        $this->parameter  = $parameter;
         $this->valueMin   = null;
         $this->valueMax   = null;
         $this->valueAvg   = null;
         $this->valueTotal = null;
+        $this->npoints    = 0;
     }
 
     public function getParameter()
@@ -42,9 +33,6 @@ class Analysis implements JsonSerializable
 
     public function setParameter(string $parameter = null) : Analysis
     {
-        if (!in_array($parameter, self::PARAMETERS)) {
-            throw new \Exception('parameter value is not valid');
-        }
         $this->parameter = $parameter;
         return $this;
     }
@@ -95,14 +83,16 @@ class Analysis implements JsonSerializable
 
     public function addPoint(Point $point) : Analysis
     {
-        $value = $point->getParameter($this->parameter);
-
-        $this->valueMin = (is_null($this->valueMin)) ? $value : $this->valueMin;
-        $this->valueMin = ($value > 0) ? min($this->valueMin, $value) : $this->valueMin;
-        $this->valueMax = (is_null($this->valueMax)) ? $value : $this->valueMax;
-        $this->valueMax = ($value > 0) ? max($this->valueMax, $value) : $this->valueMax;
-        $this->valueTotal = (is_null($this->valueTotal)) ? $value : $this->valueTotal;
-        $this->valueTotal += ($value > 0) ? $value : 0;
+        if ($value = $point->getParameter($this->parameter)) {
+            $this->valueMin = (is_null($this->valueMin)) ? $value : $this->valueMin;
+            $this->valueMin = ($value > 0) ? min($this->valueMin, $value) : $this->valueMin;
+            $this->valueMax = (is_null($this->valueMax)) ? $value : $this->valueMax;
+            $this->valueMax = ($value > 0) ? max($this->valueMax, $value) : $this->valueMax;
+            $this->valueTotal = (is_null($this->valueTotal)) ? 0 : $this->valueTotal;
+            $this->valueTotal += ($value > 0) ? $value : 0;
+            $this->npoints++;
+            $this->valueAvg = ($this->valueTotal / $this->npoints);
+        }
         return $this;
     }
 

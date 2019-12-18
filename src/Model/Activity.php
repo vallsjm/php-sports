@@ -4,12 +4,14 @@ namespace PhpSports\Model;
 
 use PhpSports\Model\Lap;
 use PhpSports\Model\LapCollection;
+use PhpSports\Model\Type;
 use \JsonSerializable;
 use \DateTime;
 
 class Activity implements JsonSerializable
 {
     private $id;
+    private $sport;
     private $name;
     private $laps;
     private $distanceMeters;
@@ -44,6 +46,20 @@ class Activity implements JsonSerializable
     public function setName(string $name = null) : Activity
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getSport()
+    {
+        return $this->sport;
+    }
+
+    public function setSport(string $sport = null) : Activity
+    {
+        if (!in_array($sport, Type::SPORTS)) {
+            throw new \Exception('sport value is not valid');
+        }
+        $this->sport = $sport;
         return $this;
     }
 
@@ -98,6 +114,8 @@ class Activity implements JsonSerializable
 
     public function jsonSerialize() {
         return [
+            'id' => $this->id,
+            'sport' => $this->sport,
             'name' => $this->name,
             'resume' => [
                 'distanceMeters'  => $this->distanceMeters,

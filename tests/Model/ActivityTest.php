@@ -73,8 +73,8 @@ final class ActivityTest extends TestCase
             $lap1->getDistanceMeters()
         );
 
-           $obj = json_encode($activity, JSON_PRETTY_PRINT);
-           print_r($obj);
+        //    $obj = json_encode($activity, JSON_PRETTY_PRINT);
+        //    print_r($obj);
     }
 
 }

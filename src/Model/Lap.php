@@ -27,6 +27,8 @@ final class Lap implements JsonSerializable
         $this->durationSeconds     = 0;
         $this->startedAt           = null;
         $this->name                = $name;
+
+        Point::clearStructure();
     }
 
     public function getName()
@@ -114,8 +116,9 @@ final class Lap implements JsonSerializable
                 'distanceMeters'  => $this->getDistanceMeters(),
                 'durationSeconds' => $this->durationSeconds
             ],
-            'analysis' => $this->analysis,
-            'points'   => $this->points
+            'analysis'  => $this->analysis,
+            'structure' => Point::getStructure(),
+            'points'    => $this->points
         ];
     }
 }
