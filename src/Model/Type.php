@@ -5,15 +5,17 @@ namespace PhpSports\Model;
 class Type
 {
     const PARAMETERS = [
-        'HR',
-        'CADENCE',
-        'POWER',
-        'DISTANCE',
-        'DURATION',
-        'SPEED',
-        'ALTITUDE',
-        'INCLINE',
-        'CALORIES'
+        'timestamp',
+        'latitude',
+        'longitude',
+        'altitudeMeters',
+        'distanceMeters',
+        'inclineMeters',
+        'speedMetersPerSecond',
+        'cadenceRPM',
+        'powerWatts',
+        'hrBPM',
+        'caloriesKcal'
     ];
 
     const SPORTS = [

@@ -107,12 +107,10 @@ class ParseFileTCX extends BaseParseFile
                     $activity->setDurationSeconds((float) $lp->TotalTimeSeconds);
                 }
                 if ($lp->MaximumSpeed) {
-                    $analysis = $lap->getAnalysisOrCreate('SPEED');
-                    $analysis->setMax((float) $lp->MaximumSpeed);
+                    $lap->getAnalysisOrCreate('speedMetersPerSecond')->setMax((float) $lp->MaximumSpeed);
                 }
                 if ($lp->Calories) {
-                    $analysis = $lap->getAnalysisOrCreate('CALORIES');
-                    $analysis->setTotal((float) $lp->Calories);
+                    $lap->getAnalysisOrCreate('caloriesKcal')->setTotal((float) $lp->Calories);
                 }
 
                 $activity->addLap($lap);
@@ -157,10 +155,10 @@ EOD;
                 if ($lap->getDurationSeconds()) {
                     $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('TotalTimeSeconds', $lap->getDurationSeconds());
                 }
-                if ($speed = $lap->getAnalysisOrNull('SPEED')) {
+                if ($speed = $lap->getAnalysisOrNull('speedMetersPerSecond')) {
                     $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('MaximumSpeed', $speed->getMax());
                 }
-                if ($calories = $lap->getAnalysisOrNull('CALORIES')) {
+                if ($calories = $lap->getAnalysisOrNull('caloriesKcal')) {
                     $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Calories', $calories->getTotal());
                 }
 

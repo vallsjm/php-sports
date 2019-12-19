@@ -18,6 +18,7 @@ class Activity implements JsonSerializable
     private $laps;
     private $distanceMeters;
     private $durationSeconds;
+    private $numPoints;
     private $analysis;
     private $startedAt;
 
@@ -29,6 +30,7 @@ class Activity implements JsonSerializable
         $this->sport           = null;
         $this->distanceMeters  = 0;
         $this->durationSeconds = 0;
+        $this->numPoints       = 0;
         $this->startedAt       = null;
         $this->name            = $name;
     }
@@ -91,14 +93,21 @@ class Activity implements JsonSerializable
         return $this;
     }
 
+    public function getNumPoints() : int
+    {
+        return $this->numPoints;
+    }
+
     public function addLap(Lap $lap) : Activity
     {
         $this->distanceMeters  += $lap->getDistanceMeters();
         $this->durationSeconds += $lap->getDurationSeconds();
+        $this->analysis->merge($lap->getAnalysis());
         if (!$this->startedAt) {
             $this->setStartedAt($lap->getStartedAt());
         }
-        $this->laps[] = $lap;
+        $this->laps->addLap($lap);
+        $this->numPoints += $lap->getNumPoints();
         return $this;
     }
 
@@ -120,20 +129,12 @@ class Activity implements JsonSerializable
 
     public function getAnalysisOrCreate(string $parameter) : Analysis
     {
-        if (isset($this->analysis[$parameter])) {
-            return $this->analysis[$parameter];
-        }
-        $analysis = new Analysis($parameter);
-        $this->analysis->addAnalysis($analysis);
-        return $analysis;
+        return $this->analysis->getAnalysisOrCreate($parameter);
     }
 
     public function getAnalysisOrNull(string $parameter)
     {
-        if (isset($this->analysis[$parameter])) {
-            return $this->analysis[$parameter];
-        }
-        return null;
+        return $this->analysis->getAnalysisOrNull($parameter);
     }
 
     public function getStartedAt()
@@ -154,7 +155,8 @@ class Activity implements JsonSerializable
             'name'  => $this->name,
             'resume' => [
                 'distanceMeters'  => $this->distanceMeters,
-                'durationSeconds' => $this->durationSeconds
+                'durationSeconds' => $this->durationSeconds,
+                'numPoints'       => $this->numPoints,
             ],
             'analysis' => $this->analysis,
             'laps'     => $this->laps

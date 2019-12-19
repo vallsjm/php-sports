@@ -9,12 +9,15 @@ use \DateTime;
 
 class Analysis implements JsonSerializable
 {
+    const MINVALUE = -9999999999;
+    const MAXVALUE = 9999999999;
+
     private $parameter;
     private $valueMin;
     private $valueMax;
     private $valueAvg;
     private $valueTotal;
-    private $npoints;
+    private $numValues;
 
     public function __construct($parameter = null, $valueTotal = null)
     {
@@ -23,7 +26,23 @@ class Analysis implements JsonSerializable
         $this->valueMax   = null;
         $this->valueAvg   = null;
         $this->valueTotal = $valueTotal;
-        $this->npoints    = 1;
+        $this->numValues    = 1;
+    }
+
+    private function setValue(float $value = null)
+    {
+        if (!$value) return null;
+        $value = ($value > self::MAXVALUE) ? self::MAXVALUE : $value;
+        $value = ($value < self::MINVALUE) ? self::MINVALUE : $value;
+        return $value;
+    }
+
+    private function getValue(float $value = null)
+    {
+        if (!$value) return null;
+        $value = ($value == self::MAXVALUE) ? null : $value;
+        $value = ($value == self::MINVALUE) ? null : $value;
+        return $value;
     }
 
     public function getParameter()
@@ -39,69 +58,105 @@ class Analysis implements JsonSerializable
 
     public function getMin()
     {
-        return $this->valueMin;
+        return $this->getValue($this->valueMin);
     }
 
     public function setMin(float $valueMin = null) : Analysis
     {
-        $this->valueMin = $valueMin;
+        $this->valueMin = $this->setValue($valueMin);
         return $this;
     }
 
     public function getMax()
     {
-        return $this->valueMax;
+        return $this->getValue($this->valueMax);
     }
 
     public function setMax(float $valueMax = null) : Analysis
     {
-        $this->valueMax = $valueMax;
+        $this->valueMax = $this->setValue($valueMax);
         return $this;
     }
 
     public function getAvg()
     {
-        return $this->valueAvg;
+        return $this->getValue($this->valueAvg);
     }
 
     public function setAvg(float $valueAvg = null) : Analysis
     {
-        $this->valueAvg = $valueAvg;
+        $this->valueAvg = $this->setValue($valueAvg);
         return $this;
     }
 
     public function getTotal()
     {
-        return $this->valueTotal;
+        return $this->getValue($this->valueTotal);
     }
 
     public function setTotal(float $valueTotal = null) : Analysis
     {
-        $this->valueTotal = $valueTotal;
+        $this->valueTotal = $this->setValue($valueTotal);
+        return $this;
+    }
+
+    public function getNumValues()
+    {
+        return $this->numValues;
+    }
+
+    public function setNumValues(int $numValues) : Analysis
+    {
+        $this->numValues = $numValues;
+        return $this;
+    }
+
+    protected function calculateMin(float $value = null) : Analysis
+    {
+        $this->setMin( (is_null($this->valueMin)) ? $value : min($this->valueMin, $value) );
+        return $this;
+    }
+
+    protected function calculateMax(float $value = null) : Analysis
+    {
+        $this->setMax( (is_null($this->valueMax)) ? $value : max($this->valueMax, $value) );
+        return $this;
+    }
+
+    protected function calculateTotal(float $value = null) : Analysis
+    {
+        $this->setTotal( (is_null($this->valueTotal)) ? $value : ($this->valueTotal + $value) );
+        $this->setAvg( (!$this->numValues) ? $this->valueTotal : ($this->valueTotal / $this->numValues) );
         return $this;
     }
 
     public function addPoint(Point $point) : Analysis
     {
         if ($value = $point->getParameter($this->parameter)) {
-            $this->valueMin = (is_null($this->valueMin)) ? $value : $this->valueMin;
-            $this->valueMin = ($value > 0) ? min($this->valueMin, $value) : $this->valueMin;
-            $this->valueMax = (is_null($this->valueMax)) ? $value : $this->valueMax;
-            $this->valueMax = ($value > 0) ? max($this->valueMax, $value) : $this->valueMax;
-            $this->valueTotal = (is_null($this->valueTotal)) ? 0 : $this->valueTotal;
-            $this->valueTotal += ($value > 0) ? $value : 0;
-            $this->valueAvg = ($this->valueTotal / $this->npoints);
-            $this->npoints++;
+            $this->calculateMin($value);
+            $this->calculateMax($value);
+            $this->calculateTotal($value);
+            $this->numValues++;
         }
+        return $this;
+    }
+
+    public function merge(Analysis $analysis) : Analysis
+    {
+        $this->numValues += ($analysis->getNumValues() -2);
+        $this->calculateMin($analysis->getMin());
+        $this->calculateMax($analysis->getMax());
+        $this->calculateTotal($analysis->getTotal());
+        $this->numValues++;
         return $this;
     }
 
     public function jsonSerialize() {
         return [
-            'min'   => $this->valueMin,
-            'avg'   => $this->valueAvg,
-            'max'   => $this->valueMax,
-            'total' => $this->valueTotal
+            $this->getMin(),
+            $this->getAvg(),
+            $this->getMax(),
+            $this->getTotal()
         ];
     }
 }

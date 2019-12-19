@@ -26,12 +26,6 @@ final class ActivityTest extends TestCase
 
         $lap1 = new Lap('L1');
 
-        $analysis1 = new Analysis('HR');
-        $lap1->addAnalysis($analysis1);
-
-        $analysis2 = new Analysis('CADENCE');
-        $lap1->addAnalysis($analysis2);
-
         $p1 = new Point();
         $p1->setTimestamp(1575990461);
         $p1->setLatitude(41.31734714181024);
@@ -87,8 +81,8 @@ final class ActivityTest extends TestCase
             );
         }
 
-        $obj = json_encode($activity, JSON_PRETTY_PRINT);
-        print_r($obj);
+        // $obj = json_encode($activity, JSON_PRETTY_PRINT);
+        // print_r($obj);
 
     }
 

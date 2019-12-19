@@ -159,20 +159,7 @@ final class Point implements JsonSerializable
 
     public function getParameter(string $parameter)
     {
-        $map = [
-            'HR'       => $this->hrBPM,
-            'CADENCE'  => $this->cadenceRPM,
-            'POWER'    => $this->powerWatts,
-            'DISTANCE' => $this->distanceMeters,
-            'SPEED'    => $this->speedMetersPerSecond,
-            'ALTITUDE' => $this->altitudeMeters
-        ];
-
-        if (isset($map[$parameter])) {
-            return $map[$parameter];
-        }
-
-        return null;
+        return $this->{$parameter};
     }
 
     public function jsonSerialize() {

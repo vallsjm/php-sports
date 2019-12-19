@@ -16,7 +16,6 @@ final class Lap implements JsonSerializable
     private $name;
     private $points;
     private $analysis;
-    private $structure;
     private $distanceMillimeters;
     private $durationSeconds;
 
@@ -28,9 +27,6 @@ final class Lap implements JsonSerializable
         $this->durationSeconds     = 0;
         $this->startedAt           = null;
         $this->name                = $name;
-        $this->structure           = [];
-
-        Point::clearStructure();
     }
 
     public function getName()
@@ -73,7 +69,6 @@ final class Lap implements JsonSerializable
             $this->distanceMillimeters += Calculate::calculateDistanceMillimeters($last, $point);
             $this->durationSeconds     += Calculate::calculateDurationSeconds($last, $point);
         } else {
-            Point::clearStructure();
             if (!$this->startedAt) {
                 $startedAt = new DateTime();
                 $startedAt->setTimestamp($point->getTimestamp());
@@ -81,8 +76,7 @@ final class Lap implements JsonSerializable
             }
         }
         $this->analysis->analyze($point);
-        $this->structure = Point::getStructure();
-        $this->points[]  = $point;
+        $this->points->addPoint($point);
         return $this;
     }
 
@@ -104,20 +98,17 @@ final class Lap implements JsonSerializable
 
     public function getAnalysisOrCreate(string $parameter) : Analysis
     {
-        if (isset($this->analysis[$parameter])) {
-            return $this->analysis[$parameter];
-        }
-        $analysis = new Analysis($parameter);
-        $this->analysis->addAnalysis($analysis);
-        return $analysis;
+        return $this->analysis->getAnalysisOrCreate($parameter);
     }
 
     public function getAnalysisOrNull(string $parameter)
     {
-        if (isset($this->analysis[$parameter])) {
-            return $this->analysis[$parameter];
-        }
-        return null;
+        return $this->analysis->getAnalysisOrNull($parameter);
+    }
+
+    public function getNumPoints() : int
+    {
+        return $this->points->count();
     }
 
     public function getStartedAt()
@@ -132,16 +123,15 @@ final class Lap implements JsonSerializable
     }
 
     public function jsonSerialize() {
-        Point::setStructure($this->structure);
         return [
             'name' => $this->name,
             'resume' => [
                 'distanceMeters'  => $this->getDistanceMeters(),
-                'durationSeconds' => $this->durationSeconds
+                'durationSeconds' => $this->durationSeconds,
+                'numPoints'       => $this->points->count(),
             ],
             'analysis'  => $this->analysis,
-            'structure' => $this->structure,
-            'points'    => $this->points
+            'track'    => $this->points
         ];
     }
 }
