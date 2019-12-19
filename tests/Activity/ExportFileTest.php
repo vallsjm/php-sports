@@ -46,36 +46,63 @@ final class ExportFileTest extends TestCase
                 $activity->getDistanceMeters()
             );
         }
-        // $obj = json_encode($activity, JSON_PRETTY_PRINT);
-        // print_r($obj);
     }
 
-    public function testExportFileFIT()
-    {
-        //TODO
-    }
+    // public function testExportFileFIT()
+    // {
+    //     //TODO
+    // }
+    //
+    // public function testExportFileGPX()
+    // {
+    //     $filePath = $this->base_dir . 'sample_file.fit';
+    //     $activities = ImportFile::readFromFile($filePath);
+    //
+    //     $timeStart = microtime(true);
+    //     $filePath = $this->base_dir . 'sample_file2.gpx';
+    //     ExportFile::saveToFile($activities, $filePath, true);
+    //     $timeEnd = microtime(true);
+    //
+    // }
+    //
+    // public function testExportFileTCX()
+    // {
+    //     $filePath = $this->base_dir . 'sample_file.fit';
+    //     $activities = ImportFile::readFromFile($filePath);
+    //
+    //     $timeStart = microtime(true);
+    //     $filePath = $this->base_dir . 'sample_file2.tcx';
+    //     ExportFile::saveToFile($activities, $filePath, true);
+    //     $timeEnd = microtime(true);
+    // }
 
-    public function testExportFileGPX()
+    public function testExportFileKNH()
     {
-        $filePath = $this->base_dir . 'sample_file.fit';
+        $filePath = $this->base_dir . '/source/cycling_indoor_01.fit';
         $activities = ImportFile::readFromFile($filePath);
 
-        $timeStart = microtime(true);
-        $filePath = $this->base_dir . 'sample_file2.gpx';
-        ExportFile::saveToFile($activities, $filePath, true);
-        $timeEnd = microtime(true);
+        $pretty = true;
 
-    }
+        $filePath = $this->base_dir . '/destination/cycling_indoor_01.knh';
+        ExportFile::saveToFile($activities, $filePath, $pretty);
 
-    public function testExportFileTCX()
-    {
-        $filePath = $this->base_dir . 'sample_file.fit';
-        $activities = ImportFile::readFromFile($filePath);
+        $filePath = $this->base_dir . '/destination/cycling_indoor_01.gpx';
+        ExportFile::saveToFile($activities, $filePath, $pretty);
 
-        $timeStart = microtime(true);
-        $filePath = $this->base_dir . 'sample_file2.tcx';
-        ExportFile::saveToFile($activities, $filePath, true);
-        $timeEnd = microtime(true);
+        $filePath = $this->base_dir . '/destination/cycling_indoor_01.tcx';
+        ExportFile::saveToFile($activities, $filePath, $pretty);
+
+        $this->responseAnalysis(
+            $activities,
+            $filePath,
+            $timeStart,
+            $timeEnd,
+            [
+                'nlaps'           => 1,
+                'durationSeconds' => 3602,
+                'distanceMeters'  => 32440
+            ]
+        );
     }
 
 }

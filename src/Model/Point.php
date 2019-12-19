@@ -30,13 +30,15 @@ final class Point implements JsonSerializable
         $this->hrBPM                = null;
 
         if (is_null(self::$structure)) {
-            self::$structure = [];
+            self::clearStructure();
         };
     }
 
     public static function clearStructure()
     {
-        self::$structure = [];
+        self::$structure = [
+            'timestamp' => true
+        ];
     }
 
     public static function getStructure()
@@ -160,6 +162,13 @@ final class Point implements JsonSerializable
     public function getParameter(string $parameter)
     {
         return $this->{$parameter};
+    }
+
+    public function setParameter(string $parameter, $value) : Point
+    {
+        $this->{$parameter} = $value;
+        self::$structure[$parameter] = true;
+        return $this;
     }
 
     public function jsonSerialize() {

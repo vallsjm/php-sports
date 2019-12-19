@@ -10,8 +10,8 @@ abstract class BaseFile
         $classNames = [
             'PhpSports\Activity\Parse\ParseFile\ParseFileFIT',
             'PhpSports\Activity\Parse\ParseFile\ParseFileGPX',
-            'PhpSports\Activity\Parse\ParseFile\ParseFileTCX'
-            // 'PhpSports\Activity\Parse\ParseFile\ParseFileKNH'
+            'PhpSports\Activity\Parse\ParseFile\ParseFileTCX',
+            'PhpSports\Activity\Parse\ParseFile\ParseFileKNH'
         ];
 
         $formats = [];

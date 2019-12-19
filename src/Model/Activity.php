@@ -153,10 +153,12 @@ class Activity implements JsonSerializable
             'id'    => $this->id,
             'sport' => $this->sport,
             'name'  => $this->name,
+            'date'  => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
             'resume' => [
                 'distanceMeters'  => $this->distanceMeters,
                 'durationSeconds' => $this->durationSeconds,
-                'numPoints'       => $this->numPoints,
+                'numLaps'         => $this->laps->count(),
+                'numPoints'       => $this->numPoints
             ],
             'analysis' => $this->analysis,
             'laps'     => $this->laps

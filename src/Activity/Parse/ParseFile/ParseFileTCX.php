@@ -178,6 +178,12 @@ EOD;
                     if ($point->getDistanceMeters()) {
                         $track->Trackpoint[$ntrkpt]->addChild('DistanceMeters', $point->getDistanceMeters());
                     }
+                    if ($point->getHrBPM()) {
+                        $track->Trackpoint[$ntrkpt]->addChild('HeartRateBpm');
+                        $track->Trackpoint[$ntrkpt]->HeartRateBpm->addAttribute('xsi:type', 'HeartRateInBeatsPerMinute_t');
+                        $track->Trackpoint[$ntrkpt]->HeartRateBpm->addChild('Value', $point->getHrBPM());
+                    }
+
                     $track->Trackpoint[$ntrkpt]->addChild('Extensions');
                     $tpx = $track->Trackpoint[$ntrkpt]->Extensions->addChild('TPX', null, "http://www.garmin.com/xmlschemas/TrackPointExtension/v2");
                     if ($point->getSpeedMetersPerSecond()) {
