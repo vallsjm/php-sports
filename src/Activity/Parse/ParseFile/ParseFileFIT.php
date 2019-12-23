@@ -55,7 +55,7 @@ class ParseFileFIT extends BaseParseFile
     private function read(array $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
-        $activity = new Activity('activity');
+        $activity = new Activity();
         $nlap = 1;
         foreach ($data['points'] as $lapId => $points) {
             $lap = new Lap("L{$nlap}");
@@ -66,7 +66,7 @@ class ParseFileFIT extends BaseParseFile
                     $point->setLongitude($values['position_long']);
                 }
                 if (isset($values['distance'])) {
-                    $point->setDistanceMeters($values['distance']);
+                    $point->setDistanceMeters($values['distance']*1000);
                 }
                 if (isset($values['altitude'])) {
                     $point->setAltitudeMeters($values['altitude']);

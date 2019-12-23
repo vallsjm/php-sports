@@ -32,7 +32,7 @@ class ParseFileKNH extends BaseParseFile
                     foreach ($structure as $key => $pos) {
                         $point->setParameter($key, $p[$pos]);
                     }
-                    $activity->addPoint($p);
+                    $lap->addPoint($point);
                 }
 
                 $structure = array_flip($lp['analysis']['structure']);

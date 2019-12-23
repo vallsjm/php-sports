@@ -1,4 +1,5 @@
 <?php
+namespace Tests\Model;
 
 use PHPUnit\Framework\TestCase;
 use PhpSports\Model\Activity;

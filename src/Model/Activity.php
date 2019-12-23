@@ -64,7 +64,7 @@ class Activity implements JsonSerializable
 
     public function setSport(string $sport = null) : Activity
     {
-        if (!in_array($sport, Type::SPORTS)) {
+        if (!is_null($sport) && (!in_array($sport, Type::SPORTS))) {
             throw new \Exception('sport value is not valid');
         }
         $this->sport = $sport;
@@ -153,7 +153,7 @@ class Activity implements JsonSerializable
             'id'    => $this->id,
             'sport' => $this->sport,
             'name'  => $this->name,
-            'date'  => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
+            'startedAt'  => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
             'resume' => [
                 'distanceMeters'  => $this->distanceMeters,
                 'durationSeconds' => $this->durationSeconds,

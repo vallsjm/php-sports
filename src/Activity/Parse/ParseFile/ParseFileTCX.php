@@ -101,10 +101,10 @@ class ParseFileTCX extends BaseParseFile
                 }
 
                 if ($lp->DistanceMeters) {
-                    $activity->setDistanceMeters((float) $lp->DistanceMeters);
+                    $lap->setDistanceMeters((float) $lp->DistanceMeters);
                 }
                 if ($lp->TotalTimeSeconds) {
-                    $activity->setDurationSeconds((float) $lp->TotalTimeSeconds);
+                    $lap->setDurationSeconds((float) $lp->TotalTimeSeconds);
                 }
                 if ($lp->MaximumSpeed) {
                     $lap->getAnalysisOrCreate('speedMetersPerSecond')->setMax((float) $lp->MaximumSpeed);
@@ -185,7 +185,7 @@ EOD;
                     }
 
                     $track->Trackpoint[$ntrkpt]->addChild('Extensions');
-                    $tpx = $track->Trackpoint[$ntrkpt]->Extensions->addChild('TPX', null, "http://www.garmin.com/xmlschemas/TrackPointExtension/v2");
+                    $tpx = $track->Trackpoint[$ntrkpt]->Extensions->addChild('TPX', null, "http://www.garmin.com/xmlschemas/ActivityExtension/v2");
                     if ($point->getSpeedMetersPerSecond()) {
                         $tpx->addChild('Speed', $point->getSpeedMetersPerSecond());
                     }
