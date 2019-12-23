@@ -95,56 +95,6 @@ class ParseFileFIT extends BaseParseFile
         $activities->addActivity($activity);
 
         return $activities;
-
-        // $ids = array();
-        // $timeTrack = new DateTime();
-        // $timeTrack->setTimestamp(key($this->data['points'][0]));
-        //
-        // $intervals = 1;
-        // $ids[] = $this->service->startTrack($timeTrack);
-        // foreach ($this->data['points'] as $lapId => $points) {
-        //     $lastDistance = 0;
-        //     $this->service->startTrackInterval('L' . $intervals);
-        //     foreach ($points as $timestamp => $values) {
-        //         $data = array(
-        //             'time'         => $timestamp
-        //         );
-        //
-        //         if (isset($values['position_lat'])) {
-        //             $data['lat']       = (float) $values['position_lat'];
-        //             $data['lng']       = (float) $values['position_long'];
-        //         } else {
-        //             $data['distance']  = (float) ($values['distance'] - $lastDistance) * 1000;
-        //             $lastDistance = (float) $values['distance'];
-        //         }
-        //         $data['elevation'] = (isset($values['altitude'])) ? (float) $values['altitude'] : null;
-        //         $data['cadence']   = (isset($values['cadence'])) ? (float) $values['cadence'] : null;
-        //         $data['power']     = (isset($values['power'])) ? (float) $values['power'] : null;
-        //         $data['hr']        = (isset($values['heart_rate'])) ? (float) $values['heart_rate'] : null;
-        //
-        //         if (!empty($data['lat']) || !empty($data['distance'])) {
-        //             $this->service->addTrackPoint($data);
-        //         }
-        //     }
-        //
-        //     $this->service->endTrackInterval();
-        //     $intervals++;
-        // }
-        //
-        // if (isset($this->data['analysis']['total_calories'])) {
-        //     $this->service->addInfoToTrack('caloriesCompleted', (float) $this->data['analysis']['total_calories']);
-        //     $this->service->addAnalysisItemToTrack(
-        //         'calories',
-        //         null,
-        //         null,
-        //         null,
-        //         (float) $this->data['analysis']['total_calories']
-        //     );
-        // }
-        //
-        // $this->service->endTrack();
-        //
-        // return $ids;
     }
 
 

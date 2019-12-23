@@ -53,7 +53,7 @@ class ParseFileTCX extends BaseParseFile
     {
         $activities = new ActivityCollection();
         foreach ($data->Activities->Activity as $act) {
-            $activity = new Activity($act->attributes()->Sport);
+            $activity = new Activity((string) $act->Id);
             $activity->setSport(
                 $this->normalizeSport($act->attributes()->Sport)
             );

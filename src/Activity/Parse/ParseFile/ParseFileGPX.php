@@ -17,7 +17,7 @@ class ParseFileGPX extends BaseParseFile
     {
         $activities = new ActivityCollection();
         foreach ($data->trk as $trk) {
-            $activity = new Activity($trk->name);
+            $activity = new Activity((string) $trk->name);
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {

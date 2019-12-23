@@ -93,6 +93,32 @@ class FileCase extends TestCase
                         ]
                     ]
                 ]
+            ],
+            [
+                'fileName' => 'cycling_mountain_04.gpx',
+                'generate' => [
+                    'cycling_mountain_04.knh',
+                    'cycling_mountain_04.tcx',
+                    'cycling_mountain_04.gpx'
+                ],
+                'asserts'  => [
+                    [
+                        'id' => null,
+                        'sport' => null,
+                        'name' => 'Ejercicio 28.10.2017',
+                        'startedAt' => '2017-10-28 12:54:11',
+                        'resume' => [
+                            'distanceMeters'  => 47968,
+                            'durationSeconds' => 6326,
+                            'numLaps' => 1,
+                            'numPoints' => 6259
+                        ],
+                        'analysis' => [
+                            'hrBPM' => [ 'min' => 95, 'avg' => 123.03387122544, 'max' => 153, 'total' => 770069],
+                            'altitudeMeters' => [ 'min' => 568.400024, 'avg' => 585.7010062208, 'max' => 612.200012, 'total' => 3665902.597936]
+                        ]
+                    ]
+                ]
             ]
         ];
     }
