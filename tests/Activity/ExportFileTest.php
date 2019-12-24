@@ -45,11 +45,11 @@ final class ExportFileTest extends FileCase
                 $activitiesGenerated = ImportFile::readFromFile($filePath);
                 $duration = microtime(true) - $timeStart;
 
-                $this->renderActivities(
-                    $duration,
-                    $filePath,
-                    $activitiesGenerated
-                );
+                // $this->renderActivities(
+                //     $duration,
+                //     $filePath,
+                //     $activitiesGenerated
+                // );
 
                 $this->generateAnalysisAsserts(
                     $filePath,
