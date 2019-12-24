@@ -230,12 +230,13 @@ class FileCase extends TestCase
     }
 
     protected function renderActivities(
+        int $duration,
         string $fileName,
         ActivityCollection $activities
     )
     {
         $this->consoleLog(PHP_EOL);
-        $this->consoleLog('FILE: ' . $fileName);
+        $this->consoleLog('FILE: ' . $fileName . ', DURATION: ' . $duration . ' s.');
         foreach ($activities as $activity) {
             $this->consoleLog('ACTIVITY: ' . $activity->getName() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s') . ', DURATION: ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ', DISTANCE: ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km ' . PHP_EOL . PHP_EOL);
 

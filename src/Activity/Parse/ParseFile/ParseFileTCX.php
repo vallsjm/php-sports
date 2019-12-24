@@ -49,9 +49,8 @@ class ParseFileTCX extends BaseParseFile
         return null;
     }
 
-    private function read(SimpleXMLElement $data) : ActivityCollection
+    private function read(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
     {
-        $activities = new ActivityCollection();
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity((string) $act->Id);
             $activity->setSport(
@@ -60,10 +59,10 @@ class ParseFileTCX extends BaseParseFile
 
             $nlap = 1;
             foreach ($act->Lap as $lp) {
-                $lap = new Lap("L{$nlap}");
+                $lap = $activity->createLap("L{$nlap}");
                 foreach ($lp->Track->Trackpoint as $pt) {
                     $time  = new \DateTime((string) $pt->Time);
-                    $point = new Point($time->getTimestamp());
+                    $point = $lap->createPoint($time->getTimestamp());
                     if ($pt->Position) {
                         $point->setLatitude((float) $pt->Position->LatitudeDegrees);
                         $point->setLongitude((float) $pt->Position->LongitudeDegrees);
@@ -205,11 +204,11 @@ EOD;
         return $sxml;
     }
 
-    public function readFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->read($sxml);
+        return $this->read($activities, $sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -226,10 +225,10 @@ EOD;
         }
     }
 
-    public function readFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
         $sxml = new SimpleXMLElement($data);
-        return $this->read($sxml);
+        return $this->read($activities, $sxml);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

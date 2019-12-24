@@ -22,8 +22,16 @@ final class ExportFileTest extends FileCase
             );
 
             foreach ($testFile['generate'] as $ouputFile) {
+                $timeStart = microtime(true);
                 $filePath = $this->base_dir . '/destination/' . $ouputFile;
                 ExportFile::saveToFile($activities, $filePath, true);
+                $duration = microtime(true) - $timeStart;
+
+                $this->renderActivities(
+                    $duration,
+                    $filePath,
+                    $activities
+                );
             }
         }
     }
@@ -32,13 +40,16 @@ final class ExportFileTest extends FileCase
     {
         foreach ($this->testFiles as $testFile) {
             foreach ($testFile['generate'] as $ouputFile) {
+                $timeStart = microtime(true);
                 $filePath = $this->base_dir . '/destination/' . $ouputFile;
                 $activitiesGenerated = ImportFile::readFromFile($filePath);
+                $duration = microtime(true) - $timeStart;
 
-                // $this->renderActivities(
-                //     $filePath,
-                //     $activitiesGenerated
-                // );
+                $this->renderActivities(
+                    $duration,
+                    $filePath,
+                    $activitiesGenerated
+                );
 
                 $this->generateAnalysisAsserts(
                     $filePath,

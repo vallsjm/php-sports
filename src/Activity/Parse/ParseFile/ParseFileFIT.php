@@ -52,15 +52,14 @@ class ParseFileFIT extends BaseParseFile
         return $data;
     }
 
-    private function read(array $data) : ActivityCollection
+    private function read(ActivityCollection $activities, array $data) : ActivityCollection
     {
-        $activities = new ActivityCollection();
         $activity = new Activity();
         $nlap = 1;
         foreach ($data['points'] as $lapId => $points) {
-            $lap = new Lap("L{$nlap}");
+            $lap = $activity->createLap("L{$nlap}");
             foreach ($points as $timestamp => $values) {
-                $point = new Point($timestamp);
+                $point = $lap->createPoint($timestamp);
                 if (isset($values['position_lat'])) {
                     $point->setLatitude($values['position_lat']);
                     $point->setLongitude($values['position_long']);
@@ -98,22 +97,22 @@ class ParseFileFIT extends BaseParseFile
     }
 
 
-    public function readFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
         $parse = new phpFITFileAnalysis($fileName);
         $data  = $this->normalize($parse);
-        return $this->read($data);
+        return $this->read($activities, $data);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
     }
 
-    public function readFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
         $parse = new phpFITFileAnalysis($data, ['input_is_data' => true]);
         $data  = $this->normalize($parse);
-        return $this->read($data);
+        return $this->read($activities, $data);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

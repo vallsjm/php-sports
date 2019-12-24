@@ -13,18 +13,17 @@ class ParseFileGPX extends BaseParseFile
 {
     const FILETYPE = 'GPX';
 
-    private function read(SimpleXMLElement $data) : ActivityCollection
+    private function read(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
     {
-        $activities = new ActivityCollection();
         foreach ($data->trk as $trk) {
             $activity = new Activity((string) $trk->name);
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
-                $lap = new Lap("L{$nlap}");
+                $lap = $activity->createLap("L{$nlap}");
                 foreach ($trkseg->trkpt as $trkpt) {
                     $time  = new \DateTime((string) $trkpt->time);
-                    $point = new Point($time->getTimestamp());
+                    $point = $lap->createPoint($time->getTimestamp());
                     $point->setLatitude((float) $trkpt->attributes()->lat);
                     $point->setLongitude((float) $trkpt->attributes()->lon);
                     $point->setAltitudeMeters((float) $trkpt->ele);
@@ -78,7 +77,11 @@ EOD;
             foreach ($activity->getLaps() as $lap) {
                 $sxml->trk[$ntrk]->addChild('trkseg');
                 $ntrkpt = 0;
-                foreach ($lap->getPoints() as $point) {
+                $points = $lap->getPoints();
+                if (!in_array('latitude', $points->getStructure())) {
+                    throw new \Exception("Format GPX needs latitude and longitude.");
+                }
+                foreach ($points as $point) {
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
                     if ($point->getLatitude()) {
                         $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
@@ -112,11 +115,11 @@ EOD;
         return $sxml;
     }
 
-    public function readFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->read($sxml);
+        return $this->read($activities, $sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -133,10 +136,10 @@ EOD;
         }
     }
 
-    public function readFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
         $sxml = new SimpleXMLElement($data);
-        return $this->read($sxml);
+        return $this->read($activities, $sxml);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

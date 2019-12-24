@@ -98,6 +98,12 @@ class Activity implements JsonSerializable
         return $this->numPoints;
     }
 
+    public function createLap(string $name = null) : Lap
+    {
+        $lap = new Lap($name);
+        return $lap;
+    }
+
     public function addLap(Lap $lap) : Activity
     {
         $this->distanceMeters  += $lap->getDistanceMeters();

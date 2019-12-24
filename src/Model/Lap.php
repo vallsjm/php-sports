@@ -19,7 +19,7 @@ final class Lap implements JsonSerializable
     private $distanceMillimeters;
     private $durationSeconds;
 
-    public function __construct($name = null)
+    public function __construct(string $name = null)
     {
         $this->points              = new PointCollection();
         $this->analysis            = new AnalysisCollection();
@@ -60,6 +60,12 @@ final class Lap implements JsonSerializable
     {
         $this->durationSeconds = $durationSeconds;
         return $this;
+    }
+
+    public function createPoint(int $timestamp = null) : Point
+    {
+        $point = new Point($timestamp);
+        return $point;
     }
 
     public function addPoint(Point $point) : Lap

@@ -5,16 +5,22 @@ use PhpSports\Model\ActivityCollection;
 
 class ImportFile  extends BaseFile
 {
-    public static function readFromFile(string $fileName, string $format = null) : ActivityCollection
+    public static function readFromFile(string $fileName, string $format = null, ActivityCollection $activities = null) : ActivityCollection
     {
         if (!$format) {
             $format = self::getFileExtension($fileName);
         }
-        return self::createInstance($format)->readFromFile($fileName);
+        if (!$activities) {
+            $activities = new ActivityCollection();
+        }
+        return self::createInstance($format)->readFromFile($fileName, $activities);
     }
 
-    public static function readFromBinary(string $data, string $format) : ActivityCollection
+    public static function readFromBinary(string $data, string $format, ActivityCollection $activities = null) : ActivityCollection
     {
-        return self::createInstance($format)->readFromBinary($data);
+        if (!$activities) {
+            $activities = new ActivityCollection();
+        }
+        return self::createInstance($format)->readFromBinary($data, $activities);
     }
 }

@@ -26,10 +26,10 @@ class Analysis implements JsonSerializable
         $this->valueMax   = null;
         $this->valueAvg   = null;
         $this->valueTotal = $valueTotal;
-        $this->numValues    = 1;
+        $this->numValues  = 1;
     }
 
-    private function setValue(float $value = null)
+    public static function setValue(float $value = null)
     {
         if (!$value) return null;
         $value = ($value > self::MAXVALUE) ? self::MAXVALUE : $value;
@@ -37,7 +37,7 @@ class Analysis implements JsonSerializable
         return $value;
     }
 
-    private function getValue(float $value = null)
+    public static function getValue(float $value = null)
     {
         if (!$value) return null;
         $value = ($value == self::MAXVALUE) ? null : $value;
@@ -58,45 +58,45 @@ class Analysis implements JsonSerializable
 
     public function getMin()
     {
-        return $this->getValue($this->valueMin);
+        return self::getValue($this->valueMin);
     }
 
     public function setMin(float $valueMin = null) : Analysis
     {
-        $this->valueMin = $this->setValue($valueMin);
+        $this->valueMin = self::setValue($valueMin);
         return $this;
     }
 
     public function getMax()
     {
-        return $this->getValue($this->valueMax);
+        return self::getValue($this->valueMax);
     }
 
     public function setMax(float $valueMax = null) : Analysis
     {
-        $this->valueMax = $this->setValue($valueMax);
+        $this->valueMax = self::setValue($valueMax);
         return $this;
     }
 
     public function getAvg()
     {
-        return $this->getValue($this->valueAvg);
+        return self::getValue($this->valueAvg);
     }
 
     public function setAvg(float $valueAvg = null) : Analysis
     {
-        $this->valueAvg = $this->setValue($valueAvg);
+        $this->valueAvg = self::setValue($valueAvg);
         return $this;
     }
 
     public function getTotal()
     {
-        return $this->getValue($this->valueTotal);
+        return self::getValue($this->valueTotal);
     }
 
     public function setTotal(float $valueTotal = null) : Analysis
     {
-        $this->valueTotal = $this->setValue($valueTotal);
+        $this->valueTotal = self::setValue($valueTotal);
         return $this;
     }
 

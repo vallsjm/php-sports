@@ -14,9 +14,8 @@ class ParseFileKNH extends BaseParseFile
 {
     const FILETYPE = 'KNH';
 
-    private function read(array $data) : ActivityCollection
+    private function read(ActivityCollection $activities, array $data) : ActivityCollection
     {
-        $activities = new ActivityCollection();
         foreach ($data as $act) {
             $activity = new Activity($act['name']);
             $activity->setId($act['id']);
@@ -24,11 +23,11 @@ class ParseFileKNH extends BaseParseFile
 
             // procesar laps...
             foreach ($act['laps'] as $lp) {
-                $lap = new Lap($lp['name']);
+                $lap = $activity->createLap($lp['name']);
 
                 $structure = array_flip($lp['track']['structure']);
                 foreach ($lp['track']['points'] as $p) {
-                    $point = new Point();
+                    $point = $lap->createPoint();
                     foreach ($structure as $key => $pos) {
                         $point->setParameter($key, $p[$pos]);
                     }
@@ -81,11 +80,11 @@ class ParseFileKNH extends BaseParseFile
         return $data;
     }
 
-    public function readFromFile(string $fileName) : ActivityCollection
+    public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
         $json = file_get_contents($fileName, true);
         $data = json_decode($json, true);
-        return $this->read($data);
+        return $this->read($activities, $data);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -95,10 +94,10 @@ class ParseFileKNH extends BaseParseFile
         return file_put_contents($fileName, $json);
     }
 
-    public function readFromBinary(string $data) : ActivityCollection
+    public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
         $data = json_decode($data, true);
-        return $this->read($data);
+        return $this->read($activities, $data);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

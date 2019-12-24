@@ -16,8 +16,9 @@ final class Point implements JsonSerializable
     private $powerWatts;
     private $hrBPM;
     private static $structure;
+    private static $timestampOffset;
 
-    public function __construct($timestamp = null)
+    public function __construct(int $timestamp = null)
     {
         $this->timestamp            = $timestamp;
         $this->latitude             = null;
@@ -31,6 +32,9 @@ final class Point implements JsonSerializable
 
         if (is_null(self::$structure)) {
             self::clearStructure();
+        };
+        if (is_null(self::$timestampOffset)) {
+            self::$timestampOffset = 0;
         };
     }
 
@@ -51,6 +55,16 @@ final class Point implements JsonSerializable
         self::$structure = array_fill_keys($structure, true);
     }
 
+    public static function getTimestampOffset()
+    {
+        return self::$timestampOffset;
+    }
+
+    public static function setTimestampOffset(int $timestampOffset)
+    {
+        self::$timestampOffset = $timestampOffset;
+    }
+
     public function getTimestamp() : int
     {
         return $this->timestamp;
@@ -58,7 +72,7 @@ final class Point implements JsonSerializable
 
     public function setTimestamp(int $timestamp) : Point
     {
-        $this->timestamp = $timestamp;
+        $this->timestamp = $timestamp + self::$timestampOffset;
         self::$structure['timestamp'] = true;
         return $this;
     }
