@@ -12,6 +12,8 @@ use \DateTime;
 
 final class Lap implements JsonSerializable
 {
+    const MAXDISTANCE = 999999;
+
     private $startedAt;
     private $name;
     private $points;
@@ -72,8 +74,13 @@ final class Lap implements JsonSerializable
     {
         if (count($this->points)) {
             $last = end($this->points);
-            $this->distanceMillimeters += Calculate::calculateDistanceMillimeters($last, $point);
-            $this->durationSeconds     += Calculate::calculateDurationSeconds($last, $point);
+            $distance = Calculate::calculateDistanceMillimeters($last, $point);
+            if ($distance < self::MAXDISTANCE) {
+                $this->distanceMillimeters += $distance;
+                $this->durationSeconds     += Calculate::calculateDurationSeconds($last, $point);
+            } else {
+                return $this;
+            }
         } else {
             if (!$this->startedAt) {
                 $startedAt = new DateTime();

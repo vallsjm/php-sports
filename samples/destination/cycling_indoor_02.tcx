@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TrainingCenterDatabase xmlns:ns5="http://www.garmin.com/xmlschemas/ActivityGoals/v1" xmlns:ns3="http://www.garmin.com/xmlschemas/ActivityExtension/v2" xmlns:ns2="http://www.garmin.com/xmlschemas/UserProfile/v2" xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.garmin.com/xmlschemas/ProfileExtension/v1" xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd">
   <Activities>
-    <Activity>
+    <Activity Sport="Biking">
       <Id/>
       <Lap StartTime="2017-11-23T05:15:34Z">
         <DistanceMeters>27850</DistanceMeters>
         <TotalTimeSeconds>3461</TotalTimeSeconds>
+        <MaximumSpeed>49.781</MaximumSpeed>
         <Track>
           <Trackpoint>
             <Time>2017-11-23T05:15:34Z</Time>
             <AltitudeMeters>661.2</AltitudeMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>13.975</ns3:Speed>
                 <ns3:RunCadence>58</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -25,6 +27,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>15.923</ns3:Speed>
                 <ns3:RunCadence>67</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -38,6 +41,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>15.822</ns3:Speed>
                 <ns3:RunCadence>66</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -51,6 +55,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.157</ns3:Speed>
                 <ns3:RunCadence>67</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -64,6 +69,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.124</ns3:Speed>
                 <ns3:RunCadence>67</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -77,6 +83,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.189</ns3:Speed>
                 <ns3:RunCadence>67</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -90,6 +97,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.862</ns3:Speed>
                 <ns3:RunCadence>70</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -103,6 +111,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.963</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -116,6 +125,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.83</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -129,6 +139,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.794</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -142,6 +153,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.83</ns3:Speed>
                 <ns3:RunCadence>70</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -155,6 +167,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.032</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -168,6 +181,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.032</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -181,6 +195,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.032</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -194,6 +209,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.342</ns3:Speed>
                 <ns3:RunCadence>73</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -204,6 +220,7 @@
             <DistanceMeters>390</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.971</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -214,6 +231,7 @@
             <DistanceMeters>450</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.241</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -224,6 +242,7 @@
             <DistanceMeters>510</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.636</ns3:Speed>
                 <ns3:RunCadence>74</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -234,6 +253,7 @@
             <DistanceMeters>570</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.197</ns3:Speed>
                 <ns3:RunCadence>72</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -247,6 +267,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>17.669</ns3:Speed>
                 <ns3:RunCadence>73</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -260,6 +281,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.072</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -273,6 +295,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.342</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -286,6 +309,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.81</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -299,6 +323,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.846</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -312,6 +337,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.81</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -325,6 +351,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.709</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -338,6 +365,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.576</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -351,6 +379,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.475</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -364,6 +393,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.544</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -377,6 +407,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.544</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -390,6 +421,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.173</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -403,6 +435,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.846</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -416,6 +449,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.314</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -429,6 +463,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.181</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -442,6 +477,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.346</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -455,6 +491,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.516</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -465,6 +502,7 @@
             <DistanceMeters>1210</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.181</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -475,6 +513,7 @@
             <DistanceMeters>1270</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.947</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -485,6 +524,7 @@
             <DistanceMeters>1330</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.878</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -495,6 +535,7 @@
             <DistanceMeters>1340</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.81</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -505,6 +546,7 @@
             <DistanceMeters>1410</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.677</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -515,6 +557,7 @@
             <DistanceMeters>1470</DistanceMeters>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.745</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -528,6 +571,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.81</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -541,6 +585,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.576</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -554,6 +599,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.81</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -567,6 +613,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.878</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -580,6 +627,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.878</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -593,6 +641,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.979</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -606,6 +655,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.947</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -619,6 +669,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.314</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -632,6 +683,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.048</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -645,6 +697,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.048</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -658,6 +711,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.08</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -671,6 +725,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.112</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -684,6 +739,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.048</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -697,6 +753,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.112</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -710,6 +767,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.878</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -723,6 +781,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.213</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -736,6 +795,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.181</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -749,6 +809,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.314</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -762,6 +823,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.447</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -775,6 +837,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.314</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -788,6 +851,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.181</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -801,6 +865,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.08</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -814,6 +879,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.213</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -827,6 +893,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.616</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -840,6 +907,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.649</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -853,6 +921,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.346</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -866,6 +935,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.346</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -879,6 +949,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.213</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -892,6 +963,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.213</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -905,6 +977,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.382</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -918,6 +991,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.415</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -931,6 +1005,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.548</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -944,6 +1019,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>21.398</ns3:Speed>
                 <ns3:RunCadence>60</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -957,6 +1033,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.89</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -970,6 +1047,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.419</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -983,6 +1061,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.89</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -996,6 +1075,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.06</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1009,6 +1089,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.588</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1022,6 +1103,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.419</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1035,6 +1117,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.487</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1048,6 +1131,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>23.951</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1061,6 +1145,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.419</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1074,6 +1159,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.822</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1087,6 +1173,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.487</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1100,6 +1187,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.959</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1113,6 +1201,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.463</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1126,6 +1215,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.721</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1139,6 +1229,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.822</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1152,6 +1243,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.225</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1165,6 +1257,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.463</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1178,6 +1271,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.06</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1191,6 +1285,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.729</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1204,6 +1299,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.898</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1217,6 +1313,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.233</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1230,6 +1327,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.132</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1243,6 +1341,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.068</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1256,6 +1355,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.068</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1269,6 +1369,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.068</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1282,6 +1383,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.931</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1295,6 +1397,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.334</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1308,6 +1411,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.967</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1321,6 +1425,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.132</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1334,6 +1439,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.967</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1347,6 +1453,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.132</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1360,6 +1467,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.402</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1373,6 +1481,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1386,6 +1495,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.874</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1399,6 +1509,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.068</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1412,6 +1523,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.798</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1425,6 +1537,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.628</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1438,6 +1551,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.463</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1451,6 +1565,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.294</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1464,6 +1579,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.564</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1477,6 +1593,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.225</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1490,6 +1607,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.721</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1503,6 +1621,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.354</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1516,6 +1635,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.588</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1529,6 +1649,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.721</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1542,6 +1663,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.124</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1555,6 +1677,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.89</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1568,6 +1691,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.822</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1581,6 +1705,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.656</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1594,6 +1719,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.588</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1607,6 +1733,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.588</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1620,6 +1747,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.656</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1633,6 +1761,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.225</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1645,7 +1774,9 @@
               <Value>98</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>18.576</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -1657,6 +1788,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.536</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1670,6 +1802,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>23.681</ns3:Speed>
                 <ns3:RunCadence>68</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1683,6 +1816,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.588</ns3:Speed>
                 <ns3:RunCadence>70</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1696,6 +1830,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.773</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1709,6 +1844,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.402</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1722,6 +1858,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.874</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1735,6 +1872,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.874</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1748,6 +1886,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.705</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1761,6 +1900,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.975</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1774,6 +1914,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.705</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1787,6 +1928,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.975</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1800,6 +1942,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.773</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1813,6 +1956,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.503</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1826,6 +1970,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.076</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1839,6 +1984,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.705</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1852,6 +1998,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.975</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1865,6 +2012,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.975</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1878,6 +2026,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1891,6 +2040,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1904,6 +2054,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.975</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1917,6 +2068,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.241</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1930,6 +2082,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1943,6 +2096,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.773</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1956,6 +2110,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.874</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1969,6 +2124,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1982,6 +2138,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.745</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -1995,6 +2152,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.443</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2008,6 +2166,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.342</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2021,6 +2180,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2034,6 +2194,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2047,6 +2208,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.745</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2060,6 +2222,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2073,6 +2236,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2086,6 +2250,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.342</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2099,6 +2264,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2112,6 +2278,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2125,6 +2292,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2138,6 +2306,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2151,6 +2320,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.846</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2164,6 +2334,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2177,6 +2348,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2190,6 +2362,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.745</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2203,6 +2376,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2216,6 +2390,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>28.048</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2229,6 +2404,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>28.048</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2242,6 +2418,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2255,6 +2432,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.995</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2268,6 +2446,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.233</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2281,6 +2460,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.334</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2294,6 +2474,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.225</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2307,6 +2488,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.233</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2320,6 +2502,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.072</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2333,6 +2516,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.568</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2346,6 +2530,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2359,6 +2544,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.701</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2372,6 +2558,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.072</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2385,6 +2572,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2398,6 +2586,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.306</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2411,6 +2600,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.306</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2424,6 +2614,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.709</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2437,6 +2628,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.576</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2450,6 +2642,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2463,6 +2656,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2476,6 +2670,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.205</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2489,6 +2684,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.701</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2502,6 +2698,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2515,6 +2712,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.773</ns3:Speed>
                 <ns3:RunCadence>66</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2528,6 +2726,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.628</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2541,6 +2740,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2554,6 +2754,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2567,6 +2768,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.072</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2580,6 +2782,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2593,6 +2796,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.701</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2606,6 +2810,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.745</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2619,6 +2824,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>28.987</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2632,6 +2838,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>15.988</ns3:Speed>
                 <ns3:RunCadence>41</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2645,6 +2852,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.463</ns3:Speed>
                 <ns3:RunCadence>66</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2658,6 +2866,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.745</ns3:Speed>
                 <ns3:RunCadence>72</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2671,6 +2880,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.628</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2684,6 +2894,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.072</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2697,6 +2908,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.233</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2710,6 +2922,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2723,6 +2936,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.838</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2736,6 +2950,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.701</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2749,6 +2964,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2762,6 +2978,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.568</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2775,6 +2992,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.568</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2788,6 +3006,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2801,6 +3020,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.701</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2814,6 +3034,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2827,6 +3048,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.979</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2840,6 +3062,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.576</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2853,6 +3076,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.072</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2866,6 +3090,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.306</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2879,6 +3104,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.604</ns3:Speed>
                 <ns3:RunCadence>68</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2892,6 +3118,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>28.987</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2905,6 +3132,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.761</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2918,6 +3146,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.701</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2931,6 +3160,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.442</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2944,6 +3174,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.306</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2956,7 +3187,9 @@
               <Value>103</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>20.758</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -2968,6 +3201,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.995</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2981,6 +3215,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.568</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -2994,6 +3229,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.096</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3007,6 +3243,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.628</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3020,6 +3257,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.709</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3033,6 +3271,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.648</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3046,6 +3285,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.648</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3059,6 +3299,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.08</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3072,6 +3313,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.213</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3085,6 +3327,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.08</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3098,6 +3341,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.229</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3111,6 +3355,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>35.003</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3124,6 +3369,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>35.471</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3137,6 +3383,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>35.64</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3150,6 +3397,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.076</ns3:Speed>
                 <ns3:RunCadence>70</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3163,6 +3411,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.628</ns3:Speed>
                 <ns3:RunCadence>66</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3176,6 +3425,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>70</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3189,6 +3439,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.938</ns3:Speed>
                 <ns3:RunCadence>71</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3202,6 +3453,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.979</ns3:Speed>
                 <ns3:RunCadence>73</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3215,6 +3467,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.785</ns3:Speed>
                 <ns3:RunCadence>74</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3228,6 +3481,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.346</ns3:Speed>
                 <ns3:RunCadence>74</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3241,6 +3495,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.979</ns3:Speed>
                 <ns3:RunCadence>73</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3254,6 +3509,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.188</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3267,6 +3523,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.568</ns3:Speed>
                 <ns3:RunCadence>61</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3280,6 +3537,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3293,6 +3551,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.834</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3306,6 +3565,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.229</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3319,6 +3579,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.918</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3332,6 +3593,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.692</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3345,6 +3607,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3358,6 +3621,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.362</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3371,6 +3635,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.664</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3384,6 +3649,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.229</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3397,6 +3663,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.213</ns3:Speed>
                 <ns3:RunCadence>55</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3410,6 +3677,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.08</ns3:Speed>
                 <ns3:RunCadence>73</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3423,6 +3691,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.294</ns3:Speed>
                 <ns3:RunCadence>58</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3436,6 +3705,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>21.866</ns3:Speed>
                 <ns3:RunCadence>60</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3449,6 +3719,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.052</ns3:Speed>
                 <ns3:RunCadence>68</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3462,6 +3733,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.354</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3475,6 +3747,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.519</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3488,6 +3761,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.789</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3501,6 +3775,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.253</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3514,6 +3789,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.721</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3527,6 +3803,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.721</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3540,6 +3817,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.648</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3553,6 +3831,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.188</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3566,6 +3845,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.757</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3579,6 +3859,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.491</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3592,6 +3873,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.757</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3605,6 +3887,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.624</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3618,6 +3901,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.624</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3631,6 +3915,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.858</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3644,6 +3929,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.624</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3657,6 +3943,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.06</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3670,6 +3957,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.664</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3683,6 +3971,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.834</ns3:Speed>
                 <ns3:RunCadence>80</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3696,6 +3985,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.362</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3709,6 +3999,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.858</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3722,6 +4013,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.858</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3735,6 +4027,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.06</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3748,6 +4041,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.624</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3761,6 +4055,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3774,6 +4069,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.229</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3787,6 +4083,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3800,6 +4097,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.06</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3813,6 +4111,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.322</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3826,6 +4125,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.624</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3839,6 +4139,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.757</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3852,6 +4153,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.188</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3865,6 +4167,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3878,6 +4181,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3891,6 +4195,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3904,6 +4209,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.491</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3917,6 +4223,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.06</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3930,6 +4237,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.926</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3943,6 +4251,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.491</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3956,6 +4265,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.188</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3969,6 +4279,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.188</ns3:Speed>
                 <ns3:RunCadence>75</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3982,6 +4293,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.692</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -3995,6 +4307,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.491</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4008,6 +4321,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.322</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4021,6 +4335,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.757</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4034,6 +4349,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.322</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4047,6 +4363,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.491</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4060,6 +4377,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.491</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4073,6 +4391,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.757</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4086,6 +4405,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.995</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4099,6 +4419,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.229</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4112,6 +4433,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.229</ns3:Speed>
                 <ns3:RunCadence>78</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4125,6 +4447,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.483</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4138,6 +4461,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.789</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4151,6 +4475,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4164,6 +4489,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.83</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4177,6 +4503,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.83</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4190,6 +4517,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.535</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4203,6 +4531,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>41.216</ns3:Speed>
                 <ns3:RunCadence>94</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4216,6 +4545,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>41.116</ns3:Speed>
                 <ns3:RunCadence>94</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4229,6 +4559,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>41.317</ns3:Speed>
                 <ns3:RunCadence>94</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4242,6 +4573,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.676</ns3:Speed>
                 <ns3:RunCadence>94</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4255,6 +4587,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.442</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4268,6 +4601,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.676</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4281,6 +4615,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>46.253</ns3:Speed>
                 <ns3:RunCadence>103</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4294,6 +4629,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.309</ns3:Speed>
                 <ns3:RunCadence>113</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4307,6 +4643,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.478</ns3:Speed>
                 <ns3:RunCadence>112</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4320,6 +4657,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.176</ns3:Speed>
                 <ns3:RunCadence>112</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4333,6 +4671,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.309</ns3:Speed>
                 <ns3:RunCadence>113</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4346,6 +4685,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.781</ns3:Speed>
                 <ns3:RunCadence>113</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4359,6 +4699,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.434</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4372,6 +4713,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.334</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4385,6 +4727,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.14</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4398,6 +4741,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.039</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4411,6 +4755,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.938</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4424,6 +4769,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.636</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4437,6 +4783,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.636</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4450,6 +4797,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.241</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4463,6 +4811,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.241</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4476,6 +4825,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.442</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4489,6 +4839,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.676</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4502,6 +4853,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.777</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4515,6 +4867,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.241</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4528,6 +4881,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.342</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4541,6 +4895,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.878</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4554,6 +4909,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.241</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4567,6 +4923,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.442</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4580,6 +4937,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.878</ns3:Speed>
                 <ns3:RunCadence>93</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4593,6 +4951,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.878</ns3:Speed>
                 <ns3:RunCadence>94</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4606,6 +4965,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>41.551</ns3:Speed>
                 <ns3:RunCadence>95</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4619,6 +4979,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>43.636</ns3:Speed>
                 <ns3:RunCadence>99</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4632,6 +4993,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>45.18</ns3:Speed>
                 <ns3:RunCadence>103</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4645,6 +5007,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>45.684</ns3:Speed>
                 <ns3:RunCadence>104</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4658,6 +5021,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>45.684</ns3:Speed>
                 <ns3:RunCadence>105</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4671,6 +5035,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>45.95</ns3:Speed>
                 <ns3:RunCadence>105</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4684,6 +5049,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>46.656</ns3:Speed>
                 <ns3:RunCadence>106</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4697,6 +5063,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.966</ns3:Speed>
                 <ns3:RunCadence>109</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4710,6 +5077,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.152</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4723,6 +5091,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.261</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4736,6 +5105,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.462</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4749,6 +5119,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.434</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4762,6 +5133,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>41.62</ns3:Speed>
                 <ns3:RunCadence>94</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4775,6 +5147,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.575</ns3:Speed>
                 <ns3:RunCadence>102</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4788,6 +5161,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>46.253</ns3:Speed>
                 <ns3:RunCadence>105</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4801,6 +5175,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>46.793</ns3:Speed>
                 <ns3:RunCadence>106</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4814,6 +5189,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.664</ns3:Speed>
                 <ns3:RunCadence>108</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4827,6 +5203,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.966</ns3:Speed>
                 <ns3:RunCadence>109</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4840,6 +5217,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>48.841</ns3:Speed>
                 <ns3:RunCadence>111</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4853,6 +5231,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.89</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4866,6 +5245,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.89</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4879,6 +5259,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4892,6 +5273,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.261</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4905,6 +5287,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4918,6 +5301,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.563</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4931,6 +5315,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.233</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4944,6 +5329,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.031</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4957,6 +5343,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.233</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4970,6 +5357,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.434</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4983,6 +5371,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.031</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -4996,6 +5385,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.233</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5009,6 +5399,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>36.31</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5022,6 +5413,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>62</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5035,6 +5427,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.664</ns3:Speed>
                 <ns3:RunCadence>79</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5048,6 +5441,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.676</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5061,6 +5455,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.64</ns3:Speed>
                 <ns3:RunCadence>102</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5074,6 +5469,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.91</ns3:Speed>
                 <ns3:RunCadence>102</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5087,6 +5483,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.374</ns3:Speed>
                 <ns3:RunCadence>101</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5100,6 +5497,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.507</ns3:Speed>
                 <ns3:RunCadence>102</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5113,6 +5511,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.374</ns3:Speed>
                 <ns3:RunCadence>102</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5125,7 +5524,9 @@
               <Value>129</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>32.918</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -5137,6 +5538,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>34.06</ns3:Speed>
                 <ns3:RunCadence>77</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5150,6 +5552,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.721</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5163,6 +5566,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5176,6 +5580,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.636</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5189,6 +5594,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>40.878</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5202,6 +5608,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>44.64</ns3:Speed>
                 <ns3:RunCadence>101</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5215,6 +5622,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>46.656</ns3:Speed>
                 <ns3:RunCadence>107</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5228,6 +5636,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.095</ns3:Speed>
                 <ns3:RunCadence>107</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5241,6 +5650,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.664</ns3:Speed>
                 <ns3:RunCadence>109</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5254,6 +5664,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>48.841</ns3:Speed>
                 <ns3:RunCadence>111</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5266,7 +5677,9 @@
               <Value>132</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>35.136</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -5278,6 +5691,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.261</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5291,6 +5705,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.434</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5304,6 +5719,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5317,6 +5733,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5330,6 +5747,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5342,7 +5760,9 @@
               <Value>129</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -5354,6 +5774,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>33.052</ns3:Speed>
                 <ns3:RunCadence>36</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5367,6 +5788,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>36.648</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5380,6 +5802,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>37.89</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5393,6 +5816,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.261</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5406,6 +5830,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.462</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5419,6 +5844,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.261</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5432,6 +5858,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>38.628</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5445,6 +5872,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>39.031</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5458,6 +5886,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>45.043</ns3:Speed>
                 <ns3:RunCadence>102</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5471,6 +5900,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>46.39</ns3:Speed>
                 <ns3:RunCadence>106</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5484,6 +5914,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.095</ns3:Speed>
                 <ns3:RunCadence>107</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5497,6 +5928,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.095</ns3:Speed>
                 <ns3:RunCadence>107</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5510,6 +5942,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.362</ns3:Speed>
                 <ns3:RunCadence>108</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5523,6 +5956,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>47.966</ns3:Speed>
                 <ns3:RunCadence>109</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5536,6 +5970,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>48.708</ns3:Speed>
                 <ns3:RunCadence>112</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5549,6 +5984,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.309</ns3:Speed>
                 <ns3:RunCadence>112</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5562,6 +5998,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>49.781</ns3:Speed>
                 <ns3:RunCadence>113</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5575,6 +6012,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>32.346</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5588,6 +6026,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.745</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5601,6 +6040,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>29.088</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5614,6 +6054,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>28.987</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5627,6 +6068,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>28.35</ns3:Speed>
                 <ns3:RunCadence>82</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5640,6 +6082,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.467</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5653,6 +6096,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.535</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5666,6 +6110,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.334</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5679,6 +6124,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.205</ns3:Speed>
                 <ns3:RunCadence>90</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5692,6 +6138,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.442</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5705,6 +6152,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.842</ns3:Speed>
                 <ns3:RunCadence>92</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5718,6 +6166,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>31.709</ns3:Speed>
                 <ns3:RunCadence>91</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5731,6 +6180,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>30.233</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5744,6 +6194,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.644</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5757,6 +6208,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.544</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5770,6 +6222,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.419</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5783,6 +6236,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>19.415</ns3:Speed>
                 <ns3:RunCadence>58</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5796,6 +6250,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>22.003</ns3:Speed>
                 <ns3:RunCadence>63</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5809,6 +6264,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>16.729</ns3:Speed>
                 <ns3:RunCadence>63</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5822,6 +6278,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>24.656</ns3:Speed>
                 <ns3:RunCadence>76</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5835,6 +6292,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>25.463</ns3:Speed>
                 <ns3:RunCadence>81</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5848,6 +6306,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.132</ns3:Speed>
                 <ns3:RunCadence>83</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5861,6 +6320,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.076</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5874,6 +6334,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>26.975</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5887,6 +6348,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.241</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5900,6 +6362,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.241</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5913,6 +6376,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.342</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5926,6 +6390,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.443</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5939,6 +6404,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5952,6 +6418,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.443</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5965,6 +6432,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.443</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5978,6 +6446,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -5991,6 +6460,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.14</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6004,6 +6474,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.342</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6017,6 +6488,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.241</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6030,6 +6502,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>27.342</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6043,6 +6516,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.657</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6056,6 +6530,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.491</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6069,6 +6544,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.657</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6082,6 +6558,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.995</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6095,6 +6572,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.858</ns3:Speed>
                 <ns3:RunCadence>87</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6108,6 +6586,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.927</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6121,6 +6600,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>21.028</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6134,6 +6614,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>21.161</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6147,6 +6628,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>21.229</ns3:Speed>
                 <ns3:RunCadence>89</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6160,6 +6642,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>18.979</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6173,6 +6656,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.39</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6186,6 +6670,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.221</ns3:Speed>
                 <ns3:RunCadence>84</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6199,6 +6684,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.491</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6212,6 +6698,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.592</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6225,6 +6712,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.39</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6238,6 +6726,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.556</ns3:Speed>
                 <ns3:RunCadence>86</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6251,6 +6740,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.491</ns3:Speed>
                 <ns3:RunCadence>85</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6264,6 +6754,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>20.995</ns3:Speed>
                 <ns3:RunCadence>88</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
@@ -6276,7 +6767,9 @@
               <Value>105</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>4.536</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -6287,7 +6780,9 @@
               <Value>105</Value>
             </HeartRateBpm>
             <Extensions>
-              <ns3:TPX/>
+              <ns3:TPX>
+                <ns3:Speed>11.218</ns3:Speed>
+              </ns3:TPX>
             </Extensions>
           </Trackpoint>
           <Trackpoint>
@@ -6299,6 +6794,7 @@
             </HeartRateBpm>
             <Extensions>
               <ns3:TPX>
+                <ns3:Speed>9.742</ns3:Speed>
                 <ns3:RunCadence>60</ns3:RunCadence>
               </ns3:TPX>
             </Extensions>
