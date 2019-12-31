@@ -75,6 +75,153 @@ class ParseApiGARMIN extends BaseParseApi
 
     public function readFromBinary(array $data, ActivityCollection $activities) : ActivityCollection
     {
+        $ids = array();
+
+        foreach ($data as $activityId => $act) {
+            $activity = new Activity();
+            $activity->setId($activityId);
+            $activity->setSport($act['info']['sport']);
+
+            // procesar laps...
+            foreach ($act['data'] as $name => $lp) {
+                $lap = $activity->createLap($name);
+
+                foreach ($lp as $pos => $pt) {
+                    $point = $lap->createPoint($pt['startTimeInSeconds'] + $act['info']['startTimeOffsetInSeconds']);
+                    if (isset($pt['latitudeInDegree'])) {
+                        $point->setLatitude((float) $pt['latitudeInDegree']);
+                        $point->setLongitude((float) $pt['longitudeInDegree']);
+                    } elseif (isset($pt['totalDistanceInMeters'])) {
+                        $point->setDistanceMeters($pt['totalDistanceInMeters']*1000);
+                    }
+                    if (isset($pt['elevationInMeters'])) {
+                        $point->setAltitudeMeters($pt['elevationInMeters']);
+                    }
+                    if (isset($pt['heartRate'])) {
+                        $point->setHrBPM($pt['heartRate']);
+                    }
+                    if (isset($pt['bikeCadenceInRPM'])) {
+                        $point->setCadenceRPM($pt['bikeCadenceInRPM']);
+                    }
+                    if (isset($pt['powerInWatts'])) {
+                        $point->setPowerWatts($pt['powerInWatts']);
+                    }
+                    $lap->addPoint($point);
+                }
+
+                // $incline  = (isset($activity['info']['totalElevationGainInMeters'])) ? (float) ($activity['info']['totalElevationGainInMeters']) : 0;
+
+                // if (isset($lp['analysis'])) {
+                //     $structure = array_flip($lp['analysis']['structure']);
+                //     foreach ($lp['analysis']['parameters'] as $values) {
+                //         $pos1 = $structure['parameter'];
+                //         $pos2 = $structure['intervalTimeSeconds'];
+                //         $parameter = $lap->getAnalysisOrCreate($values[$pos1], $values[$pos2]);
+                //         $pos = $structure['valueMin'];
+                //         $parameter->setMin($values[$pos]);
+                //         $pos = $structure['valueMax'];
+                //         $parameter->setMax($values[$pos]);
+                //         $pos = $structure['valueAvg'];
+                //         $parameter->setAvg($values[$pos]);
+                //         $pos = $structure['valueTotal'];
+                //         $parameter->setTotal($values[$pos]);
+                //     }
+                // }
+                //
+                // $lap->setDistanceMeters($lp['resume']['distanceMeters']);
+                // $lap->setDurationSeconds($lp['resume']['durationSeconds']);
+
+                $activity->addLap($lap);
+            }
+
+            if (isset($act['info']['distanceInMeters'])) {
+                $activity->setDistanceMeters($act['info']['distanceInMeters']);
+            }
+            if (isset($act['info']['durationInSeconds'])) {
+                $activity->setDurationSeconds($act['info']['durationInSeconds']);
+            }
+
+            // if (isset($act['analysis'])) {
+            //     $structure = array_flip($act['analysis']['structure']);
+            //     foreach ($act['analysis']['parameters'] as $values) {
+            //         $pos1 = $structure['parameter'];
+            //         $pos2 = $structure['intervalTimeSeconds'];
+            //         $parameter = $activity->getAnalysisOrCreate($values[$pos1], $values[$pos2]);
+            //         $pos = $structure['valueMin'];
+            //         $parameter->setMin($values[$pos]);
+            //         $pos = $structure['valueMax'];
+            //         $parameter->setMax($values[$pos]);
+            //         $pos = $structure['valueAvg'];
+            //         $parameter->setAvg($values[$pos]);
+            //         $pos = $structure['valueTotal'];
+            //         $parameter->setTotal($values[$pos]);
+            //     }
+            // }
+            //
+            // $activity->setDistanceMeters($act['resume']['distanceMeters']);
+            // $activity->setDurationSeconds($act['resume']['durationSeconds']);
+
+            $activities->addActivity($activity);
+        }
+
+        // foreach ($data  as $activityId => $activity) {
+        //     $timeBase = new DateTime();
+        //     $timeBase->setTimestamp($activity['info']['startTimeInSeconds'] + $activity['info']['startTimeOffsetInSeconds']);
+        //
+        //     $ids[] = $this->service->startTrack($timeBase, array(
+        //         'garmin_id' => $activityId,
+        //         'sport_id'  => $activity['info']['sport_id']
+        //     ));
+        //
+        //     foreach ($activity['data'] as $name => $data) {
+        //         $lastDistance = 0;
+        //         $this->service->startTrackInterval($name);
+        //         foreach ($data as $pos => $garmin) {
+        //             $point = array(
+        //                 'time' => $garmin['startTimeInSeconds'] + $activity['info']['startTimeOffsetInSeconds']
+        //             );
+        //
+        //             if (isset($garmin['latitudeInDegree'])) {
+        //                 $point['lat']       = (float) $garmin['latitudeInDegree'];
+        //                 $point['lng']       = (float) $garmin['longitudeInDegree'];
+        //             } elseif (isset($garmin['totalDistanceInMeters'])) {
+        //                 $point['distance']  = (float) ($garmin['totalDistanceInMeters'] - $lastDistance);
+        //                 $lastDistance = (float) $garmin['totalDistanceInMeters'];
+        //             }
+        //
+        //             $point['elevation'] = (isset($garmin['elevationInMeters'])) ? $garmin['elevationInMeters'] : null;
+        //             $point['hr']        = (isset($garmin['heartRate'])) ? $garmin['heartRate'] : null;
+        //             $point['cadence']   = (isset($garmin['bikeCadenceInRPM'])) ? $garmin['bikeCadenceInRPM'] : null;
+        //             $point['power']     = (isset($garmin['powerInWatts'])) ? $garmin['powerInWatts'] : null;
+        //
+        //             $this->service->addTrackPoint($point);
+        //         }
+        //         $this->service->endTrackInterval();
+        //     }
+        //
+        //     $distance = (isset($activity['info']['distanceInMeters'])) ? (float) ($activity['info']['distanceInMeters']) : 0;
+        //     $duration = (isset($activity['info']['durationInSeconds'])) ? (float) ($activity['info']['durationInSeconds'] / 60) : 0;
+        //     $incline  = (isset($activity['info']['totalElevationGainInMeters'])) ? (float) ($activity['info']['totalElevationGainInMeters']) : 0;
+        //     $tss = Calculate::calculateTssFromLevel('NORMAL', $duration);
+        //
+        //     $this->service->addInfoToTrack('distanceCompleted', $distance);
+        //     $this->service->addInfoToTrack('durationCompleted', $duration);
+        //     $this->service->addInfoToTrack('inclineCompleted', $incline);
+        //     $this->service->addInfoToTrack('tssCompleted', $tss);
+        //     if (isset($activity['info']['activeKilocalories'])) {
+        //         $this->service->addInfoToTrack('caloriesCompleted', (float) $activity['info']['activeKilocalories']);
+        //         $this->service->addAnalysisItemToTrack(
+        //             'calories',
+        //             null,
+        //             null,
+        //             null,
+        //             (float) $activity['info']['activeKilocalories']
+        //         );
+        //     }
+        //
+        //     $this->service->endTrack();
+        // }
+
     }
 
 }
