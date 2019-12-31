@@ -7,6 +7,7 @@
         <DistanceMeters>150</DistanceMeters>
         <TotalTimeSeconds>36</TotalTimeSeconds>
         <MaximumSpeed>22.799</MaximumSpeed>
+        <Calories/>
         <Track>
           <Trackpoint>
             <Time>2017-11-14T17:32:59Z</Time>
@@ -256,6 +257,7 @@
         <DistanceMeters>24580</DistanceMeters>
         <TotalTimeSeconds>3602</TotalTimeSeconds>
         <MaximumSpeed>32.501</MaximumSpeed>
+        <Calories/>
         <Track>
           <Trackpoint>
             <Time>2017-11-14T17:33:35Z</Time>
@@ -25401,6 +25403,8 @@
         </Track>
       </Lap>
       <Lap StartTime="2017-11-14T18:33:37Z">
+        <MaximumSpeed/>
+        <Calories/>
         <Track>
           <Trackpoint>
             <Time>2017-11-14T18:33:37Z</Time>

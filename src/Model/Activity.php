@@ -21,11 +21,26 @@ class Activity implements JsonSerializable
     private $numPoints;
     private $analysis;
     private $startedAt;
+    private $options;
 
-    public function __construct($name = null)
+    public function __construct(string $name = null, array $options = [])
     {
+        $default = [
+            'analysis' => [
+                'altitudeMeters'       => [],
+                'caloriesKcal'         => [],
+                'inclineMeters'        => [],
+                'speedMetersPerSecond' => [5, 60, 300, 1200, 3600],
+                'hrBPM'                => [5, 60, 300, 1200, 3600],
+                'cadenceRPM'           => [5, 60, 300, 1200, 3600],
+                'powerWatts'           => [5, 60, 300, 1200, 3600]
+            ]
+        ];
+
+        $this->options         = array_merge_recursive($default, $options);
+
         $this->laps            = new LapCollection();
-        $this->analysis        = new AnalysisCollection();
+        $this->analysis        = new AnalysisCollection($this->options['analysis']);
         $this->id              = null;
         $this->sport           = null;
         $this->distanceMeters  = 0;
@@ -100,7 +115,7 @@ class Activity implements JsonSerializable
 
     public function createLap(string $name = null) : Lap
     {
-        $lap = new Lap($name);
+        $lap = new Lap($name, $this->options);
         return $lap;
     }
 
@@ -133,14 +148,14 @@ class Activity implements JsonSerializable
         return $this->analysis;
     }
 
-    public function getAnalysisOrCreate(string $parameter) : Analysis
+    public function getAnalysisOrCreate(string $parameter, int $intervalTimeSeconds = 0) : Analysis
     {
-        return $this->analysis->getAnalysisOrCreate($parameter);
+        return $this->analysis->getAnalysisOrCreate($parameter, $intervalTimeSeconds);
     }
 
-    public function getAnalysisOrNull(string $parameter)
+    public function getAnalysisOrNull(string $parameter, int $intervalTimeSeconds = 0)
     {
-        return $this->analysis->getAnalysisOrNull($parameter);
+        return $this->analysis->getAnalysisOrNull($parameter, $intervalTimeSeconds);
     }
 
     public function getStartedAt()

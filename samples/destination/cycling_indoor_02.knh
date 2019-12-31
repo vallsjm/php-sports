@@ -12,55 +12,231 @@
         },
         "analysis": {
             "structure": [
+                "parameter",
+                "intervalTimeSeconds",
                 "valueMin",
                 "valueAvg",
                 "valueMax",
                 "valueTotal"
             ],
-            "parameters": {
-                "timestamp": [
-                    1511414134,
-                    null,
-                    1511417595,
-                    null
-                ],
-                "distanceMeters": [
-                    60,
-                    13185.9137577,
-                    27850,
-                    6421540
-                ],
-                "altitudeMeters": [
+            "parameters": [
+                [
+                    "altitudeMeters",
+                    0,
                     656.6,
                     658.53483606557,
                     661.4,
                     321365
                 ],
-                "cadenceRPM": [
-                    36,
-                    82.413721413721,
-                    113,
-                    39641
+                [
+                    "caloriesKcal",
+                    0,
+                    null,
+                    null,
+                    null,
+                    326
                 ],
-                "speedMetersPerSecond": [
+                [
+                    "inclineMeters",
+                    0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "speedMetersPerSecond",
+                    0,
                     4.536,
                     29.95349795082,
                     49.781,
                     14617.307
                 ],
-                "hrBPM": [
+                [
+                    "speedMetersPerSecond",
+                    5,
+                    4.536,
+                    29.93754340847,
+                    49.545,
+                    14609.521183333
+                ],
+                [
+                    "speedMetersPerSecond",
+                    60,
+                    13.975,
+                    29.907665498481,
+                    45.389083333333,
+                    14594.940763259
+                ],
+                [
+                    "speedMetersPerSecond",
+                    300,
+                    13.975,
+                    29.784394399967,
+                    42.561740740741,
+                    14534.784467184
+                ],
+                [
+                    "speedMetersPerSecond",
+                    1200,
+                    13.975,
+                    27.602682987179,
+                    38.000852040816,
+                    13470.109297743
+                ],
+                [
+                    "speedMetersPerSecond",
+                    3600,
+                    13.975,
+                    24.584232436948,
+                    30.70187962963,
+                    11997.105429231
+                ],
+                [
+                    "hrBPM",
+                    0,
                     72,
                     107.53668763103,
                     139,
                     51295
                 ],
-                "caloriesKcal": [
+                [
+                    "hrBPM",
+                    5,
+                    72,
+                    107.54619147449,
+                    139,
+                    51299.533333333
+                ],
+                [
+                    "hrBPM",
+                    60,
+                    72,
+                    107.4576051249,
+                    134.2,
+                    51257.277644578
+                ],
+                [
+                    "hrBPM",
+                    300,
+                    72,
+                    106.43670482499,
+                    128.20754716981,
+                    50770.308201519
+                ],
+                [
+                    "hrBPM",
+                    1200,
+                    72,
+                    102.12620658498,
+                    120.88144329897,
+                    48714.200541034
+                ],
+                [
+                    "hrBPM",
+                    3600,
+                    72,
+                    97.703073274102,
+                    107.68708971554,
+                    46604.365951747
+                ],
+                [
+                    "cadenceRPM",
+                    0,
+                    36,
+                    82.413721413721,
+                    113,
+                    39641
+                ],
+                [
+                    "cadenceRPM",
+                    5,
+                    36,
+                    82.356271656272,
+                    113,
+                    39613.366666667
+                ],
+                [
+                    "cadenceRPM",
+                    60,
+                    58,
+                    82.078467853468,
+                    103.41666666667,
+                    39479.743037518
+                ],
+                [
+                    "cadenceRPM",
+                    300,
+                    58,
+                    81.55692850869,
+                    97.111111111111,
+                    39228.88261268
+                ],
+                [
+                    "cadenceRPM",
+                    1200,
+                    58,
+                    79.46127273967,
+                    90.072222222222,
+                    38220.872187781
+                ],
+                [
+                    "cadenceRPM",
+                    3600,
+                    58,
+                    78.137004164025,
+                    82.460416666667,
+                    37583.899002896
+                ],
+                [
+                    "powerWatts",
+                    0,
                     null,
                     null,
                     null,
-                    326
+                    null
+                ],
+                [
+                    "powerWatts",
+                    5,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    60,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    300,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    1200,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    3600,
+                    null,
+                    null,
+                    null,
+                    null
                 ]
-            }
+            ]
         },
         "laps": [
             {
@@ -69,52 +245,6 @@
                     "distanceMeters": 27850,
                     "durationSeconds": 3461,
                     "numPoints": 488
-                },
-                "analysis": {
-                    "structure": [
-                        "valueMin",
-                        "valueAvg",
-                        "valueMax",
-                        "valueTotal"
-                    ],
-                    "parameters": {
-                        "timestamp": [
-                            1511414134,
-                            20491803.276639,
-                            1511417595,
-                            null
-                        ],
-                        "distanceMeters": [
-                            60,
-                            13185.9137577,
-                            27850,
-                            6421540
-                        ],
-                        "altitudeMeters": [
-                            656.6,
-                            658.53483606557,
-                            661.4,
-                            321365
-                        ],
-                        "cadenceRPM": [
-                            36,
-                            82.413721413721,
-                            113,
-                            39641
-                        ],
-                        "speedMetersPerSecond": [
-                            4.536,
-                            29.95349795082,
-                            49.781,
-                            14617.307
-                        ],
-                        "hrBPM": [
-                            72,
-                            107.53668763103,
-                            139,
-                            51295
-                        ]
-                    }
                 },
                 "track": {
                     "structure": [

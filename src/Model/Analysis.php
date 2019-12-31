@@ -4,6 +4,7 @@ namespace PhpSports\Model;
 
 use PhpSports\Model\Point;
 use PhpSports\Model\Type;
+use PhpSports\Utils\Utils;
 use \JsonSerializable;
 use \DateTime;
 
@@ -17,19 +18,26 @@ class Analysis implements JsonSerializable
     private $valueMax;
     private $valueAvg;
     private $valueTotal;
+    private $intervalTimeSeconds;
+    private $intervalQueue;
     private $numValues;
 
-    public function __construct($parameter = null, $valueTotal = null)
-    {
-        $this->parameter  = $parameter;
-        $this->valueMin   = null;
-        $this->valueMax   = null;
-        $this->valueAvg   = null;
-        $this->valueTotal = $valueTotal;
-        $this->numValues  = 1;
+    public function __construct(
+        string $parameter = null,
+        float $valueTotal = null,
+        int $intervalTimeSeconds = 0
+    ) {
+        $this->parameter           = $parameter;
+        $this->valueMin            = null;
+        $this->valueMax            = null;
+        $this->valueAvg            = null;
+        $this->valueTotal          = $valueTotal;
+        $this->numValues           = 1;
+        $this->intervalTimeSeconds = $intervalTimeSeconds;
+        $this->intervalQueue       = [];
     }
 
-    public static function setValue(float $value = null)
+    private static function setValue(float $value = null)
     {
         if (!$value) return null;
         $value = ($value > self::MAXVALUE) ? self::MAXVALUE : $value;
@@ -37,12 +45,23 @@ class Analysis implements JsonSerializable
         return $value;
     }
 
-    public static function getValue(float $value = null)
+    private static function getValue(float $value = null)
     {
         if (!$value) return null;
         $value = ($value == self::MAXVALUE) ? null : $value;
         $value = ($value == self::MINVALUE) ? null : $value;
         return $value;
+    }
+
+    public function getIntervalTimeSeconds()
+    {
+        return $this->intervalTimeSeconds;
+    }
+
+    public function setIntervalTimeSeconds(int $intervalTimeSeconds = 0) : Analysis
+    {
+        $this->intervalTimeSeconds = $intervalTimeSeconds;
+        return $this;
     }
 
     public function getParameter()
@@ -130,29 +149,58 @@ class Analysis implements JsonSerializable
         return $this;
     }
 
-    public function addPoint(Point $point) : Analysis
+    public function analyzePoint(Point $point) : Analysis
     {
         if ($value = $point->getParameter($this->parameter)) {
-            $this->calculateMin($value);
-            $this->calculateMax($value);
-            $this->calculateTotal($value);
-            $this->numValues++;
+            if ($this->intervalTimeSeconds > 0) {
+                $timeEnd   = $point->getTimestamp();
+                $timeLimit = $timeEnd - $this->intervalTimeSeconds;
+                $this->intervalQueue[$timeEnd] = $value;
+
+                foreach ($this->intervalQueue as $timestamp => $value) {
+                    if ($timestamp >= $timeLimit) {
+                        break;
+                    } else {
+                        unset($this->intervalQueue[$timestamp]);
+                    }
+                }
+                $queueAvg = array_sum($this->intervalQueue)/count($this->intervalQueue);
+
+                $this->calculateMin($queueAvg);
+                $this->calculateMax($queueAvg);
+                $this->calculateTotal($queueAvg);
+                $this->numValues++;
+            } else {
+                $this->calculateMin($value);
+                $this->calculateMax($value);
+                $this->calculateTotal($value);
+                $this->numValues++;
+            }
         }
         return $this;
     }
 
     public function merge(Analysis $analysis) : Analysis
     {
-        $this->numValues += ($analysis->getNumValues() -2);
-        $this->calculateMin($analysis->getMin());
-        $this->calculateMax($analysis->getMax());
-        $this->calculateTotal($analysis->getTotal());
-        $this->numValues++;
+        if (($analysis->getParameter() != $this->getParameter()) ||
+            ($analysis->getIntervalTimeSeconds() != $this->getIntervalTimeSeconds())) {
+                throw new \Exception('Analysis merge not valid');
+        }
+
+        if ($analysis->getNumValues() > 1) {
+            $this->numValues += ($analysis->getNumValues() -2);
+            $this->calculateMin($analysis->getMin());
+            $this->calculateMax($analysis->getMax());
+            $this->calculateTotal($analysis->getTotal());
+            $this->numValues++;
+        }
         return $this;
     }
 
     public function jsonSerialize() {
         return [
+            $this->getParameter(),
+            $this->getIntervalTimeSeconds(),
             $this->getMin(),
             $this->getAvg(),
             $this->getMax(),

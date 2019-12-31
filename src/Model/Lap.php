@@ -21,10 +21,15 @@ final class Lap implements JsonSerializable
     private $distanceMillimeters;
     private $durationSeconds;
 
-    public function __construct(string $name = null)
+    public function __construct(string $name = null, array $options = [])
     {
+        $options = array_merge_recursive([
+            'analysis' => [
+            ]
+        ], $options);
+
         $this->points              = new PointCollection();
-        $this->analysis            = new AnalysisCollection();
+        $this->analysis            = new AnalysisCollection($options['analysis']);
         $this->distanceMillimeters = 0;
         $this->durationSeconds     = 0;
         $this->startedAt           = null;
@@ -88,8 +93,8 @@ final class Lap implements JsonSerializable
                 $this->setStartedAt($startedAt);
             }
         }
-        $this->analysis->analyze($point);
         $this->points->addPoint($point);
+        $this->analysis->analyzePoint($point);
         return $this;
     }
 
@@ -109,14 +114,14 @@ final class Lap implements JsonSerializable
         return $this->analysis;
     }
 
-    public function getAnalysisOrCreate(string $parameter) : Analysis
+    public function getAnalysisOrCreate(string $parameter, int $intervalTimeSeconds = 0) : Analysis
     {
-        return $this->analysis->getAnalysisOrCreate($parameter);
+        return $this->analysis->getAnalysisOrCreate($parameter, $intervalTimeSeconds);
     }
 
-    public function getAnalysisOrNull(string $parameter)
+    public function getAnalysisOrNull(string $parameter, int $intervalTimeSeconds = 0)
     {
-        return $this->analysis->getAnalysisOrNull($parameter);
+        return $this->analysis->getAnalysisOrNull($parameter, $intervalTimeSeconds);
     }
 
     public function getNumPoints() : int
@@ -143,7 +148,7 @@ final class Lap implements JsonSerializable
                 'durationSeconds' => $this->durationSeconds,
                 'numPoints'       => $this->points->count(),
             ],
-            'analysis'  => $this->analysis,
+            // 'analysis'  => $this->analysis,
             'track'    => $this->points
         ];
     }

@@ -35,9 +35,9 @@ class FileCase extends TestCase
                             'numPoints' => 1817
                         ],
                         'analysis' => [
-                            'hrBPM' => [ 'min' => 93, 'avg' => 142.33736929004, 'max' => 169, 'total' => 258627],
-                            'cadenceRPM' => [ 'min' => 3, 'avg' => 83.701997780244, 'max' => 96, 'total' => 150831],
-                            'powerWatts' => [ 'min' => 6, 'avg' => 180.52019922524, 'max' => 275, 'total' => 326200]
+                            ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 93, 'avg' => 142.33736929004, 'max' => 169, 'total' => 258627],
+                            ['parameter' => 'cadenceRPM', 'intervalTimeSeconds' => 0, 'min' => 3, 'avg' => 83.701997780244, 'max' => 96, 'total' => 150831],
+                            ['parameter' => 'powerWatts', 'intervalTimeSeconds' => 0, 'min' => 6, 'avg' => 180.52019922524, 'max' => 275, 'total' => 326200]
                         ]
                     ]
                 ]
@@ -61,9 +61,9 @@ class FileCase extends TestCase
                             'numPoints' => 488
                         ],
                         'analysis' => [
-                            'hrBPM' => [ 'min' => 72, 'avg' => 107.53668763103, 'max' => 139, 'total' => 51295],
-                            'cadenceRPM' => [ 'min' => 36, 'avg' => 82.413721413721, 'max' => 113, 'total' => 39641],
-                            'altitudeMeters' => [ 'min' => 656.6, 'avg' => 658.53483606557, 'max' => 661.4, 'total' => 321365]
+                            ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 72, 'avg' => 107.53668763103, 'max' => 139, 'total' => 51295],
+                            ['parameter' => 'cadenceRPM', 'intervalTimeSeconds' => 0, 'min' => 36, 'avg' => 82.413721413721, 'max' => 113, 'total' => 39641],
+                            ['parameter' => 'altitudeMeters', 'intervalTimeSeconds' => 0, 'min' => 656.6, 'avg' => 658.53483606557, 'max' => 661.4, 'total' => 321365]
                         ]
                     ]
                 ]
@@ -88,8 +88,8 @@ class FileCase extends TestCase
                             'numPoints' => 920
                         ],
                         'analysis' => [
-                            'hrBPM' => [ 'min' => 90, 'avg' => 128.58260869565, 'max' => 150, 'total' => 118296],
-                            'altitudeMeters' => [ 'min' => 1407.4, 'avg' => 1434.4739130435, 'max' => 1514.2, 'total' => 1319716]
+                            ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 90, 'avg' => 128.58260869565, 'max' => 150, 'total' => 118296],
+                            ['parameter' => 'altitudeMeters', 'intervalTimeSeconds' => 0, 'min' => 1407.4, 'avg' => 1434.4739130435, 'max' => 1514.2, 'total' => 1319716]
                         ]
                     ]
                 ]
@@ -114,8 +114,8 @@ class FileCase extends TestCase
                             'numPoints' => 6259
                         ],
                         'analysis' => [
-                            'hrBPM' => [ 'min' => 95, 'avg' => 123.03387122544, 'max' => 153, 'total' => 770069],
-                            'altitudeMeters' => [ 'min' => 568.400024, 'avg' => 585.7010062208, 'max' => 612.200012, 'total' => 3665902.597936]
+                            ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 95, 'avg' => 123.03387122544, 'max' => 153, 'total' => 770069],
+                            ['parameter' => 'altitudeMeters', 'intervalTimeSeconds' => 0, 'min' => 568.400024, 'avg' => 585.7010062208, 'max' => 612.200012, 'total' => 3665902.597936]
                         ]
                     ]
                 ]
@@ -199,8 +199,8 @@ class FileCase extends TestCase
             }
             foreach ($testFile['asserts'][$nactivity]['analysis'] as $param => $values) {
                 $this->assertTrue(
-                    ($analysis = $activity->getAnalysisOrNull($param)) ? true : false,
-                    $debug($param . ' analysis doesn\'t found', $fileName, $nactivity)
+                    ($analysis = $activity->getAnalysisOrNull($values['parameter'], $values['intervalTimeSeconds'])) ? true : false,
+                    $debug($values['parameter'] . ' analysis doesn\'t found', $fileName, $nactivity)
                 );
 
                 $this->assertEquals(
@@ -246,7 +246,7 @@ class FileCase extends TestCase
 
             $this->consoleLog(PHP_EOL);
             foreach ($activity->getAnalysis() as $analysis) {
-                $this->consoleLog(str_pad($analysis->getParameter(), 20, ' ') . '  min: ' . str_pad($analysis->getMin(), 20, ' ') . ' avg: ' . str_pad($analysis->getAvg(), 20, ' ') . ' max: ' . str_pad($analysis->getMax(), 20, ' ') . ' total: ' . str_pad($analysis->getTotal(), 20, ' '));
+                $this->consoleLog(str_pad($analysis->getParameter(), 20, ' ') . '  interval: ' . str_pad($analysis->getIntervalTimeSeconds(), 10, ' ') . '  min: ' . str_pad($analysis->getMin(), 20, ' ') . ' avg: ' . str_pad($analysis->getAvg(), 20, ' ') . ' max: ' . str_pad($analysis->getMax(), 20, ' ') . ' total: ' . str_pad($analysis->getTotal(), 20, ' '));
             }
         }
     }

@@ -34,9 +34,35 @@ class ParseFileKNH extends BaseParseFile
                     $lap->addPoint($point);
                 }
 
-                $structure = array_flip($lp['analysis']['structure']);
-                foreach ($lp['analysis']['parameters'] as $parameter => $values) {
-                    $parameter = $lap->getAnalysisOrCreate($parameter);
+                if (isset($lp['analysis'])) {
+                    $structure = array_flip($lp['analysis']['structure']);
+                    foreach ($lp['analysis']['parameters'] as $values) {
+                        $pos1 = $structure['parameter'];
+                        $pos2 = $structure['intervalTimeSeconds'];
+                        $parameter = $lap->getAnalysisOrCreate($values[$pos1], $values[$pos2]);
+                        $pos = $structure['valueMin'];
+                        $parameter->setMin($values[$pos]);
+                        $pos = $structure['valueMax'];
+                        $parameter->setMax($values[$pos]);
+                        $pos = $structure['valueAvg'];
+                        $parameter->setAvg($values[$pos]);
+                        $pos = $structure['valueTotal'];
+                        $parameter->setTotal($values[$pos]);
+                    }
+                }
+
+                $lap->setDistanceMeters($lp['resume']['distanceMeters']);
+                $lap->setDurationSeconds($lp['resume']['durationSeconds']);
+
+                $activity->addLap($lap);
+            }
+
+            if (isset($act['analysis'])) {
+                $structure = array_flip($act['analysis']['structure']);
+                foreach ($act['analysis']['parameters'] as $values) {
+                    $pos1 = $structure['parameter'];
+                    $pos2 = $structure['intervalTimeSeconds'];
+                    $parameter = $activity->getAnalysisOrCreate($values[$pos1], $values[$pos2]);
                     $pos = $structure['valueMin'];
                     $parameter->setMin($values[$pos]);
                     $pos = $structure['valueMax'];
@@ -46,24 +72,6 @@ class ParseFileKNH extends BaseParseFile
                     $pos = $structure['valueTotal'];
                     $parameter->setTotal($values[$pos]);
                 }
-
-                $lap->setDistanceMeters($lp['resume']['distanceMeters']);
-                $lap->setDurationSeconds($lp['resume']['durationSeconds']);
-
-                $activity->addLap($lap);
-            }
-
-            $structure = array_flip($act['analysis']['structure']);
-            foreach ($act['analysis']['parameters'] as $parameter => $values) {
-                $parameter = $activity->getAnalysisOrCreate($parameter);
-                $pos = $structure['valueMin'];
-                $parameter->setMin($values[$pos]);
-                $pos = $structure['valueMax'];
-                $parameter->setMax($values[$pos]);
-                $pos = $structure['valueAvg'];
-                $parameter->setAvg($values[$pos]);
-                $pos = $structure['valueTotal'];
-                $parameter->setTotal($values[$pos]);
             }
 
             $activity->setDistanceMeters($act['resume']['distanceMeters']);

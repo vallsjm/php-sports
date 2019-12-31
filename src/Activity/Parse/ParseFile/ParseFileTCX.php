@@ -52,7 +52,8 @@ class ParseFileTCX extends BaseParseFile
     private function read(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
     {
         foreach ($data->Activities->Activity as $act) {
-            $activity = new Activity((string) $act->Id);
+            $activity = new Activity();
+            $activity->setId((string) $act->Id);
             $activity->setSport(
                 $this->normalizeSport($act->attributes()->Sport)
             );
@@ -142,7 +143,7 @@ EOD;
             if ($activity->getSport()) {
                 $sxml->Activities->Activity[$nactivity]->addAttribute('Sport', $this->denormalizeSport($activity->getSport()));
             }
-            $sxml->Activities->Activity[$nactivity]->addChild('Id', $activity->getName());
+            $sxml->Activities->Activity[$nactivity]->addChild('Id', $activity->getId());
             $nlap = 0;
             foreach ($activity->getLaps() as $lap) {
                 $sxml->Activities->Activity[$nactivity]->addChild('Lap');
