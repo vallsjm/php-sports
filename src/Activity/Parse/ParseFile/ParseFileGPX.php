@@ -26,7 +26,7 @@ class ParseFileGPX extends BaseParseFile
                     $point = $lap->createPoint($time->getTimestamp());
                     $point->setLatitude((float) $trkpt->attributes()->lat);
                     $point->setLongitude((float) $trkpt->attributes()->lon);
-                    $point->setAltitudeMeters((float) $trkpt->ele);
+                    $point->setElevationMeters((float) $trkpt->ele);
 
                     if ($extensions = $trkpt->extensions) {
     					$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
@@ -88,8 +88,8 @@ EOD;
                         $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lon', $point->getLongitude());
                     }
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('time', date("Y-m-d\TH:i:s\Z", $point->getTimestamp()));
-                    if ($point->getAltitudeMeters()) {
-                        $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('ele', $point->getAltitudeMeters());
+                    if ($point->getElevationMeters()) {
+                        $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('ele', $point->getElevationMeters());
                     }
                     $extensions = $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addChild('extensions');
                     $gpxtpx = $extensions[0]->addChild('gpxtpx:TrackPointExtension', null, "http://www.garmin.com/xmlschemas/TrackPointExtension/v1");

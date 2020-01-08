@@ -18,8 +18,9 @@ final class Lap implements JsonSerializable
     private $name;
     private $points;
     private $analysis;
-    private $distanceMillimeters;
+    private $distanceMeters;
     private $durationSeconds;
+    private $elevationGainMeters;
 
     public function __construct(string $name = null, array $options = [])
     {
@@ -30,8 +31,9 @@ final class Lap implements JsonSerializable
 
         $this->points              = new PointCollection();
         $this->analysis            = new AnalysisCollection($options['analysis']);
-        $this->distanceMillimeters = 0;
+        $this->distanceMeters      = 0;
         $this->durationSeconds     = 0;
+        $this->elevationGainMeters = 0;
         $this->startedAt           = null;
         $this->name                = $name;
     }
@@ -47,14 +49,25 @@ final class Lap implements JsonSerializable
         return $this;
     }
 
-    public function getDistanceMeters() : int
+    public function getDistanceMeters() : float
     {
-        return round($this->distanceMillimeters / 1000);
+        return $this->distanceMeters;
     }
 
-    public function setDistanceMeters(int $distanceMeters) : Lap
+    public function setDistanceMeters(float $distanceMeters) : Lap
     {
-        $this->distanceMillimeters = $distanceMeters * 1000;
+        $this->distanceMeters = $distanceMeters;
+        return $this;
+    }
+
+    public function getElevationGainMeters() : float
+    {
+        return $this->elevationGainMeters;
+    }
+
+    public function setElevationGainMeters(float $elevationGainMeters) : Lap
+    {
+        $this->elevationGainMeters = $elevationGainMeters;
         return $this;
     }
 
@@ -79,10 +92,11 @@ final class Lap implements JsonSerializable
     {
         if (count($this->points)) {
             $last = end($this->points);
-            $distance = Calculate::calculateDistanceMillimeters($last, $point);
+            $distance = Calculate::calculateDistanceMeters($last, $point);
             if ($distance < self::MAXDISTANCE) {
-                $this->distanceMillimeters += $distance;
-                $this->durationSeconds     += Calculate::calculateDurationSeconds($last, $point);
+                $this->distanceMeters          += $distance;
+                $this->durationSeconds         += Calculate::calculateDurationSeconds($last, $point);
+                $this->elevationGainMeters     += Calculate::calculateElevationGainMeters($last, $point);
             } else {
                 return $this;
             }
@@ -144,11 +158,11 @@ final class Lap implements JsonSerializable
         return [
             'name' => $this->name,
             'resume' => [
-                'distanceMeters'  => $this->getDistanceMeters(),
-                'durationSeconds' => $this->durationSeconds,
-                'numPoints'       => $this->points->count(),
+                'distanceMeters'      => $this->distanceMeters,
+                'durationSeconds'     => $this->durationSeconds,
+                'elevationGainMeters' => $this->elevationGainMeters,
+                'numPoints'           => $this->points->count()
             ],
-            // 'analysis'  => $this->analysis,
             'track'    => $this->points
         ];
     }

@@ -17,6 +17,7 @@ class Activity implements JsonSerializable
     private $name;
     private $laps;
     private $distanceMeters;
+    private $elevationGainMeters;
     private $durationSeconds;
     private $numPoints;
     private $analysis;
@@ -28,8 +29,7 @@ class Activity implements JsonSerializable
         $default = [
             'analysis' => [
                 'altitudeMeters'       => [],
-                'caloriesKcal'         => [],
-                'inclineMeters'        => [],
+                'elevationMeters'      => [],
                 'speedMetersPerSecond' => [5, 60, 300, 1200, 3600],
                 'hrBPM'                => [5, 60, 300, 1200, 3600],
                 'cadenceRPM'           => [5, 60, 300, 1200, 3600],
@@ -37,17 +37,18 @@ class Activity implements JsonSerializable
             ]
         ];
 
-        $this->options         = array_merge_recursive($default, $options);
+        $this->options             = array_merge_recursive($default, $options);
 
-        $this->laps            = new LapCollection();
-        $this->analysis        = new AnalysisCollection($this->options['analysis']);
-        $this->id              = null;
-        $this->sport           = null;
-        $this->distanceMeters  = 0;
-        $this->durationSeconds = 0;
-        $this->numPoints       = 0;
-        $this->startedAt       = null;
-        $this->name            = $name;
+        $this->laps                = new LapCollection();
+        $this->analysis            = new AnalysisCollection($this->options['analysis']);
+        $this->id                  = null;
+        $this->sport               = null;
+        $this->distanceMeters      = 0;
+        $this->durationSeconds     = 0;
+        $this->elevationGainMeters = 0;
+        $this->numPoints           = 0;
+        $this->startedAt           = null;
+        $this->name                = $name;
     }
 
     public function getId()
@@ -86,12 +87,12 @@ class Activity implements JsonSerializable
         return $this;
     }
 
-    public function getDistanceMeters() : int
+    public function getDistanceMeters() : float
     {
         return $this->distanceMeters;
     }
 
-    public function setDistanceMeters(int $distanceMeters) : Activity
+    public function setDistanceMeters(float $distanceMeters) : Activity
     {
         $this->distanceMeters = $distanceMeters;
         return $this;
@@ -108,6 +109,17 @@ class Activity implements JsonSerializable
         return $this;
     }
 
+    public function getElevationGainMeters() : float
+    {
+        return $this->elevationGainMeters;
+    }
+
+    public function setElevationGainMeters(float $elevationGainMeters) : Activity
+    {
+        $this->elevationGainMeters = $elevationGainMeters;
+        return $this;
+    }
+
     public function getNumPoints() : int
     {
         return $this->numPoints;
@@ -121,8 +133,9 @@ class Activity implements JsonSerializable
 
     public function addLap(Lap $lap) : Activity
     {
-        $this->distanceMeters  += $lap->getDistanceMeters();
-        $this->durationSeconds += $lap->getDurationSeconds();
+        $this->distanceMeters       += $lap->getDistanceMeters();
+        $this->durationSeconds      += $lap->getDurationSeconds();
+        $this->elevationGainMeters  += $lap->getElevationGainMeters();
         $this->analysis->merge($lap->getAnalysis());
         if (!$this->startedAt) {
             $this->setStartedAt($lap->getStartedAt());
@@ -176,10 +189,11 @@ class Activity implements JsonSerializable
             'name'  => $this->name,
             'startedAt'  => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
             'resume' => [
-                'distanceMeters'  => $this->distanceMeters,
-                'durationSeconds' => $this->durationSeconds,
-                'numLaps'         => $this->laps->count(),
-                'numPoints'       => $this->numPoints
+                'distanceMeters'      => $this->distanceMeters,
+                'durationSeconds'     => $this->durationSeconds,
+                'elevationGainMeters' => $this->elevationGainMeters,
+                'numLaps'             => $this->laps->count(),
+                'numPoints'           => $this->numPoints
             ],
             'analysis' => $this->analysis,
             'laps'     => $this->laps

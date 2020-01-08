@@ -55,7 +55,7 @@ final class ActivityTest extends TestCase
 
         $this->assertEquals(
             447,
-            $activity->getDistanceMeters()
+            round($activity->getDistanceMeters())
         );
 
         $this->assertEquals(

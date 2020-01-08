@@ -7,6 +7,7 @@
         "resume": {
             "distanceMeters": 27850,
             "durationSeconds": 3460,
+            "elevationGainMeters": 5.200000000001,
             "numLaps": 1,
             "numPoints": 488
         },
@@ -29,15 +30,7 @@
                     321365
                 ],
                 [
-                    "caloriesKcal",
-                    0,
-                    null,
-                    null,
-                    null,
-                    326
-                ],
-                [
-                    "inclineMeters",
+                    "elevationMeters",
                     0,
                     null,
                     null,
@@ -235,6 +228,14 @@
                     null,
                     null,
                     null
+                ],
+                [
+                    "caloriesKcal",
+                    0,
+                    null,
+                    null,
+                    null,
+                    326
                 ]
             ]
         },
@@ -244,6 +245,7 @@
                 "resume": {
                     "distanceMeters": 27850,
                     "durationSeconds": 3461,
+                    "elevationGainMeters": 5.200000000001,
                     "numPoints": 488
                 },
                 "track": {

@@ -5,8 +5,9 @@
         "name": "Ejercicio 28.10.2017",
         "startedAt": "2017-10-28 12:54:11",
         "resume": {
-            "distanceMeters": 47968,
+            "distanceMeters": 47971.426729675,
             "durationSeconds": 6326,
+            "elevationGainMeters": 247.599916,
             "numLaps": 1,
             "numPoints": 6259
         },
@@ -23,26 +24,18 @@
                 [
                     "altitudeMeters",
                     0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "elevationMeters",
+                    0,
                     568.400024,
                     585.7010062208,
                     612.200012,
                     3665902.597936
-                ],
-                [
-                    "caloriesKcal",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "inclineMeters",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
                 ],
                 [
                     "speedMetersPerSecond",
@@ -242,8 +235,9 @@
             {
                 "name": "L1",
                 "resume": {
-                    "distanceMeters": 47968,
+                    "distanceMeters": 47971.426729675,
                     "durationSeconds": 6326,
+                    "elevationGainMeters": 247.599916,
                     "numPoints": 6259
                 },
                 "track": {
@@ -251,7 +245,7 @@
                         "timestamp",
                         "latitude",
                         "longitude",
-                        "altitudeMeters",
+                        "elevationMeters",
                         "speedMetersPerSecond",
                         "hrBPM",
                         "cadenceRPM",

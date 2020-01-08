@@ -10,6 +10,7 @@ final class Point implements JsonSerializable
     private $latitude;
     private $longitude;
     private $altitudeMeters;
+    private $elevationMeters;
     private $distanceMeters;
     private $speedMetersPerSecond;
     private $cadenceRPM;
@@ -24,6 +25,7 @@ final class Point implements JsonSerializable
         $this->latitude             = null;
         $this->longitude            = null;
         $this->altitudeMeters       = null;
+        $this->elevationMeters      = null;
         $this->distanceMeters       = null;
         $this->speedMetersPerSecond = null;
         $this->cadenceRPM           = null;
@@ -110,6 +112,18 @@ final class Point implements JsonSerializable
     {
         $this->distanceMeters = $distanceMeters;
         self::$structure['distanceMeters'] = true;
+        return $this;
+    }
+
+    public function getElevationMeters()
+    {
+        return $this->elevationMeters;
+    }
+
+    public function setElevationMeters(float $elevationMeters) : Point
+    {
+        $this->elevationMeters = $elevationMeters;
+        self::$structure['elevationMeters'] = true;
         return $this;
     }
 

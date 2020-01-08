@@ -91,11 +91,12 @@ class ParseApiGARMIN extends BaseParseApi
                     if (isset($pt['latitudeInDegree'])) {
                         $point->setLatitude((float) $pt['latitudeInDegree']);
                         $point->setLongitude((float) $pt['longitudeInDegree']);
-                    } elseif (isset($pt['totalDistanceInMeters'])) {
+                    }
+                    if (isset($pt['totalDistanceInMeters'])) {
                         $point->setDistanceMeters($pt['totalDistanceInMeters']*1000);
                     }
                     if (isset($pt['elevationInMeters'])) {
-                        $point->setAltitudeMeters($pt['elevationInMeters']);
+                        $point->setElevationMeters($pt['elevationInMeters']);
                     }
                     if (isset($pt['heartRate'])) {
                         $point->setHrBPM($pt['heartRate']);
@@ -140,26 +141,12 @@ class ParseApiGARMIN extends BaseParseApi
             if (isset($act['info']['durationInSeconds'])) {
                 $activity->setDurationSeconds($act['info']['durationInSeconds']);
             }
-
-            // if (isset($act['analysis'])) {
-            //     $structure = array_flip($act['analysis']['structure']);
-            //     foreach ($act['analysis']['parameters'] as $values) {
-            //         $pos1 = $structure['parameter'];
-            //         $pos2 = $structure['intervalTimeSeconds'];
-            //         $parameter = $activity->getAnalysisOrCreate($values[$pos1], $values[$pos2]);
-            //         $pos = $structure['valueMin'];
-            //         $parameter->setMin($values[$pos]);
-            //         $pos = $structure['valueMax'];
-            //         $parameter->setMax($values[$pos]);
-            //         $pos = $structure['valueAvg'];
-            //         $parameter->setAvg($values[$pos]);
-            //         $pos = $structure['valueTotal'];
-            //         $parameter->setTotal($values[$pos]);
-            //     }
-            // }
-            //
-            // $activity->setDistanceMeters($act['resume']['distanceMeters']);
-            // $activity->setDurationSeconds($act['resume']['durationSeconds']);
+            if (isset($act['info']['altitudeMeters'])) {
+                $activity->getAnalysisOrCreate('altitudeMeters')->setTotal($act['info']['altitudeMeters']);
+            }
+            if (isset($act['info']['activeKilocalories'])) {
+                $activity->getAnalysisOrCreate('caloriesKcal')->setTotal($act['info']['activeKilocalories']);
+            }
 
             $activities->addActivity($activity);
         }

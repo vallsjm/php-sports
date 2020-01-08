@@ -5,8 +5,9 @@
         "name": null,
         "startedAt": "2017-11-07 17:25:44",
         "resume": {
-            "distanceMeters": 14573,
+            "distanceMeters": 14573.306571971,
             "durationSeconds": 1844,
+            "elevationGainMeters": 116.2,
             "numLaps": 2,
             "numPoints": 920
         },
@@ -29,15 +30,7 @@
                     1319716
                 ],
                 [
-                    "caloriesKcal",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "inclineMeters",
+                    "elevationMeters",
                     0,
                     null,
                     null,
@@ -242,8 +235,9 @@
             {
                 "name": "L1",
                 "resume": {
-                    "distanceMeters": 14573,
+                    "distanceMeters": 14573.306571971,
                     "durationSeconds": 1544,
+                    "elevationGainMeters": 116.2,
                     "numPoints": 769
                 },
                 "track": {
@@ -7956,6 +7950,7 @@
                 "resume": {
                     "distanceMeters": 0,
                     "durationSeconds": 300,
+                    "elevationGainMeters": 0,
                     "numPoints": 151
                 },
                 "track": {

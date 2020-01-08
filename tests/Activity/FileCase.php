@@ -108,14 +108,14 @@ class FileCase extends TestCase
                         'name' => 'Ejercicio 28.10.2017',
                         'startedAt' => '2017-10-28 12:54:11',
                         'resume' => [
-                            'distanceMeters'  => 47968,
+                            'distanceMeters'  => 47971,
                             'durationSeconds' => 6326,
                             'numLaps' => 1,
                             'numPoints' => 6259
                         ],
                         'analysis' => [
                             ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 95, 'avg' => 123.03387122544, 'max' => 153, 'total' => 770069],
-                            ['parameter' => 'altitudeMeters', 'intervalTimeSeconds' => 0, 'min' => 568.400024, 'avg' => 585.7010062208, 'max' => 612.200012, 'total' => 3665902.597936]
+                            ['parameter' => 'elevationMeters', 'intervalTimeSeconds' => 0, 'min' => 568.400024, 'avg' => 585.7010062208, 'max' => 612.200012, 'total' => 3665902.597936]
                         ]
                     ]
                 ]
@@ -171,7 +171,7 @@ class FileCase extends TestCase
             if (isset($testFile['asserts'][$nactivity]['resume']['durationSeconds'])) {
                 $this->assertEquals(
                     $testFile['asserts'][$nactivity]['resume']['durationSeconds'],
-                    $activity->getDurationSeconds(),
+                    round($activity->getDurationSeconds()),
                     $debug('DurationSeconds field doesn\'t match', $fileName, $nactivity),
                     1
                 );
@@ -179,7 +179,7 @@ class FileCase extends TestCase
             if (isset($testFile['asserts'][$nactivity]['resume']['distanceMeters'])) {
                 $this->assertEquals(
                     $testFile['asserts'][$nactivity]['resume']['distanceMeters'],
-                    $activity->getDistanceMeters(),
+                    round($activity->getDistanceMeters()),
                     $debug('DistanceMeters field doesn\'t match', $fileName, $nactivity)
                 );
             }
@@ -197,7 +197,7 @@ class FileCase extends TestCase
                     $debug('numPoints field doesn\'t match', $fileName, $nactivity)
                 );
             }
-            foreach ($testFile['asserts'][$nactivity]['analysis'] as $param => $values) {
+            foreach ($testFile['asserts'][$nactivity]['analysis'] as $values) {
                 $this->assertTrue(
                     ($analysis = $activity->getAnalysisOrNull($values['parameter'], $values['intervalTimeSeconds'])) ? true : false,
                     $debug($values['parameter'] . ' analysis doesn\'t found', $fileName, $nactivity)
@@ -206,22 +206,22 @@ class FileCase extends TestCase
                 $this->assertEquals(
                     $values['min'],
                     $analysis->getMin(),
-                    $debug('minValue of ' . $param . ' analysis doesn\'t match', $fileName, $nactivity)
+                    $debug('minValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity)
                 );
                 $this->assertEquals(
                     $values['avg'],
                     $analysis->getAvg(),
-                    $debug('avgValue of ' . $param . ' analysis doesn\'t match', $fileName, $nactivity)
+                    $debug('avgValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity)
                 );
                 $this->assertEquals(
                     $values['max'],
                     $analysis->getMax(),
-                    $debug('maxValue of ' . $param . ' analysis doesn\'t match', $fileName, $nactivity)
+                    $debug('maxValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity)
                 );
                 $this->assertEquals(
                     $values['total'],
                     $analysis->getTotal(),
-                    $debug('totalValue of ' . $param . ' analysis doesn\'t match', $fileName, $nactivity),
+                    $debug('totalValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity),
                     1
                 );
             }
@@ -238,7 +238,7 @@ class FileCase extends TestCase
         $this->consoleLog(PHP_EOL);
         $this->consoleLog('FILE: ' . $fileName . ', DURATION: ' . $duration . ' s.');
         foreach ($activities as $activity) {
-            $this->consoleLog('ACTIVITY: ' . $activity->getName() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s') . ', DURATION: ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ', DISTANCE: ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km ' . PHP_EOL . PHP_EOL);
+            $this->consoleLog('ACTIVITY: ' . $activity->getName() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s') . ', DURATION: ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ', DISTANCE: ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km, ELEVATION GAIN: ' . round($activity->getElevationGainMeters(), 2). 'm.'. PHP_EOL . PHP_EOL);
 
             foreach ($activity->getLaps() as $lap) {
                 $this->consoleLog($lap->getName() . ' ' . $lap->getStartedAt()->format('Y-m-d H:i:s') . ' duration: ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' distance: ' . round($lap->getDistanceMeters() / 1000, 2) . ' km' . ' points: ' . $lap->getNumPoints());

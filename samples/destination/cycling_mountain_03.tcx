@@ -4,10 +4,9 @@
     <Activity Sport="Biking">
       <Id/>
       <Lap StartTime="2017-11-07T17:25:44Z">
-        <DistanceMeters>14573</DistanceMeters>
+        <DistanceMeters>14573.306571971</DistanceMeters>
         <TotalTimeSeconds>1544</TotalTimeSeconds>
         <MaximumSpeed>74.801</MaximumSpeed>
-        <Calories/>
         <Track>
           <Trackpoint>
             <Time>2017-11-07T17:25:44Z</Time>
@@ -13854,7 +13853,6 @@
       <Lap StartTime="2017-11-07T17:51:28Z">
         <TotalTimeSeconds>300</TotalTimeSeconds>
         <MaximumSpeed>33.098</MaximumSpeed>
-        <Calories/>
         <Track>
           <Trackpoint>
             <Time>2017-11-07T17:51:28Z</Time>

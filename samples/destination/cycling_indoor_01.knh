@@ -7,6 +7,7 @@
         "resume": {
             "distanceMeters": 24730,
             "durationSeconds": 3638,
+            "elevationGainMeters": 0,
             "numLaps": 3,
             "numPoints": 1817
         },
@@ -29,15 +30,7 @@
                     null
                 ],
                 [
-                    "caloriesKcal",
-                    0,
-                    null,
-                    null,
-                    null,
-                    711
-                ],
-                [
-                    "inclineMeters",
+                    "elevationMeters",
                     0,
                     null,
                     null,
@@ -235,6 +228,14 @@
                     159.1857211161,
                     189.32846715328,
                     287648.59805679
+                ],
+                [
+                    "caloriesKcal",
+                    0,
+                    null,
+                    null,
+                    null,
+                    711
                 ]
             ]
         },
@@ -244,6 +245,7 @@
                 "resume": {
                     "distanceMeters": 150,
                     "durationSeconds": 36,
+                    "elevationGainMeters": 0,
                     "numPoints": 19
                 },
                 "track": {
@@ -416,6 +418,7 @@
                 "resume": {
                     "distanceMeters": 24580,
                     "durationSeconds": 3602,
+                    "elevationGainMeters": 0,
                     "numPoints": 1797
                 },
                 "track": {
@@ -14812,6 +14815,7 @@
                 "resume": {
                     "distanceMeters": 0,
                     "durationSeconds": 0,
+                    "elevationGainMeters": 0,
                     "numPoints": 1
                 },
                 "track": {
