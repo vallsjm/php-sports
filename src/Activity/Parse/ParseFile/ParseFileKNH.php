@@ -88,9 +88,12 @@ class ParseFileKNH extends BaseParseFile
         return $data;
     }
 
-    public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
+    public function readFromFile(string $fileName, ActivityCollection $activities = null) : ActivityCollection
     {
         $this->startTimer();
+        if (!$activities) {
+            $activities = new ActivityCollection();
+        }
         $json = file_get_contents($fileName, true);
         $data = json_decode($json, true);
         return $this->stopTimerAndReturn(
@@ -108,9 +111,12 @@ class ParseFileKNH extends BaseParseFile
         );
     }
 
-    public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
+    public function readFromBinary(string $data, ActivityCollection $activities = null) : ActivityCollection
     {
         $this->startTimer();
+        if (!$activities) {
+            $activities = new ActivityCollection();
+        }
         $data = json_decode($data, true);
         return $this->stopTimerAndReturn(
             $this->read($activities, $data)

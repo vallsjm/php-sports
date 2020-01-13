@@ -115,9 +115,12 @@ EOD;
         return $sxml;
     }
 
-    public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
+    public function readFromFile(string $fileName, ActivityCollection $activities = null) : ActivityCollection
     {
         $this->startTimer();
+        if (!$activities) {
+            $activities = new ActivityCollection();
+        }
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
         return $this->stopTimerAndReturn(
@@ -144,9 +147,12 @@ EOD;
         }
     }
 
-    public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
+    public function readFromBinary(string $data, ActivityCollection $activities = null) : ActivityCollection
     {
         $this->startTimer();
+        if (!$activities) {
+            $activities = new ActivityCollection();
+        }
         $sxml = new SimpleXMLElement($data);
         return $this->stopTimerAndReturn(
             $this->read($activities, $sxml)

@@ -29,14 +29,7 @@
                     1514.2,
                     1319716
                 ],
-                [
-                    "elevationMeters",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
+                null,
                 [
                     "speedMetersPerSecond",
                     0,
@@ -133,54 +126,12 @@
                     146,
                     111381.91817154
                 ],
-                [
-                    "cadenceRPM",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "cadenceRPM",
-                    5,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "cadenceRPM",
-                    60,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "cadenceRPM",
-                    300,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "cadenceRPM",
-                    1200,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "cadenceRPM",
-                    3600,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 [
                     "powerWatts",
                     0,

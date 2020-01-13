@@ -29,14 +29,7 @@
                     661.4,
                     321365
                 ],
-                [
-                    "elevationMeters",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
+                null,
                 [
                     "speedMetersPerSecond",
                     0,
@@ -181,54 +174,12 @@
                     82.460416666667,
                     37583.899002896
                 ],
-                [
-                    "powerWatts",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "powerWatts",
-                    5,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "powerWatts",
-                    60,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "powerWatts",
-                    300,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "powerWatts",
-                    1200,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                [
-                    "powerWatts",
-                    3600,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 [
                     "caloriesKcal",
                     0,

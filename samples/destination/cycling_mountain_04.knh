@@ -21,14 +21,7 @@
                 "valueTotal"
             ],
             "parameters": [
-                [
-                    "altitudeMeters",
-                    0,
-                    null,
-                    null,
-                    null,
-                    null
-                ],
+                null,
                 [
                     "elevationMeters",
                     0,
