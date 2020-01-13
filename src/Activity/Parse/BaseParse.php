@@ -16,19 +16,19 @@ abstract class BaseParse
 
     public function startTimer() : BaseParse
     {
-        $timeStart = microtime(true);
+        $this->timeStart = microtime(true);
         return $this;
     }
 
     public function stopTimer() : BaseParse
     {
-        $this->duration = microtime(true) - $timeStart;
+        $this->duration = microtime(true) - $this->timeStart;
         return $this;
     }
 
     public function stopTimerAndReturn($data)
     {
-        $this->duration = microtime(true) - $timeStart;
+        $this->duration = microtime(true) - $this->timeStart;
         return $data;
     }
 }
