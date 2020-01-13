@@ -90,28 +90,40 @@ class ParseFileKNH extends BaseParseFile
 
     public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
+        $this->startTimer();
         $json = file_get_contents($fileName, true);
         $data = json_decode($json, true);
-        return $this->read($activities, $data);
+        return $this->stopTimerAndReturn(
+            $this->read($activities, $data)
+        );
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
+        $this->startTimer();
         $data = $this->save($activities);
         $json = json_encode($data, ($pretty) ? JSON_PRETTY_PRINT : null);
-        return file_put_contents($fileName, $json);
+        return $this->stopTimerAndReturn(
+            file_put_contents($fileName, $json)
+        );
     }
 
     public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
+        $this->startTimer();
         $data = json_decode($data, true);
-        return $this->read($activities, $data);
+        return $this->stopTimerAndReturn(
+            $this->read($activities, $data)
+        );
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
+        $this->startTimer();
         $data = $this->save($activities);
         $json = json_encode($data, ($pretty) ? JSON_PRETTY_PRINT : null);
-        return file_put_contents($fileName, $json);
+        return $this->stopTimerAndReturn(
+            file_put_contents($fileName, $json)
+        );
     }
 }

@@ -3,17 +3,14 @@ namespace PhpSports\Activity;
 
 use PhpSports\Model\ActivityCollection;
 
-class ImportFile  extends BaseFile
+class ImportFile extends BaseFile
 {
     public static function readFromFile(string $fileName, string $format = null, ActivityCollection $activities = null) : ActivityCollection
     {
-        if (!$format) {
-            $format = self::getFileExtension($fileName);
-        }
         if (!$activities) {
             $activities = new ActivityCollection();
         }
-        return self::createInstance($format)->readFromFile($fileName, $activities);
+        return self::createInstance($fileName, $format)->readFromFile($fileName, $activities);
     }
 
     public static function readFromBinary(string $data, string $format, ActivityCollection $activities = null) : ActivityCollection
@@ -21,6 +18,6 @@ class ImportFile  extends BaseFile
         if (!$activities) {
             $activities = new ActivityCollection();
         }
-        return self::createInstance($format)->readFromBinary($data, $activities);
+        return self::createInstance(null, $format)->readFromBinary($data, $activities);
     }
 }

@@ -4,7 +4,7 @@ namespace PhpSports\Activity\Parse;
 
 use PhpSports\Model\ActivityCollection;
 
-abstract class BaseParseFile
+abstract class BaseParseFile extends BaseParse
 {
     abstract public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection;
     abstract public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false);
@@ -15,5 +15,10 @@ abstract class BaseParseFile
     public function getFormat()
     {
         return $this::FILETYPE;
+    }
+
+    public function getSource()
+    {
+        return 'FILE';
     }
 }

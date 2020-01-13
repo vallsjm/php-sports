@@ -266,9 +266,12 @@ class ParseFileFIT extends BaseParseFile
 
     public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
+        $this->startTimer();
         $parse = new phpFITFileAnalysis($fileName);
         $data  = $this->normalize($parse);
-        return $this->read($activities, $data);
+        return $this->stopTimerAndReturn(
+            $this->read($activities, $data)
+        );
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -277,9 +280,12 @@ class ParseFileFIT extends BaseParseFile
 
     public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
+        $this->startTimer();
         $parse = new phpFITFileAnalysis($data, ['input_is_data' => true]);
         $data  = $this->normalize($parse);
-        return $this->read($activities, $data);
+        return $this->stopTimerAndReturn(
+            $this->read($activities, $data)
+        );
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

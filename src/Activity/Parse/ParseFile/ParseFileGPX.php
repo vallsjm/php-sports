@@ -117,42 +117,58 @@ EOD;
 
     public function readFromFile(string $fileName, ActivityCollection $activities) : ActivityCollection
     {
+        $this->startTimer();
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->read($activities, $sxml);
+        return $this->stopTimerAndReturn(
+            $this->read($activities, $sxml)
+        );
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
+        $this->startTimer();
         $data   = $this->save($activities);
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
-            return $dom->save($fileName);
+            return $this->stopTimerAndReturn(
+                $dom->save($fileName)
+            );
         } else {
-            return $data->asXML($fileName);
+            return $this->stopTimerAndReturn(
+                $data->asXML($fileName)
+            );
         }
     }
 
     public function readFromBinary(string $data, ActivityCollection $activities) : ActivityCollection
     {
+        $this->startTimer();
         $sxml = new SimpleXMLElement($data);
-        return $this->read($activities, $sxml);
+        return $this->stopTimerAndReturn(
+            $this->read($activities, $sxml)
+        );
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
+        $this->startTimer();
         $data = $this->save($activities);
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
-            return $dom->saveXML();
+            return $this->stopTimerAndReturn(
+                $dom->saveXML()
+            );
         } else {
-            return $data->asXML();
+            return $this->stopTimerAndReturn(
+                $data->asXML()
+            );
         }
     }
 }

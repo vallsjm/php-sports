@@ -28,9 +28,13 @@ abstract class BaseFile
 		return strtoupper(pathinfo($fileName, \PATHINFO_EXTENSION));
     }
 
-    public static function createInstance($format)
+    public static function createInstance(string $fileName = null, $format = null)
     {
-        $fileTypes     = self::getFileTypes();
+        $fileTypes = self::getFileTypes();
+
+        if (!$format) {
+            $format = self::getFileExtension($fileName);
+        }
 
         if (!isset($fileTypes[$format])) {
             throw new \Exception("Format {$format} not suported.");
