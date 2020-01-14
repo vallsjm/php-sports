@@ -117,6 +117,11 @@ final class Lap implements JsonSerializable
         return $this->points;
     }
 
+    public function hasMap() : bool
+    {
+        return $this->points->hasMap();
+    }
+
     public function addAnalysis(Analysis $analysis) : Lap
     {
         $this->analysis->addAnalysis($analysis);

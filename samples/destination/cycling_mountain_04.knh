@@ -21,7 +21,22 @@
                 "valueTotal"
             ],
             "parameters": [
-                null,
+                [
+                    "timestamp",
+                    0,
+                    1509195251,
+                    null,
+                    1509201577,
+                    null
+                ],
+                [
+                    "altitudeMeters",
+                    0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
                 [
                     "elevationMeters",
                     0,

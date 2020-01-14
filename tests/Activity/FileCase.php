@@ -35,8 +35,8 @@ class FileCase extends TestCase
                             'numPoints' => 1817
                         ],
                         'analysis' => [
-                            ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 93, 'avg' => 142.33736929004, 'max' => 169, 'total' => 258627],
-                            ['parameter' => 'cadenceRPM', 'intervalTimeSeconds' => 0, 'min' => 3, 'avg' => 83.701997780244, 'max' => 96, 'total' => 150831],
+                            ['parameter' => 'hrBPM', 'intervalTimeSeconds' => 0, 'min' => 93, 'avg' => 142.38842975206612, 'max' => 169, 'total' => 258435],
+                            ['parameter' => 'cadenceRPM', 'intervalTimeSeconds' => 0, 'min' => 7, 'avg' => 83.746807329261514, 'max' => 96, 'total' => 150828],
                             ['parameter' => 'powerWatts', 'intervalTimeSeconds' => 0, 'min' => 6, 'avg' => 180.52019922524, 'max' => 275, 'total' => 326200]
                         ]
                     ]
@@ -241,12 +241,17 @@ class FileCase extends TestCase
             $this->consoleLog('ACTIVITY: ' . $activity->getName() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s') . ', DURATION: ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ', DISTANCE: ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km, ELEVATION GAIN: ' . round($activity->getElevationGainMeters(), 2). 'm.'. PHP_EOL . PHP_EOL);
 
             foreach ($activity->getLaps() as $lap) {
+                //$this->consoleLog(PHP_EOL);
                 $this->consoleLog($lap->getName() . ' ' . $lap->getStartedAt()->format('Y-m-d H:i:s') . ' duration: ' . gmdate("H:i:s", $lap->getDurationSeconds()) . ' distance: ' . round($lap->getDistanceMeters() / 1000, 2) . ' km' . ' points: ' . $lap->getNumPoints());
+                // foreach ($lap->getAnalysis() as $analysis) {
+                //     $this->consoleLog(str_pad($analysis->getParameter(), 20, ' ') . '  interval: ' . str_pad($analysis->getIntervalTimeSeconds(), 10, ' ') . '  min: ' . str_pad($analysis->getMin(), 20, ' ') . ' avg: ' . str_pad($analysis->getAvg(), 20, ' ') . ' max: ' . str_pad($analysis->getMax(), 20, ' ') . ' total: ' . str_pad($analysis->getTotal(), 20, ' ') . ' values: ' . str_pad($analysis->getNumValues(), 20, ' '));
+                // }
             }
 
             $this->consoleLog(PHP_EOL);
+            $this->consoleLog('ACTIVITY: ' . $activity->getName() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s') . ', DURATION: ' . gmdate("H:i:s", $activity->getDurationSeconds()) . ', DISTANCE: ' . round($activity->getDistanceMeters() / 1000 , 2) . ' km, ELEVATION GAIN: ' . round($activity->getElevationGainMeters(), 2). 'm.'. PHP_EOL);
             foreach ($activity->getAnalysis() as $analysis) {
-                $this->consoleLog(str_pad($analysis->getParameter(), 20, ' ') . '  interval: ' . str_pad($analysis->getIntervalTimeSeconds(), 10, ' ') . '  min: ' . str_pad($analysis->getMin(), 20, ' ') . ' avg: ' . str_pad($analysis->getAvg(), 20, ' ') . ' max: ' . str_pad($analysis->getMax(), 20, ' ') . ' total: ' . str_pad($analysis->getTotal(), 20, ' '));
+                $this->consoleLog(str_pad($analysis->getParameter(), 20, ' ') . '  interval: ' . str_pad($analysis->getIntervalTimeSeconds(), 10, ' ') . '  min: ' . str_pad($analysis->getMin(), 20, ' ') . ' avg: ' . str_pad($analysis->getAvg(), 20, ' ') . ' max: ' . str_pad($analysis->getMax(), 20, ' ') . ' total: ' . str_pad($analysis->getTotal(), 20, ' '). ' values: ' . str_pad($analysis->getNumValues(), 20, ' '));
             }
         }
     }

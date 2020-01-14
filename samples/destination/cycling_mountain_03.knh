@@ -22,6 +22,14 @@
             ],
             "parameters": [
                 [
+                    "timestamp",
+                    0,
+                    1510075544,
+                    null,
+                    1510077388,
+                    null
+                ],
+                [
                     "altitudeMeters",
                     0,
                     1407.4,
@@ -29,7 +37,14 @@
                     1514.2,
                     1319716
                 ],
-                null,
+                [
+                    "elevationMeters",
+                    0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
                 [
                     "speedMetersPerSecond",
                     0,
@@ -126,12 +141,54 @@
                     146,
                     111381.91817154
                 ],
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                [
+                    "cadenceRPM",
+                    0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "cadenceRPM",
+                    5,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "cadenceRPM",
+                    60,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "cadenceRPM",
+                    300,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "cadenceRPM",
+                    1200,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "cadenceRPM",
+                    3600,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
                 [
                     "powerWatts",
                     0,

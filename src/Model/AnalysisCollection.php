@@ -9,17 +9,14 @@ use \JsonSerializable;
 
 class AnalysisCollection extends \ArrayObject implements \JsonSerializable
 {
+    private $parameters;
+    private $structure;
+
     public function __construct(
-        array $default = null
+        array $parameters = []
     ) {
-        foreach ($default as $parameter => $intervals) {
-            $analysis = new Analysis($parameter, null);
-            $this->addAnalysis($analysis);
-            foreach ($intervals as $interval) {
-                $analysis = new Analysis($parameter, null, $interval);
-                $this->addAnalysis($analysis);
-            }
-        }
+        $this->parameters = $parameters;
+        $this->structure  = [];
     }
 
     public function offsetSet($offset, $value)
@@ -59,12 +56,20 @@ class AnalysisCollection extends \ArrayObject implements \JsonSerializable
 
     public function analyzePoint(Point $point) : AnalysisCollection
     {
-        // $tocreate = array_diff_key(Point::getStructure(), array_keys((array) $this));
-        // foreach ($tocreate as $key) {
-        //     $analysis = new Analysis($key);
-        //     $this[$key] = $analysis;
-        // }
-
+        $structure = Point::getStructure();
+        if ($structure != $this->structure) {
+            $tocreate        = array_intersect($structure, array_keys($this->parameters));
+            $tocreate        = array_diff($tocreate, array_keys((array) $this));
+            $this->structure = $structure;
+            foreach ($tocreate as $parameter) {
+                $analysis = new Analysis($parameter, null);
+                $this->addAnalysis($analysis);
+                foreach ($this->parameters[$parameter] as $interval) {
+                    $analysis = new Analysis($parameter, null, $interval);
+                    $this->addAnalysis($analysis);
+                }
+            }
+        }
         foreach ($this as $i) {
             $i->analyzePoint($point);
         }
@@ -77,7 +82,7 @@ class AnalysisCollection extends \ArrayObject implements \JsonSerializable
             if (isset($this[$pos])) {
                 $this[$pos]->merge($fromAnalysis);
             } else {
-                $this[$pos] = $fromAnalysis;
+                $this->addAnalysis(clone $fromAnalysis);
             }
         }
         return $this;

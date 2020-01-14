@@ -22,6 +22,14 @@
             ],
             "parameters": [
                 [
+                    "timestamp",
+                    0,
+                    1511414134,
+                    null,
+                    1511417595,
+                    null
+                ],
+                [
                     "altitudeMeters",
                     0,
                     656.6,
@@ -29,7 +37,14 @@
                     661.4,
                     321365
                 ],
-                null,
+                [
+                    "elevationMeters",
+                    0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
                 [
                     "speedMetersPerSecond",
                     0,
@@ -174,12 +189,54 @@
                     82.460416666667,
                     37583.899002896
                 ],
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                [
+                    "powerWatts",
+                    0,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    5,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    60,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    300,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    1200,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    "powerWatts",
+                    3600,
+                    null,
+                    null,
+                    null,
+                    null
+                ],
                 [
                     "caloriesKcal",
                     0,

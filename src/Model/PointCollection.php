@@ -53,6 +53,11 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
         return $this;
     }
 
+    public function hasMap() : bool
+    {
+        return in_array('latitude', $this->structure);
+    }
+
     public function jsonSerialize() {
         $this->loadStructure();
         return [

@@ -49,7 +49,7 @@ final class Point implements JsonSerializable
 
     public static function getStructure()
     {
-        return array_keys(self::$structure);
+        return (is_null(self::$structure)) ? [] : array_keys(self::$structure);
     }
 
     public static function setStructure(array $structure)

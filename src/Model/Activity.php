@@ -21,6 +21,7 @@ class Activity implements JsonSerializable
     private $durationSeconds;
     private $numPoints;
     private $analysis;
+    private $hasMap;
     private $startedAt;
     private $options;
 
@@ -28,6 +29,7 @@ class Activity implements JsonSerializable
     {
         $default = [
             'analysis' => [
+                'timestamp'            => [],
                 'altitudeMeters'       => [],
                 'elevationMeters'      => [],
                 'speedMetersPerSecond' => [5, 60, 300, 1200, 3600],
@@ -48,6 +50,7 @@ class Activity implements JsonSerializable
         $this->elevationGainMeters = 0;
         $this->numPoints           = 0;
         $this->startedAt           = null;
+        $this->hasMap              = false;
         $this->name                = $name;
     }
 
@@ -142,7 +145,13 @@ class Activity implements JsonSerializable
         }
         $this->laps->addLap($lap);
         $this->numPoints += $lap->getNumPoints();
+        $this->hasMap = $this->hasMap || $lap->hasMap();
         return $this;
+    }
+
+    public function hasMap() : bool
+    {
+        return $this->hasMap;
     }
 
     public function getLaps() : LapCollection
