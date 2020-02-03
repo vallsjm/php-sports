@@ -17,7 +17,8 @@ class Type
         'cadenceRPM',
         'powerWatts',
         'hrBPM',
-        'caloriesKcal'
+        'caloriesKcal',
+        'tss'
     ];
 
     const SPORTS = [
