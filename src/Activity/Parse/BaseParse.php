@@ -3,32 +3,22 @@
 namespace PhpSports\Activity\Parse;
 
 use PhpSports\Model\ActivityCollection;
+use PhpSports\Analyzer\Middleware\BasicAnalyzer;
+use PhpSports\Analyzer\Analyzer;
 
 abstract class BaseParse
 {
-    private $duration;
-    private $timeStart;
+    protected $analizer;
 
-    public function getDuration() : float
+    public function __construct()
     {
-        return ($this->duration) ? $this->duration : 0;
+        $this->analizer = new Analyzer([
+            new BasicAnalyzer()
+        ]);
     }
 
-    public function startTimer() : BaseParse
+    public function getAnalizer() : Analyzer
     {
-        $this->timeStart = microtime(true);
-        return $this;
-    }
-
-    public function stopTimer() : BaseParse
-    {
-        $this->duration = microtime(true) - $this->timeStart;
-        return $this;
-    }
-
-    public function stopTimerAndReturn($data)
-    {
-        $this->duration = microtime(true) - $this->timeStart;
-        return $data;
+        return $this->analizer;
     }
 }

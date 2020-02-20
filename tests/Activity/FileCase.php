@@ -16,8 +16,7 @@ class FileCase extends TestCase
         $this->base_dir = __DIR__ . '/../../samples';
 
         $this->testFiles = [
-            [
-                'fileName' => 'cycling_indoor_01.fit',
+            'cycling_indoor_01.fit' => [
                 'generate' => [
                     'cycling_indoor_01.knh',
                     'cycling_indoor_01.tcx'
@@ -42,8 +41,7 @@ class FileCase extends TestCase
                     ]
                 ]
             ],
-            [
-                'fileName' => 'cycling_indoor_02.fit',
+            'cycling_indoor_02.fit' => [
                 'generate' => [
                     'cycling_indoor_02.knh',
                     'cycling_indoor_02.tcx'
@@ -68,8 +66,7 @@ class FileCase extends TestCase
                     ]
                 ]
             ],
-            [
-                'fileName' => 'cycling_mountain_03.fit',
+            'cycling_mountain_03.fit' => [
                 'generate' => [
                     'cycling_mountain_03.knh',
                     'cycling_mountain_03.tcx',
@@ -94,8 +91,7 @@ class FileCase extends TestCase
                     ]
                 ]
             ],
-            [
-                'fileName' => 'cycling_mountain_04.gpx',
+            'cycling_mountain_04.gpx' => [
                 'generate' => [
                     'cycling_mountain_04.knh',
                     'cycling_mountain_04.tcx',

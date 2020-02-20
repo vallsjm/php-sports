@@ -3,8 +3,6 @@
 namespace PhpSports\Model;
 
 use PhpSports\Model\Activity;
-use \ArrayAccess;
-use \JsonSerializable;
 
 class ActivityCollection extends \ArrayObject implements \JsonSerializable
 {
@@ -17,10 +15,9 @@ class ActivityCollection extends \ArrayObject implements \JsonSerializable
         parent::offsetSet($offset, $value);
     }
 
-    public function addActivity(Activity $activity) : ActivityCollection
+    public function addActivity(Activity $activity)
     {
         parent::append($activity);
-        return $this;
     }
 
     public function jsonSerialize() {

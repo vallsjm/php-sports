@@ -3,28 +3,20 @@
 namespace PhpSports\Model;
 
 use \JsonSerializable;
-use \DateTime;
 
-final class Lap implements JsonSerializable
+final class Athlete implements JsonSerializable
 {
-    private $name;
-    private $timestampFrom;
-    private $timestampTo;
-    private $distanceMeters;
-    private $durationSeconds;
-    private $elevationGainMeters;
+    private $id;
+    private $hrBPM; // maxHr
+    private $ftpWatts; // ftp
 
-    public function __construct(
-        string $name = null,
-        int $timestampFrom,
-        int $timestampTo
-    )
+    public function __construct(string $name = null)
     {
-        $this->distanceMeters      = null;
-        $this->durationSeconds     = null;
-        $this->elevationGainMeters = null;
-        $this->timestampFrom       = $timestampFrom;
-        $this->timestampTo         = $timestampTo;
+        $this->distanceMeters      = 0;
+        $this->durationSeconds     = 0;
+        $this->elevationGainMeters = 0;
+        $this->timestampFrom       = null;
+        $this->timestampTo         = null;
         $this->name                = $name;
     }
 

@@ -16,8 +16,6 @@ final class Point implements JsonSerializable
     private $cadenceRPM;
     private $powerWatts;
     private $hrBPM;
-    private static $structure;
-    private static $timestampOffset;
 
     public function __construct(int $timestamp = null)
     {
@@ -31,40 +29,6 @@ final class Point implements JsonSerializable
         $this->cadenceRPM           = null;
         $this->powerWatts           = null;
         $this->hrBPM                = null;
-
-        if (is_null(self::$structure)) {
-            self::clearStructure();
-        };
-        if (is_null(self::$timestampOffset)) {
-            self::$timestampOffset = 0;
-        };
-    }
-
-    public static function clearStructure()
-    {
-        self::$structure = [
-            'timestamp' => true
-        ];
-    }
-
-    public static function getStructure()
-    {
-        return (is_null(self::$structure)) ? [] : array_keys(self::$structure);
-    }
-
-    public static function setStructure(array $structure)
-    {
-        self::$structure = array_fill_keys($structure, true);
-    }
-
-    public static function getTimestampOffset()
-    {
-        return self::$timestampOffset;
-    }
-
-    public static function setTimestampOffset(int $timestampOffset)
-    {
-        self::$timestampOffset = $timestampOffset;
     }
 
     public function getTimestamp() : int
@@ -72,11 +36,9 @@ final class Point implements JsonSerializable
         return $this->timestamp;
     }
 
-    public function setTimestamp(int $timestamp) : Point
+    public function setTimestamp(int $timestamp = null)
     {
-        $this->timestamp = $timestamp + self::$timestampOffset;
-        self::$structure['timestamp'] = true;
-        return $this;
+        $this->timestamp = $timestamp;
     }
 
     public function getLatitude()
@@ -84,11 +46,9 @@ final class Point implements JsonSerializable
         return $this->latitude;
     }
 
-    public function setLatitude(float $latitude) : Point
+    public function setLatitude(float $latitude = null)
     {
         $this->latitude = $latitude;
-        self::$structure['latitude'] = true;
-        return $this;
     }
 
     public function getLongitude()
@@ -96,11 +56,9 @@ final class Point implements JsonSerializable
         return $this->longitude;
     }
 
-    public function setLongitude(float $longitude) : Point
+    public function setLongitude(float $longitude = null)
     {
         $this->longitude = $longitude;
-        self::$structure['longitude'] = true;
-        return $this;
     }
 
     public function getDistanceMeters()
@@ -108,11 +66,9 @@ final class Point implements JsonSerializable
         return $this->distanceMeters;
     }
 
-    public function setDistanceMeters(float $distanceMeters) : Point
+    public function setDistanceMeters(float $distanceMeters = null)
     {
         $this->distanceMeters = $distanceMeters;
-        self::$structure['distanceMeters'] = true;
-        return $this;
     }
 
     public function getElevationMeters()
@@ -120,11 +76,9 @@ final class Point implements JsonSerializable
         return $this->elevationMeters;
     }
 
-    public function setElevationMeters(float $elevationMeters) : Point
+    public function setElevationMeters(float $elevationMeters = null)
     {
         $this->elevationMeters = $elevationMeters;
-        self::$structure['elevationMeters'] = true;
-        return $this;
     }
 
     public function getAltitudeMeters()
@@ -132,11 +86,9 @@ final class Point implements JsonSerializable
         return $this->altitudeMeters;
     }
 
-    public function setAltitudeMeters(float $altitudeMeters) : Point
+    public function setAltitudeMeters(float $altitudeMeters = null)
     {
         $this->altitudeMeters = $altitudeMeters;
-        self::$structure['altitudeMeters'] = true;
-        return $this;
     }
 
     public function getCadenceRPM()
@@ -144,11 +96,9 @@ final class Point implements JsonSerializable
         return $this->cadenceRPM;
     }
 
-    public function setCadenceRPM(int $cadenceRPM) : Point
+    public function setCadenceRPM(int $cadenceRPM = null)
     {
         $this->cadenceRPM = $cadenceRPM;
-        self::$structure['cadenceRPM'] = true;
-        return $this;
     }
 
     public function getPowerWatts()
@@ -156,11 +106,9 @@ final class Point implements JsonSerializable
         return $this->powerWatts;
     }
 
-    public function setPowerWatts(int $powerWatts) : Point
+    public function setPowerWatts(int $powerWatts = null)
     {
         $this->powerWatts = $powerWatts;
-        self::$structure['powerWatts'] = true;
-        return $this;
     }
 
     public function getHrBPM()
@@ -168,11 +116,9 @@ final class Point implements JsonSerializable
         return $this->hrBPM;
     }
 
-    public function setHrBPM(int $hrBPM) : Point
+    public function setHrBPM(int $hrBPM = null)
     {
         $this->hrBPM = $hrBPM;
-        self::$structure['hrBPM'] = true;
-        return $this;
     }
 
     public function getSpeedMetersPerSecond()
@@ -180,31 +126,24 @@ final class Point implements JsonSerializable
         return $this->speedMetersPerSecond;
     }
 
-    public function setSpeedMetersPerSecond(float $speedMetersPerSecond) : Point
+    public function setSpeedMetersPerSecond(float $speedMetersPerSecond = null)
     {
         $this->speedMetersPerSecond = $speedMetersPerSecond;
-        self::$structure['speedMetersPerSecond'] = true;
-        return $this;
-    }
-
-    public function getParameter(string $parameter)
-    {
-        return $this->{$parameter};
-    }
-
-    public function setParameter(string $parameter, $value) : Point
-    {
-        $this->{$parameter} = $value;
-        self::$structure[$parameter] = true;
-        return $this;
     }
 
     public function jsonSerialize() {
-        $ret = [];
-        foreach (self::$structure as $key => $value) {
-            $ret[] = $this->{$key};
-        }
-        return $ret;
+        return [
+            'timestamp'            => $this->timestamp,
+            'latitude'             => $this->latitude,
+            'longitude'            => $this->longitude,
+            'altitudeMeters'       => $this->altitudeMeters,
+            'elevationMeters'      => $this->elevationMeters,
+            'distanceMeters'       => $this->distanceMeters,
+            'speedMetersPerSecond' => $this->speedMetersPerSecond,
+            'cadenceRPM'           => $this->cadenceRPM,
+            'powerWatts'           => $this->powerWatts,
+            'hrBPM'                => $this->hrBPM
+        ];
     }
 
 }

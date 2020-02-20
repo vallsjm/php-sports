@@ -4,12 +4,13 @@ namespace PhpSports\Activity\Parse\ParseFile;
 
 use adriangibbons\phpFITFileAnalysis;
 use PhpSports\Activity\Parse\BaseParseFile;
+use PhpSports\Activity\Parse\ParseFileInterface;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 
-class ParseFileFIT extends BaseParseFile
+class ParseFileFIT extends BaseParseFile implements ParseFileInterface
 {
     const FILETYPE = 'FIT';
 
@@ -218,9 +219,15 @@ class ParseFileFIT extends BaseParseFile
         }
 
         foreach ($data['points'] as $lapId => $points) {
-            $lap = $activity->createLap("L{$nlap}");
+            $times = array_keys($points);
+            $lap = new Lap(
+                "L{$nlap}",
+                min($times),
+                max($times)
+            );
+            $activity->addLap($lap);
             foreach ($points as $timestamp => $values) {
-                $point = $lap->createPoint($timestamp);
+                $point = new Point($timestamp);
                 if (isset($values['position_lat'])) {
                     $point->setLatitude($values['position_lat']);
                     $point->setLongitude($values['position_long']);
@@ -244,58 +251,33 @@ class ParseFileFIT extends BaseParseFile
                     $point->setSpeedMetersPerSecond($values['speed']);
                 }
 
-                $lap->addPoint($point);
+                $activity->addPoint($point);
             }
-            $activity->addLap($lap);
             $nlap++;
         }
         if (isset($data['analysis']['total_distance'])) {
-            $activity->setDistanceMeters($data['analysis']['total_distance'] * 1000);
+            //$activity->setDistanceMeters($data['analysis']['total_distance'] * 1000);
         }
         if (isset($data['analysis']['total_elapsed_time'])) {
-            $activity->setDurationSeconds(round($data['analysis']['total_elapsed_time']));
+            //$activity->setDurationSeconds(round($data['analysis']['total_elapsed_time']));
         }
         if (isset($data['analysis']['total_calories'])) {
-            $activity->getAnalysisOrCreate('caloriesKcal')->setTotal($data['analysis']['total_calories']);
+            //$activity->getAnalysisOrCreate('caloriesKcal')->setTotal($data['analysis']['total_calories']);
         }
+
+        $activity = $this->analizer->analize($activity);
         $activities->addActivity($activity);
 
         return $activities;
     }
 
 
-    public function readFromFile(string $fileName, ActivityCollection $activities = null) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
-        $this->startTimer();
-        if (!$activities) {
-            $activities = new ActivityCollection();
-        }
+        $activities = new ActivityCollection();
         $parse = new phpFITFileAnalysis($fileName);
         $data  = $this->normalize($parse);
-        return $this->stopTimerAndReturn(
-            $this->read($activities, $data)
-        );
+        return $this->read($activities, $data);
     }
 
-    public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
-    {
-    }
-
-    public function readFromBinary(string $data, ActivityCollection $activities = null) : ActivityCollection
-    {
-        $this->startTimer();
-        if (!$activities) {
-            $activities = new ActivityCollection();
-        }
-        $parse = new phpFITFileAnalysis($data, ['input_is_data' => true]);
-        $data  = $this->normalize($parse);
-        return $this->stopTimerAndReturn(
-            $this->read($activities, $data)
-        );
-    }
-
-    public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
-    {
-
-    }
 }

@@ -30,3 +30,5 @@ $jsonPrintable = json_encode($activities, JSON_PRETTY_PRINT);
 print_r($jsonPrintable);
 ?>
 ```
+
+/vendor/bin/phpunit --bootstrap ./vendor/autoload.php tests/Model/ActivityTest

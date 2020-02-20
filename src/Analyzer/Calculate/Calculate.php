@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSports\Analysis;
+namespace PhpSports\Analyzer\Calculate;
 
 use PhpSports\Model\Point;
 

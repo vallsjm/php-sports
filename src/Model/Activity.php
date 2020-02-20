@@ -7,51 +7,33 @@ use PhpSports\Model\LapCollection;
 use PhpSports\Model\Type;
 use PhpSports\Model\Analysis;
 use PhpSports\Model\AnalysisCollection;
+use PhpSports\Model\Point;
+use PhpSports\Model\PointCollection;
+use PhpSports\Model\Athlete;
 use \JsonSerializable;
 use \DateTime;
 
 class Activity implements JsonSerializable
 {
     private $id;
+    private $athlete;
     private $sport;
-    private $name;
-    private $laps;
-    private $distanceMeters;
-    private $elevationGainMeters;
-    private $durationSeconds;
-    private $numPoints;
+    private $title;
     private $analysis;
-    private $hasMap;
+    private $laps;
+    private $points;
     private $startedAt;
-    private $options;
 
-    public function __construct(string $name = null, array $options = [])
+    public function __construct(string $title = null)
     {
-        $default = [
-            'analysis' => [
-                'timestamp'            => [],
-                'altitudeMeters'       => [],
-                'elevationMeters'      => [],
-                'speedMetersPerSecond' => [5, 60, 300, 1200, 3600],
-                'hrBPM'                => [5, 60, 300, 1200, 3600],
-                'cadenceRPM'           => [5, 60, 300, 1200, 3600],
-                'powerWatts'           => [5, 60, 300, 1200, 3600]
-            ]
-        ];
-
-        $this->options             = array_merge_recursive($default, $options);
-
         $this->laps                = new LapCollection();
-        $this->analysis            = new AnalysisCollection($this->options['analysis']);
+        $this->analysis            = new AnalysisCollection();
+        $this->points              = new PointCollection();
         $this->id                  = null;
         $this->sport               = null;
-        $this->distanceMeters      = 0;
-        $this->durationSeconds     = 0;
-        $this->elevationGainMeters = 0;
-        $this->numPoints           = 0;
+        $this->athlete             = null;
         $this->startedAt           = null;
-        $this->hasMap              = false;
-        $this->name                = $name;
+        $this->title               = $title;
     }
 
     public function getId()
@@ -59,21 +41,29 @@ class Activity implements JsonSerializable
         return $this->id;
     }
 
-    public function setId($id = null) : Activity
+    public function setId($id = null)
     {
         $this->id = $id;
-        return $this;
     }
 
-    public function getName()
+    public function setAthlete(Athlete $athlete)
     {
-        return $this->name;
+        $this->athlete = $athlete;
     }
 
-    public function setName(string $name = null) : Activity
+    public function getAthlete($athlete)
     {
-        $this->name = $name;
-        return $this;
+        return $this->athlete;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title = null)
+    {
+        $this->title = $title;
     }
 
     public function getSport()
@@ -81,77 +71,32 @@ class Activity implements JsonSerializable
         return $this->sport;
     }
 
-    public function setSport(string $sport = null) : Activity
+    public function setSport(string $sport = null)
     {
         if (!is_null($sport) && (!in_array($sport, Type::SPORTS))) {
             throw new \Exception('sport value is not valid');
         }
         $this->sport = $sport;
-        return $this;
     }
 
-    public function getDistanceMeters() : float
+    public function addPoint(Point $point)
     {
-        return $this->distanceMeters;
+        $this->points->addPoint($point);
     }
 
-    public function setDistanceMeters(float $distanceMeters) : Activity
+    public function getPoints() : PointCollection
     {
-        $this->distanceMeters = $distanceMeters;
-        return $this;
+        return $this->points;
     }
 
-    public function getDurationSeconds() : int
+    public function setPoints(PointCollection $points)
     {
-        return $this->durationSeconds;
+        $this->points = $points;
     }
 
-    public function setDurationSeconds(int $durationSeconds) : Activity
+    public function addLap(Lap $lap)
     {
-        $this->durationSeconds = $durationSeconds;
-        return $this;
-    }
-
-    public function getElevationGainMeters() : float
-    {
-        return $this->elevationGainMeters;
-    }
-
-    public function setElevationGainMeters(float $elevationGainMeters) : Activity
-    {
-        $this->elevationGainMeters = $elevationGainMeters;
-        return $this;
-    }
-
-    public function getNumPoints() : int
-    {
-        return $this->numPoints;
-    }
-
-    public function createLap(string $name = null) : Lap
-    {
-        $lap = new Lap($name, $this->options);
-        return $lap;
-    }
-
-    public function addLap(Lap $lap) : Activity
-    {
-        $this->distanceMeters       += $lap->getDistanceMeters();
-        $this->durationSeconds      += $lap->getDurationSeconds();
-        $this->elevationGainMeters  += $lap->getElevationGainMeters();
-        $this->analysis->merge($lap->getAnalysis());
-        if (!$this->startedAt) {
-            $this->setStartedAt($lap->getStartedAt());
-        }
         $this->laps->addLap($lap);
-        $this->numPoints += $lap->getNumPoints();
-        $this->hasMap = $this->hasMap || $lap->hasMap();
-        return $this;
-    }
-
-    public function hasMap() : bool
-    {
-        return $this->hasMap;
     }
 
     public function getLaps() : LapCollection
@@ -159,10 +104,14 @@ class Activity implements JsonSerializable
         return $this->laps;
     }
 
-    public function addAnalysis(Analysis $analysis) : Activity
+    public function setLaps(LapCollection $laps)
+    {
+        $this->laps = $laps;
+    }
+
+    public function addAnalysis(Analysis $analysis)
     {
         $this->analysis->addAnalysis($analysis);
-        return $this;
     }
 
     public function getAnalysis() : AnalysisCollection
@@ -170,14 +119,9 @@ class Activity implements JsonSerializable
         return $this->analysis;
     }
 
-    public function getAnalysisOrCreate(string $parameter, int $intervalTimeSeconds = 0) : Analysis
+    public function setAnalysis(AnalysisCollection $analysis)
     {
-        return $this->analysis->getAnalysisOrCreate($parameter, $intervalTimeSeconds);
-    }
-
-    public function getAnalysisOrNull(string $parameter, int $intervalTimeSeconds = 0)
-    {
-        return $this->analysis->getAnalysisOrNull($parameter, $intervalTimeSeconds);
+        $this->analysis = $analysis;
     }
 
     public function getStartedAt()
@@ -185,27 +129,21 @@ class Activity implements JsonSerializable
         return $this->startedAt;
     }
 
-    public function setStartedAt(DateTime $startedAt = null) : Activity
+    public function setStartedAt(DateTime $startedAt = null)
     {
         $this->startedAt = $startedAt;
-        return $this;
     }
 
     public function jsonSerialize() {
         return [
-            'id'    => $this->id,
-            'sport' => $this->sport,
-            'name'  => $this->name,
-            'startedAt'  => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
-            'resume' => [
-                'distanceMeters'      => $this->distanceMeters,
-                'durationSeconds'     => $this->durationSeconds,
-                'elevationGainMeters' => $this->elevationGainMeters,
-                'numLaps'             => $this->laps->count(),
-                'numPoints'           => $this->numPoints
-            ],
-            'analysis' => $this->analysis,
-            'laps'     => $this->laps
+            'id'        => $this->id,
+            'athlete'   => $this->athlete,
+            'sport'     => $this->sport,
+            'title'     => $this->title,
+            'startedAt' => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
+            'analysis'  => $this->analysis,
+            'laps'      => $this->laps,
+            'points'    => $this->points
         ];
     }
 

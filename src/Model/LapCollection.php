@@ -15,10 +15,9 @@ class LapCollection extends \ArrayObject implements \JsonSerializable
         parent::offsetSet($offset, $value);
     }
 
-    public function addLap(Lap $lap) : LapCollection
+    public function addLap(Lap $lap)
     {
         parent::append($lap);
-        return $this;
     }
 
     public function jsonSerialize() {

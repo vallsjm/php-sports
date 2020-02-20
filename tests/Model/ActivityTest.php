@@ -9,14 +9,14 @@ use PhpSports\Model\Point;
 
 final class ActivityTest extends TestCase
 {
-    public function testName()
+    public function testTitle()
     {
         $activity = new Activity();
-        $activity->setName('test');
+        $activity->setTitle('test');
 
         $this->assertEquals(
             'test',
-            $activity->getName()
+            $activity->getTitle()
         );
     }
 
@@ -25,14 +25,12 @@ final class ActivityTest extends TestCase
         $activity = new Activity('Activity');
         $activity->setId('1234');
 
-        $lap1 = new Lap('L1');
-
         $p1 = new Point();
         $p1->setTimestamp(1575990461);
         $p1->setLatitude(41.31734714181024);
         $p1->setLongitude(2.094990443212767);
         $p1->setHrBPM(120);
-        $lap1->addPoint($p1);
+        $activity->addPoint($p1);
 
         $p2 = new Point();
         $p2->setTimestamp(1575990464);
@@ -40,13 +38,13 @@ final class ActivityTest extends TestCase
         $p2->setLongitude(2.0984703316472952);
         $p2->setHrBPM(125);
         $p2->setCadenceRPM(400);
-        $lap1->addPoint($p2);
+        $activity->addPoint($p2);
 
-        $activity->addLap($lap1);
-
-        $lap2 = new Lap('L2');
-        $lap2->setDistanceMeters(6);
-        $activity->addLap($lap2);
+        $activity->addLap(new Lap(
+            'L1',
+            1575990461,
+            1575990464
+        ));
 
         $this->assertEquals(
             '1234',
@@ -54,33 +52,49 @@ final class ActivityTest extends TestCase
         );
 
         $this->assertEquals(
-            447,
-            round($activity->getDistanceMeters())
+            2,
+            count($activity->getPoints())
         );
 
         $this->assertEquals(
-            3,
-            $lap1->getDurationSeconds()
+            1,
+            count($activity->getLaps())
         );
 
-        if ($hr = $lap1->getAnalysisOrNull('HR')) {
-            $this->assertEquals(
-                120,
-                $hr->getMin()
-            );
-            $this->assertEquals(
-                125,
-                $hr->getMax()
-            );
-            $this->assertEquals(
-                122.5,
-                $hr->getAvg()
-            );
-            $this->assertEquals(
-                245,
-                $hr->getTotal()
-            );
-        }
+        $this->assertEquals(
+            'Activity',
+            $activity->getTitle()
+        );
+
+
+        // $this->assertEquals(
+        //     447,
+        //     round($activity->getDistanceMeters())
+        // );
+        //
+        // $this->assertEquals(
+        //     3,
+        //     $lap1->getDurationSeconds()
+        // );
+        //
+        // if ($hr = $lap1->getAnalysisOrNull('HR')) {
+        //     $this->assertEquals(
+        //         120,
+        //         $hr->getMin()
+        //     );
+        //     $this->assertEquals(
+        //         125,
+        //         $hr->getMax()
+        //     );
+        //     $this->assertEquals(
+        //         122.5,
+        //         $hr->getAvg()
+        //     );
+        //     $this->assertEquals(
+        //         245,
+        //         $hr->getTotal()
+        //     );
+        // }
 
         // $obj = json_encode($activity, JSON_PRETTY_PRINT);
         // print_r($obj);
