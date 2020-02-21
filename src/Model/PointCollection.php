@@ -22,6 +22,28 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
         $this[$pos] = $point;
     }
 
+    public function filterByTimestamp(int $timestampFrom, int $timestampTo) : PointCollection
+    {
+        reset($this);
+        $firstTimestamp = key($this);
+        end($this);
+        $lastTimestamp = key($this);
+
+        if (($timestampFrom <= $firstTimestamp) &&
+            ($timestampTo >= $lastTimestamp)) {
+            return $this;
+        } 
+
+        $filtered = array_slice(
+            $this, 
+            $timestampFrom - $firstTimestamp, 
+            $timestampTo - $timestampFrom, 
+            true
+        );
+
+        return new static($filtered);
+    }
+
     public function jsonSerialize() {
         return array_values((array) $this);
     }
