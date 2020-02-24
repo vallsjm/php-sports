@@ -4,6 +4,7 @@ namespace PhpSports\Model;
 
 use PhpSports\Model\Point;
 use PhpSports\Model\Lap;
+use \Closure;
 
 class PointCollection extends \ArrayObject implements \JsonSerializable
 {
@@ -27,10 +28,36 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
     {
         $timeStart = $lap->getTimestampFrom();
         $timeEnd   = $lap->getTimestampTo();
-        $filtered = array_filter((array) $this, function($point) use ($timeStart, $timeEnd) {
+        return $this->filterByTimestamp(
+            $lap->getTimestampFrom(),
+            $lap->getTimestampTo()
+        );
+    }
+
+    public function filterByTimestamp(int $timestampFrom, int $timestampTo) : PointCollection
+    {
+        $items = (array) $this;
+
+        reset($items);
+        $firstTimestamp = key($items);
+        end($items);
+        $lastTimestamp = key($items);
+
+        if (($timestampFrom <= $firstTimestamp) &&
+            ($timestampTo >= $lastTimestamp)) {
+            return $this;
+        }
+
+        return $this->filter(function($point) use ($timestampFrom, $timestampTo) {
             $time = $point->getTimestamp();
-            return (($time >= $timeStart) && ($time <= $timeEnd));
+            return (($time >= $timestampFrom) && ($time <= $timestampTo));
         });
+    }
+
+    public function filter(Closure $filterFunction) : PointCollection
+    {
+        $items = (array) $this;
+        $filtered = array_filter($items, $filterFunction);
         return new static($filtered);
     }
 

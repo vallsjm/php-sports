@@ -4,11 +4,21 @@ namespace PhpSports\Analyzer\Middleware;
 
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
 use PhpSports\Analyzer\Calculate\Calculate;
+use PhpSports\Model\AnalysisResume;
+use PhpSports\Model\Athlete;
 use PhpSports\Model\Activity;
 use PhpSports\Model\PointCollection;
 use \Closure;
 
-class BasicAnalyzer implements AnalyzerMiddlewareInterface {
+class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
+    private $athlete;
+
+    public function __construct(
+        Athlete $athlete = null
+    )
+    {
+        $this->athlete = $athlete;
+    }
 
     private function calculatePoints(PointCollection $points)
     {
@@ -46,16 +56,22 @@ class BasicAnalyzer implements AnalyzerMiddlewareInterface {
         $points = $activity->getPoints();
         $calulate = $this->calculatePoints($points);
 
+        $analysis = new AnalysisResume($calulate);
+        $activity->addAnalysis($analysis);
+
         $laps   = $activity->getLaps();
         foreach ($laps as $lap) {
             $filtered = $points->filterByLap($lap);
             $calulate = $this->calculatePoints($filtered);
-            $lap->setDistanceMeters($calulate['distanceMeters']);
-            $lap->setDurationSeconds($calulate['durationSeconds']);
-            $lap->setElevationGainMeters($calulate['elevationGainMeters']);
+
+            $analysis = new AnalysisResume($calulate);
+            $lap->addAnalysis($analysis);
+        }
+
+        if ($this->athlete) {
+            $activity->setAthlete($this->athlete);
         }
 
         return $next($activity);
     }
-
 }

@@ -4,42 +4,30 @@ namespace PhpSports\Model;
 
 use \JsonSerializable;
 
-class Analysis implements JsonSerializable
+abstract class Analysis implements JsonSerializable
 {
-    private $parameter;
-    private $value;
+    private $values;
 
     public function __construct(
-        string $parameter = null,
-        float $value = null
+        $values = null
     ) {
-        $this->parameter        = $parameter;
-        $this->value            = $value;
+        $this->values = $values;
     }
 
-    private static function setValue(float $value = null)
+    public function setValues($values = null)
     {
-        $this->value = $value;
+        $this->values = $values;
     }
 
-    private static function getValue(float $value = null)
+    public function getValues()
     {
-        return $this->value;
+        return $this->values;
     }
 
-    public function getParameter()
-    {
-        return $this->parameter;
-    }
-
-    public function setParameter(string $parameter = null)
-    {
-        $this->parameter = $parameter;
-    }
+    abstract function getAnalyzerName() : string;
+    abstract function merge(Analysis $anlysis) : Analysis;
 
     public function jsonSerialize() {
-        return [
-            $this->getParameter() => $this->getValue()
-        ];
+        return $this->getValues();
     }
 }

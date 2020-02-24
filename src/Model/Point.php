@@ -131,19 +131,45 @@ final class Point implements JsonSerializable
         $this->speedMetersPerSecond = $speedMetersPerSecond;
     }
 
+    public function getParameter(string $parameter)
+    {
+        return $this->{$parameter};
+    }
+
     public function jsonSerialize() {
-        return [
-            'timestamp'            => $this->timestamp,
-            'latitude'             => $this->latitude,
-            'longitude'            => $this->longitude,
-            'altitudeMeters'       => $this->altitudeMeters,
-            'elevationMeters'      => $this->elevationMeters,
-            'distanceMeters'       => $this->distanceMeters,
-            'speedMetersPerSecond' => $this->speedMetersPerSecond,
-            'cadenceRPM'           => $this->cadenceRPM,
-            'powerWatts'           => $this->powerWatts,
-            'hrBPM'                => $this->hrBPM
+        $point = [
+            'timestamp' => $this->timestamp
         ];
+
+        if ($this->latitude) {
+            $point['latitude'] = $this->latitude;
+        }
+        if ($this->longitude) {
+            $point['longitude'] = $this->longitude;
+        }
+        if ($this->altitudeMeters) {
+            $point['altitudeMeters'] = $this->altitudeMeters;
+        }
+        if ($this->elevationMeters) {
+            $point['elevationMeters'] = $this->elevationMeters;
+        }
+        if ($this->distanceMeters) {
+            $point['distanceMeters'] = $this->distanceMeters;
+        }
+        if ($this->speedMetersPerSecond) {
+            $point['speedMetersPerSecond'] = $this->speedMetersPerSecond;
+        }
+        if ($this->cadenceRPM) {
+            $point['cadenceRPM'] = $this->cadenceRPM;
+        }
+        if ($this->powerWatts) {
+            $point['powerWatts'] = $this->powerWatts;
+        }
+        if ($this->hrBPM) {
+            $point['hrBPM'] = $this->hrBPM;
+        }
+
+        return $point;
     }
 
 }

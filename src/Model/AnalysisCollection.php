@@ -17,7 +17,12 @@ class AnalysisCollection extends \ArrayObject implements \JsonSerializable
 
     public function addAnalysis(Analysis $analysis)
     {
-        parent::append($lap);
+        $pos = $analysis->getAnalyzerName();
+        if (isset($this[$pos])) {
+            $this[$pos]->merge($analysis);
+        } else {
+            $this[$pos] = $analysis;
+        }
     }
 
     public function jsonSerialize()

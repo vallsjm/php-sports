@@ -8,5 +8,4 @@ use \Closure;
 interface AnalyzerMiddlewareInterface {
 
     public function analize(Activity $activity, Closure $next);
-
 }

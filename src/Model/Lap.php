@@ -2,12 +2,15 @@
 
 namespace PhpSports\Model;
 
+use PhpSports\Model\Analysis;
+use PhpSports\Model\AnalysisCollection;
 use \JsonSerializable;
 use \DateTime;
 
 final class Lap implements JsonSerializable
 {
     private $name;
+    private $analysis;
     private $timestampFrom;
     private $timestampTo;
     private $distanceMeters;
@@ -26,6 +29,7 @@ final class Lap implements JsonSerializable
         $this->timestampFrom       = $timestampFrom;
         $this->timestampTo         = $timestampTo;
         $this->name                = $name;
+        $this->analysis            = new AnalysisCollection();
     }
 
     public function getName()
@@ -88,14 +92,27 @@ final class Lap implements JsonSerializable
         $this->timestampTo = $timestampTo;
     }
 
+    public function addAnalysis(Analysis $analysis)
+    {
+        $this->analysis->addAnalysis($analysis);
+    }
+
+    public function getAnalysis() : AnalysisCollection
+    {
+        return $this->analysis;
+    }
+
+    public function setAnalysis(AnalysisCollection $analysis)
+    {
+        $this->analysis = $analysis;
+    }
+
     public function jsonSerialize() {
         return [
-            'name'                => $this->name,
-            'distanceMeters'      => $this->distanceMeters,
-            'durationSeconds'     => $this->durationSeconds,
-            'elevationGainMeters' => $this->elevationGainMeters,
-            'timestampFrom'       => $this->timestampFrom,
-            'timestampTo'         => $this->timestampTo
+            'name'          => $this->name,
+            'analysis'      => $this->analysis,
+            'timestampFrom' => $this->timestampFrom,
+            'timestampTo'   => $this->timestampTo
         ];
     }
 }

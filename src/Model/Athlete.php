@@ -8,86 +8,50 @@ final class Athlete implements JsonSerializable
 {
     private $id;
     private $hrBPM; // maxHr
-    private $ftpWatts; // ftp
+    private $powerWatts; // ftp
 
-    public function __construct(string $name = null)
+    public function __construct()
     {
-        $this->distanceMeters      = 0;
-        $this->durationSeconds     = 0;
-        $this->elevationGainMeters = 0;
-        $this->timestampFrom       = null;
-        $this->timestampTo         = null;
-        $this->name                = $name;
+        $this->id         = null;
+        $this->hrBPM      = null;
+        $this->powerWatts = null;
     }
 
-    public function getName()
+    public function getId()
     {
-        return $this->name;
+        return $this->id;
     }
 
-    public function setName(string $name = null)
+    public function setId($id = null)
     {
-        $this->name = $name;
+        $this->id = $id;
     }
 
-    public function getDistanceMeters() : float
+    public function getHrBPM()
     {
-        return $this->distanceMeters;
+        return $this->hrBPM;
     }
 
-    public function setDistanceMeters(float $distanceMeters)
+    public function setHrBPM(int $hrBPM = null)
     {
-        $this->distanceMeters = $distanceMeters;
+        $this->hrBPM = $hrBPM;
     }
 
-    public function getElevationGainMeters() : float
+    public function getPowerWatts()
     {
-        return $this->elevationGainMeters;
+        return $this->powerWatts;
     }
 
-    public function setElevationGainMeters(float $elevationGainMeters)
+    public function setPowerWatts(int $powerWatts = null)
     {
-        $this->elevationGainMeters = $elevationGainMeters;
-    }
-
-    public function getDurationSeconds() : int
-    {
-        return $this->durationSeconds;
-    }
-
-    public function setDurationSeconds(int $durationSeconds)
-    {
-        $this->durationSeconds = $durationSeconds;
-    }
-
-    public function getTimestampFrom() : int
-    {
-        return $this->timestampFrom;
-    }
-
-    public function setTimestampFrom(int $timestampFrom)
-    {
-        $this->timestampFrom = $timestampFrom;
-    }
-
-    public function getTimestampTo() : int
-    {
-        return $this->timestampTo;
-    }
-
-    public function setTimestampTo(int $timestampTo)
-    {
-        $this->timestampTo = $timestampTo;
+        $this->powerWatts = $powerWatts;
     }
 
     public function jsonSerialize() {
         return [
-            'name'                => $this->name,
-            'distanceMeters'      => $this->distanceMeters,
-            'durationSeconds'     => $this->durationSeconds,
-            'elevationGainMeters' => $this->elevationGainMeters,
-            'timestampFrom'       => $this->timestampFrom,
-            'timestampTo'         => $this->timestampTo
+            'id'         => $this->id,
+            'hrBPM'      => $this->hrBPM,
+            'powerWatts' => $this->powerWatts
         ];
     }
 }

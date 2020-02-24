@@ -11,12 +11,12 @@ final class ImportFileTest extends FileCase
 
     public function testImportFiles()
     {
-        $filePath = $this->base_dir . '/source/' . 'cycling_indoor_01.fit';
-        $parseFIT = new ParseFileFit();
+        $filePath = $this->base_dir . '/source/' . 'cycling_indoor_02.fit';
+        $parseFIT = new ParseFileFIT();
         $activities = $parseFIT->readFromFile($filePath);
 
-        $json = json_encode($activities, JSON_PRETTY_PRINT);
-        print_r($json);
+        // $json = json_encode($activities, JSON_PRETTY_PRINT);
+        // print_r($json);
 
         // foreach ($this->testFiles as $testFile) {
         //     // if ($testFile['fileName'] == 'cycling_indoor_01.fit') {
