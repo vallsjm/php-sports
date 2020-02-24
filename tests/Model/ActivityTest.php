@@ -40,11 +40,20 @@ final class ActivityTest extends TestCase
         $p2->setCadenceRPM(400);
         $activity->addPoint($p2);
 
-        $activity->addLap(new Lap(
+        $p3 = new Point();
+        $p3->setTimestamp(1575990466);
+        $p3->setLatitude(41.3203336459789);
+        $p3->setLongitude(2.0984703316472678);
+        $p3->setHrBPM(122);
+        $p3->setCadenceRPM(400);
+        $activity->addPoint($p3);
+
+        $lap = new Lap(
             'L1',
             1575990461,
             1575990464
-        ));
+        );
+        $activity->addLap($lap);
 
         $this->assertEquals(
             '1234',
@@ -52,7 +61,7 @@ final class ActivityTest extends TestCase
         );
 
         $this->assertEquals(
-            2,
+            3,
             count($activity->getPoints())
         );
 
@@ -65,6 +74,15 @@ final class ActivityTest extends TestCase
             'Activity',
             $activity->getTitle()
         );
+
+        $points = $activity->getPoints();
+        $filtered = $points->filterByLap($lap);
+
+        $this->assertEquals(
+            2,
+            count($filtered)
+        );
+
 
 
         // $this->assertEquals(
