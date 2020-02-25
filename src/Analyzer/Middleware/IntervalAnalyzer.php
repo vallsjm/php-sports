@@ -4,10 +4,11 @@ namespace PhpSports\Analyzer\Middleware;
 
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
 use PhpSports\Analyzer\Calculate\Calculate;
-use PhpSports\Model\Interval;
-use PhpSports\Model\AnalysisInterval;
+use PhpSports\Analyzer\Analysis\Interval;
+use PhpSports\Analyzer\Analysis\IntervalAnalysis;
 use PhpSports\Model\Activity;
 use PhpSports\Model\PointCollection;
+use PhpSports\Model\Type;
 use \Closure;
 
 class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
@@ -16,12 +17,32 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
     private $matrix;
 
     public function __construct(
-        array $timeIntervals = [5, 60, 300, 1200, 3600],
-        array $parameters    = ['altitudeMeters','elevationMeters','speedMetersPerSecond','hrBPM','cadenceRPM','powerWatts']
+        array $timeIntervals = [],
+        array $parameters    = []
     )
     {
-        $this->timeIntervals = $timeIntervals;
-        $this->parameters    = $parameters;
+        foreach ($parameters as $key) {
+            if (!in_array($key, Type::POINT)) {
+                throw new \Exception('parameter "' . $key . '" is not valid analysis parameter');
+            }
+        }
+
+        $this->timeIntervals = array_merge(
+            [5, 60, 300, 1200, 3600],
+            $timeIntervals
+        );
+
+        $this->parameters = array_merge(
+            [
+                'altitudeMeters',
+                'elevationMeters',
+                'speedMetersPerSecond',
+                'hrBPM',
+                'cadenceRPM',
+                'powerWatts'
+            ],
+            $parameters
+        );
     }
 
     private function createParameterMatrix()
@@ -127,7 +148,7 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
             }
         }
 
-        $intervals = [];
+        $analysis = new IntervalAnalysis();
         foreach ($this->parameters as $parameter) {
             foreach ($this->timeIntervals as $timeInterval) {
                 $interval = new Interval(
@@ -136,11 +157,9 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
                     $this->matrix[$parameter][$timeInterval]['min'],
                     $this->matrix[$parameter][$timeInterval]['max']
                 );
-                $intervals[] = $interval;
+                $analysis->addInterval($interval);
             }
         }
-
-        $analysis = new AnalysisInterval($intervals);
         $activity->addAnalysis($analysis);
 
         return $next($activity);

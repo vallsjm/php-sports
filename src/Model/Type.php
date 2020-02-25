@@ -4,6 +4,19 @@ namespace PhpSports\Model;
 
 class Type
 {
+    const POINT = [
+        'timestamp',
+        'latitude',
+        'longitude',
+        'elevationMeters',
+        'altitudeMeters',
+        'distanceMeters',
+        'speedMetersPerSecond',
+        'cadenceRPM',
+        'powerWatts',
+        'hrBPM'
+    ];
+
     const PARAMETERS = [
         'timestamp',
         'latitude',
@@ -18,7 +31,10 @@ class Type
         'powerWatts',
         'hrBPM',
         'caloriesKcal',
-        'tss'
+        'tss',
+        'avgPowerWatts',
+        'avgSpeedMetersPerSecond',
+        'totalPoints'
     ];
 
     const SPORTS = [

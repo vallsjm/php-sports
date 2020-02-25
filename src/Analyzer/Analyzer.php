@@ -63,7 +63,10 @@ class Analyzer {
     private function createMiddleware($nextMiddleware, $middleware)
     {
         return function($object) use($nextMiddleware, $middleware) {
-            return $middleware->analize($object, $nextMiddleware);
+            //$timeStart = microtime(true);
+            $ret = $middleware->analize($object, $nextMiddleware);
+            //echo PHP_EOL . "object: " . get_class($middleware) . ", duration: " . (microtime(true) - $timeStart) . "s.";
+            return $ret;
         };
     }
 

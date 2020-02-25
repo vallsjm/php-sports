@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSports\Model;
+namespace PhpSports\Analyzer\Analysis;
 
 use \JsonSerializable;
 

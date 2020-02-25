@@ -4,27 +4,20 @@ namespace PhpSports\Analyzer\Middleware;
 
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
 use PhpSports\Analyzer\Calculate\Calculate;
-use PhpSports\Model\AnalysisResume;
+use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\Athlete;
 use PhpSports\Model\Activity;
 use PhpSports\Model\PointCollection;
 use \Closure;
 
 class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
-    private $athlete;
-
-    public function __construct(
-        Athlete $athlete = null
-    )
-    {
-        $this->athlete = $athlete;
-    }
 
     private function calculatePoints(PointCollection $points)
     {
         $distanceMeters      = 0;
         $durationSeconds     = 0;
         $elevationGainMeters = 0;
+        $totalPoints         = 0;
 
         $lastPoint = null;
         foreach ($points as $point) {
@@ -41,12 +34,14 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             $elevationGainMeters += $elevation;
 
             $lastPoint = $point;
+            $totalPoints++;
         }
 
         return [
             'distanceMeters'      => $distanceMeters,
             'durationSeconds'     => $durationSeconds,
-            'elevationGainMeters' => $elevationGainMeters
+            'elevationGainMeters' => $elevationGainMeters,
+            'totalPoints'         => $totalPoints
         ];
     }
 
@@ -54,22 +49,26 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
     public function analize(Activity $activity, Closure $next)
     {
         $points = $activity->getPoints();
+
         $calulate = $this->calculatePoints($points);
 
-        $analysis = new AnalysisResume($calulate);
+        $analysis = new ResumeAnalysis($calulate);
         $activity->addAnalysis($analysis);
+
+        if (!$activity->setStartedAt()) {
+            reset($points);
+            $time  = new \DateTime();
+            $time->setTimestamp(key($points));
+            $activity->setStartedAt($time);
+        }
 
         $laps   = $activity->getLaps();
         foreach ($laps as $lap) {
             $filtered = $points->filterByLap($lap);
             $calulate = $this->calculatePoints($filtered);
 
-            $analysis = new AnalysisResume($calulate);
+            $analysis = new ResumeAnalysis($calulate);
             $lap->addAnalysis($analysis);
-        }
-
-        if ($this->athlete) {
-            $activity->setAthlete($this->athlete);
         }
 
         return $next($activity);

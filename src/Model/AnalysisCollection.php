@@ -17,9 +17,9 @@ class AnalysisCollection extends \ArrayObject implements \JsonSerializable
 
     public function addAnalysis(Analysis $analysis)
     {
-        $pos = $analysis->getAnalyzerName();
+        $pos = $analysis->getName();
         if (isset($this[$pos])) {
-            $this[$pos]->merge($analysis);
+            $this[$pos] = $this[$pos]->merge($analysis);
         } else {
             $this[$pos] = $analysis;
         }

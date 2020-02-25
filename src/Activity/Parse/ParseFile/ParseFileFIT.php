@@ -5,6 +5,7 @@ namespace PhpSports\Activity\Parse\ParseFile;
 use adriangibbons\phpFITFileAnalysis;
 use PhpSports\Activity\Parse\BaseParseFile;
 use PhpSports\Activity\Parse\ParseFileInterface;
+use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
@@ -255,18 +256,28 @@ class ParseFileFIT extends BaseParseFile implements ParseFileInterface
             }
             $nlap++;
         }
+
+        $resume = [];
         if (isset($data['analysis']['total_distance'])) {
-            //$activity->setDistanceMeters($data['analysis']['total_distance'] * 1000);
+            $resume['distanceMeters'] = $data['analysis']['total_distance'] * 1000;
         }
         if (isset($data['analysis']['total_elapsed_time'])) {
-            //$activity->setDurationSeconds(round($data['analysis']['total_elapsed_time']));
+            $resume['durationSeconds'] = round($data['analysis']['total_elapsed_time']);
         }
         if (isset($data['analysis']['total_calories'])) {
-            //$activity->getAnalysisOrCreate('caloriesKcal')->setTotal($data['analysis']['total_calories']);
+            $resume['caloriesKcal'] = $data['analysis']['total_calories'];
+        }
+        if (count($resume)) {
+            $analysis = new ResumeAnalysis($resume);
+            $activity->addAnalysis($analysis);
         }
 
         $activity = $this->analizer->analize($activity);
         $activities->addActivity($activity);
+
+        if ($this->athlete) {
+            $activity->setAthlete($this->athlete);
+        }
 
         return $activities;
     }

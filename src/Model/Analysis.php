@@ -6,28 +6,28 @@ use \JsonSerializable;
 
 abstract class Analysis implements JsonSerializable
 {
-    private $values;
+    protected $data;
 
     public function __construct(
-        $values = null
+        $data = null
     ) {
-        $this->values = $values;
+        $this->data = $data;
     }
 
-    public function setValues($values = null)
+    public function setData($data = null)
     {
-        $this->values = $values;
+        $this->data = $data;
     }
 
-    public function getValues()
+    public function getData()
     {
-        return $this->values;
+        return $this->data;
     }
 
-    abstract function getAnalyzerName() : string;
-    abstract function merge(Analysis $anlysis) : Analysis;
+    abstract function getName() : string;
+    abstract function merge(Analysis $analysis) : Analysis;
 
     public function jsonSerialize() {
-        return $this->getValues();
+        return $this->getData();
     }
 }
