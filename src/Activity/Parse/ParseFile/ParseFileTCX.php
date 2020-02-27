@@ -3,7 +3,8 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseFileInterface;
+use PhpSports\Activity\Parse\ParseFileReadInterface;
+use PhpSports\Activity\Parse\ParseFileSaveInterface;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
@@ -11,7 +12,7 @@ use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 use \SimpleXMLElement;
 
-class ParseFileTCX extends BaseParseFile implements ParseFileInterface
+class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
 {
     const FILETYPE = 'TCX';
 

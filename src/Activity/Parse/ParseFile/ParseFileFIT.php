@@ -4,14 +4,14 @@ namespace PhpSports\Activity\Parse\ParseFile;
 
 use adriangibbons\phpFITFileAnalysis;
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseFileInterface;
+use PhpSports\Activity\Parse\ParseFileReadInterface;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 
-class ParseFileFIT extends BaseParseFile implements ParseFileInterface
+class ParseFileFIT extends BaseParseFile implements ParseFileReadInterface
 {
     const FILETYPE = 'FIT';
 
@@ -169,10 +169,6 @@ class ParseFileFIT extends BaseParseFile implements ParseFileInterface
         return $this->createActivities($activities, $data);
     }
 
-    public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
-    {
-    }
-
     public function readFromBinary(string $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
@@ -181,7 +177,4 @@ class ParseFileFIT extends BaseParseFile implements ParseFileInterface
         return $this->createActivities($activities, $data);
     }
 
-    public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
-    {
-    }
 }

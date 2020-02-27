@@ -3,7 +3,8 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseFileInterface;
+use PhpSports\Activity\Parse\ParseFileReadInterface;
+use PhpSports\Activity\Parse\ParseFileSaveInterface;
 use PhpSports\Analyzer\Analysis\Zone;
 use PhpSports\Analyzer\Analysis\Parameter;
 use PhpSports\Analyzer\Analysis\Interval;
@@ -18,7 +19,7 @@ use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 use \SimpleXMLElement;
 
-class ParseFileKNH extends BaseParseFile implements ParseFileInterface
+class ParseFileKNH extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
 {
     const FILETYPE = 'KNH';
 
