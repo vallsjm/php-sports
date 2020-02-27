@@ -25,6 +25,14 @@ class AnalysisCollection extends \ArrayObject implements \JsonSerializable
         }
     }
 
+    public function filterByName($name) : Analysis
+    {
+        if (isset($this[$name])) {
+            return $this[$name];
+        }
+        return null;
+    }
+
     public function jsonSerialize()
     {
         return (array) $this;

@@ -28,6 +28,9 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             if (!$point->getDistanceMeters()) {
                 $point->setDistanceMeters($distance);
             }
+            if (!$point->getSpeedMetersPerSecond() && $duration) {
+                $point->setSpeedMetersPerSecond($distance / $duration);
+            }
 
             $distanceMeters      += $distance;
             $durationSeconds     += $duration;
@@ -45,8 +48,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         ];
     }
 
-    // Anlize distance or speed for each point
-    public function analize(Activity $activity, Closure $next)
+    public function analyze(Activity $activity, Closure $next)
     {
         $points = $activity->getPoints();
 

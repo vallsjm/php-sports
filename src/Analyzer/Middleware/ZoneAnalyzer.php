@@ -56,8 +56,10 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
             'minPercent'      => 0,
             'maxPercent'      => 0,
             'durationSeconds' => 0,
-            'speedQueue'      => [],
-            'powerQueue'      => []
+            'sumSpeed'        => 0,
+            'sumPower'        => 0,
+            'countSpeed'      => 0,
+            'countPower'      => 0
         ];
 
         foreach ($this->zonesHR as $zoneName => $values) {
@@ -94,8 +96,7 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
         return null;
     }
 
-    // Anlize distance or speed for each point
-    public function analize(Activity $activity, Closure $next)
+    public function analyze(Activity $activity, Closure $next)
     {
         $points  = $activity->getPoints();
         $this->createParameterMatrix();
@@ -103,70 +104,75 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
         if ($athlete = $activity->getAthlete()) {
             $hrBPM      = $athlete->getHrBPM();
             $powerWatts = $athlete->getPowerWatts();
-        }
-        if (!$hrBPM) {
-            unset($this->matrix['zonesHR']);
-        }
-        if (!$powerWatts) {
-            unset($this->matrix['zonesPOWER']);
-        }
 
-        $lastPoint = null;
-        foreach ($points as $point) {
-            $durationSeconds = Calculate::calculateDurationSeconds($lastPoint, $point);
-            $speed           = $point->getSpeedMetersPerSecond();
-            $power           = $point->getPowerWatts();
-            if ($hrBPM) {
-                if ($hrPercent = ($point->getHrBPM() * 100) / $hrBPM) {
-                    if ($zoneName = $this->zoneName('zonesHR', $hrPercent)) {
-                        $this->matrix['zonesHR'][$zoneName]['durationSeconds'] += $durationSeconds;
-                        if ($speed) {
-                            $this->matrix['zonesHR'][$zoneName]['speedQueue'][] = $speed;
-                        }
-                        if ($power) {
-                            $this->matrix['zonesHR'][$zoneName]['powerQueue'][] = $power;
+            if (!$hrBPM) {
+                unset($this->matrix['zonesHR']);
+            }
+            if (!$powerWatts) {
+                unset($this->matrix['zonesPOWER']);
+            }
+
+            $lastPoint = null;
+            foreach ($points as $point) {
+                $durationSeconds = Calculate::calculateDurationSeconds($lastPoint, $point);
+                $speed           = $point->getSpeedMetersPerSecond();
+                $power           = $point->getPowerWatts();
+                if ($hrBPM) {
+                    if ($hrPercent = ($point->getHrBPM() * 100) / $hrBPM) {
+                        if ($zoneName = $this->zoneName('zonesHR', $hrPercent)) {
+                            $this->matrix['zonesHR'][$zoneName]['durationSeconds'] += $durationSeconds;
+                            if ($speed) {
+                                $this->matrix['zonesHR'][$zoneName]['speedQueue']['sumSpeed'] += $speed;
+                                $this->matrix['zonesHR'][$zoneName]['speedQueue']['countSpeed']++;
+                            }
+                            if ($power) {
+                                $this->matrix['zonesHR'][$zoneName]['powerQueue']['sumPower'] = $power;
+                                $this->matrix['zonesHR'][$zoneName]['powerQueue']['countPower']++;
+                            }
                         }
                     }
                 }
-            }
-            if ($powerWatts) {
-                if ($powerPercent = ($point->getPowerWatts() * 100) / $powerWatts) {
-                    if ($zoneName = $this->zoneName('zonesPOWER', $powerPercent)) {
-                        $this->matrix['zonesPOWER'][$zoneName]['durationSeconds'] += $durationSeconds;
-                        if ($speed) {
-                            $this->matrix['zonesPOWER'][$zoneName]['speedQueue'][] = $speed;
-                        }
-                        if ($power) {
-                            $this->matrix['zonesPOWER'][$zoneName]['powerQueue'][] = $power;
+                if ($powerWatts) {
+                    if ($powerPercent = ($point->getPowerWatts() * 100) / $powerWatts) {
+                        if ($zoneName = $this->zoneName('zonesPOWER', $powerPercent)) {
+                            $this->matrix['zonesPOWER'][$zoneName]['durationSeconds'] += $durationSeconds;
+                            if ($speed) {
+                                $this->matrix['zonesPOWER'][$zoneName]['speedQueue']['sumSpeed'] += $speed;
+                                $this->matrix['zonesPOWER'][$zoneName]['speedQueue']['countSpeed']++;
+                            }
+                            if ($power) {
+                                $this->matrix['zonesPOWER'][$zoneName]['powerQueue']['sumPower'] = $power;
+                                $this->matrix['zonesPOWER'][$zoneName]['powerQueue']['countPower']++;
+                            }
                         }
                     }
                 }
+                $lastPoint = $point;
             }
-            $lastPoint = $point;
-        }
 
-        foreach ($this->matrix as $parameter => $zones) {
-            $numEmpty = 0;
-            $analysis = new ZoneAnalysis($parameter);
-            foreach ($zones as $zoneName => $values) {
-                $avgSpeedMetersPerSecond = count($values['speedQueue']) ? (array_sum($values['speedQueue']) / count($values['speedQueue'])) : null;
-                $avgPowerWatts           = count($values['powerQueue']) ? (array_sum($values['powerQueue']) / count($values['powerQueue'])) : null;
+            foreach ($this->matrix as $parameter => $zones) {
+                $numEmpty = 0;
+                $analysis = new ZoneAnalysis($parameter);
+                foreach ($zones as $zoneName => $values) {
+                    $avgSpeedMetersPerSecond = $values['countSpeed'] ? ($values['sumSpeed'] / $values['countSpeed']) : null;
+                    $avgPowerWatts           = $values['countPower'] ? ($values['sumPower'] / $values['countPower']) : null;
 
-                $zone = new Zone(
-                    $zoneName,
-                    $values['minPercent'],
-                    $values['maxPercent'],
-                    $values['durationSeconds'],
-                    $avgPowerWatts,
-                    $avgSpeedMetersPerSecond
-                );
-                $analysis->addZone($zone);
-                if ($values['durationSeconds'] == 0) {
-                    $numEmpty++;
+                    $zone = new Zone(
+                        $zoneName,
+                        $values['minPercent'],
+                        $values['maxPercent'],
+                        $values['durationSeconds'],
+                        $avgPowerWatts,
+                        $avgSpeedMetersPerSecond
+                    );
+                    $analysis->addZone($zone);
+                    if ($values['durationSeconds'] == 0) {
+                        $numEmpty++;
+                    }
                 }
-            }
-            if ($numEmpty !== count($zones)) {
-                $activity->addAnalysis($analysis);
+                if ($numEmpty !== count($zones)) {
+                    $activity->addAnalysis($analysis);
+                }
             }
         }
 

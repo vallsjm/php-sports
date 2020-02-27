@@ -13,9 +13,6 @@ final class Lap implements JsonSerializable
     private $analysis;
     private $timestampFrom;
     private $timestampTo;
-    private $distanceMeters;
-    private $durationSeconds;
-    private $elevationGainMeters;
 
     public function __construct(
         string $name = null,
@@ -23,9 +20,6 @@ final class Lap implements JsonSerializable
         int $timestampTo
     )
     {
-        $this->distanceMeters      = null;
-        $this->durationSeconds     = null;
-        $this->elevationGainMeters = null;
         $this->timestampFrom       = $timestampFrom;
         $this->timestampTo         = $timestampTo;
         $this->name                = $name;
@@ -40,36 +34,6 @@ final class Lap implements JsonSerializable
     public function setName(string $name = null)
     {
         $this->name = $name;
-    }
-
-    public function getDistanceMeters() : float
-    {
-        return $this->distanceMeters;
-    }
-
-    public function setDistanceMeters(float $distanceMeters)
-    {
-        $this->distanceMeters = $distanceMeters;
-    }
-
-    public function getElevationGainMeters() : float
-    {
-        return $this->elevationGainMeters;
-    }
-
-    public function setElevationGainMeters(float $elevationGainMeters)
-    {
-        $this->elevationGainMeters = $elevationGainMeters;
-    }
-
-    public function getDurationSeconds() : int
-    {
-        return $this->durationSeconds;
-    }
-
-    public function setDurationSeconds(int $durationSeconds)
-    {
-        $this->durationSeconds = $durationSeconds;
     }
 
     public function getTimestampFrom() : int

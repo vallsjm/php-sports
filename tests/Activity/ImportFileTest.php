@@ -18,13 +18,15 @@ final class ImportFileTest extends FileCase
         $athlete->setHrBPM(120);
         $athlete->setPowerWatts(100);
 
-        $parseFIT = new ParseFileFIT($athlete);
+        $activities = ImportFile::readFromFile($filePath, $athlete);
+
+        // $parseFIT = new ParseFileFIT($athlete, ParseFileFIT::ANALYZER_RESUME);
         // $parseFIT = new ParseFileFIT($athlete, ParseFileFIT::ANALYZER_RESUME);
         // $parseFIT->setAthlete($athlete);
-        $activities = $parseFIT->readFromFile($filePath);
+        //$activities = $parseFIT->readFromFile($filePath);
 
-        $json = json_encode($activities, JSON_PRETTY_PRINT);
-        print_r($json);
+        // $json = json_encode($activities, JSON_PRETTY_PRINT);
+        // print_r($json);
 
         // foreach ($this->testFiles as $testFile) {
         //     // if ($testFile['fileName'] == 'cycling_indoor_01.fit') {

@@ -109,8 +109,7 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
         }
     }
 
-    // Anlize distance or speed for each point
-    public function analize(Activity $activity, Closure $next)
+    public function analyze(Activity $activity, Closure $next)
     {
         $points = $activity->getPoints();
         reset($points);

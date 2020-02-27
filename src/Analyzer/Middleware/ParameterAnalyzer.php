@@ -37,31 +37,39 @@ class ParameterAnalyzer implements AnalyzerMiddlewareInterface {
         );
     }
 
-    public function analize(Activity $activity, Closure $next)
+    public function analyze(Activity $activity, Closure $next)
     {
         $points = $activity->getPoints();
 
         $matrix = [];
         foreach ($this->parameters as $parameter) {
-            $matrix[$parameter] = [];
+            $matrix[$parameter] = [
+                'min'   => 9999999999,
+                'max'   => -9999999999,
+                'sum'   => 0,
+                'count' => 0
+            ];
         }
 
         foreach ($points as $point) {
             foreach ($this->parameters as $parameter) {
                 if ($value = $point->getParameter($parameter)) {
-                    $matrix[$parameter][] = $value;
+                    $matrix[$parameter]['min'] = min($value, $matrix[$parameter]['min']);
+                    $matrix[$parameter]['max'] = max($value, $matrix[$parameter]['max']);
+                    $matrix[$parameter]['sum'] += $value;
+                    $matrix[$parameter]['count'] ++;
                 }
             }
         }
 
         $analysis = new ParameterAnalysis();
         foreach ($matrix as $parameterName => $values) {
-            if (count($values)) {
+            if ($values['count']) {
                 $parameter = new Parameter(
                     $parameterName,
-                    min($values),
-                    array_sum($values) / count($values),
-                    max($values)
+                    $values['min'],
+                    $values['sum'] / $values['count'],
+                    $values['max']
                 );
                 $analysis->addParameter($parameter);
             }

@@ -3,27 +3,32 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
+use PhpSports\Activity\Parse\ParseFileInterface;
+use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 use \SimpleXMLElement;
 
-class ParseFileGPX extends BaseParseFile
+class ParseFileGPX extends BaseParseFile implements ParseFileInterface
 {
     const FILETYPE = 'GPX';
 
-    private function read(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
+    private function createActivities(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
     {
         foreach ($data->trk as $trk) {
             $activity = new Activity((string) $trk->name);
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
-                $lap = $activity->createLap("L{$nlap}");
+                $lapFrom = 999999999;
+                $lapTo   = -999999999;
                 foreach ($trkseg->trkpt as $trkpt) {
-                    $time  = new \DateTime((string) $trkpt->time);
-                    $point = $lap->createPoint($time->getTimestamp());
+                    $time    = new \DateTime((string) $trkpt->time);
+                    $point   = new Point($time->getTimestamp());
+                    $lapFrom = min($time->getTimestamp(), $lapFrom);
+                    $lapTo   = max($time->getTimestamp(), $lapTo);
                     $point->setLatitude((float) $trkpt->attributes()->lat);
                     $point->setLongitude((float) $trkpt->attributes()->lon);
                     $point->setElevationMeters((float) $trkpt->ele);
@@ -45,18 +50,25 @@ class ParseFileGPX extends BaseParseFile
                             }
                         }
         			}
-                    $lap->addPoint($point);
+                    $activity->addPoint($point);
                 }
+                $lap = new Lap(
+                    "L{$nlap}",
+                    $lapFrom,
+                    $lapTo
+                );
                 $activity->addLap($lap);
                 $nlap++;
             }
+
+            $activity = $this->analyze($activity);
             $activities->addActivity($activity);
         }
 
         return $activities;
     }
 
-    private function save(ActivityCollection $data) : SimpleXMLElement
+    private function createXML(ActivityCollection $data) : SimpleXMLElement
     {
         $str = <<<'EOD'
 <gpx xmlns="http://www.topografix.com/GPX/1/1"
@@ -72,16 +84,14 @@ EOD;
         $ntrk = 0;
         foreach ($data as $activity) {
             $sxml->addChild('trk');
-            $sxml->trk[$ntrk]->addChild('name', $activity->getName());
+            $sxml->trk[$ntrk]->addChild('name', $activity->getTitle());
+            $points = $activity->getPoints();
+
             $ntrkseg = 0;
             foreach ($activity->getLaps() as $lap) {
                 $sxml->trk[$ntrk]->addChild('trkseg');
                 $ntrkpt = 0;
-                $points = $lap->getPoints();
-                if (!in_array('latitude', $points->getStructure())) {
-                    throw new \Exception("Format GPX needs latitude and longitude.");
-                }
-                foreach ($points as $point) {
+                foreach ($points->filterByLap($lap) as $point) {
                     $sxml->trk[$ntrk]->trkseg[$ntrkseg]->addChild('trkpt');
                     if ($point->getLatitude()) {
                         $sxml->trk[$ntrk]->trkseg[$ntrkseg]->trkpt[$ntrkpt]->addAttribute('lat', $point->getLatitude());
@@ -115,66 +125,46 @@ EOD;
         return $sxml;
     }
 
-    public function readFromFile(string $fileName, ActivityCollection $activities = null) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
-        $this->startTimer();
-        if (!$activities) {
-            $activities = new ActivityCollection();
-        }
+        $activities = new ActivityCollection();
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->stopTimerAndReturn(
-            $this->read($activities, $sxml)
-        );
+        return $this->createActivities($activities, $sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
-        $this->startTimer();
         $data   = $this->save($activities);
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
-            return $this->stopTimerAndReturn(
-                $dom->save($fileName)
-            );
+            return $dom->save($fileName);
         } else {
-            return $this->stopTimerAndReturn(
-                $data->asXML($fileName)
-            );
+            return $data->asXML($fileName);
         }
     }
 
-    public function readFromBinary(string $data, ActivityCollection $activities = null) : ActivityCollection
+    public function readFromBinary(string $data) : ActivityCollection
     {
-        $this->startTimer();
-        if (!$activities) {
-            $activities = new ActivityCollection();
-        }
+        $activities = new ActivityCollection();
         $sxml = new SimpleXMLElement($data);
-        return $this->stopTimerAndReturn(
-            $this->read($activities, $sxml)
-        );
+        return $this->createActivities($activities, $sxml);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
-        $this->startTimer();
-        $data = $this->save($activities);
+        $data = $this->createXML($activities);
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
-            return $this->stopTimerAndReturn(
-                $dom->saveXML()
-            );
+            return $dom->saveXML();
         } else {
-            return $this->stopTimerAndReturn(
-                $data->asXML()
-            );
+            return $data->asXML();
         }
     }
 }

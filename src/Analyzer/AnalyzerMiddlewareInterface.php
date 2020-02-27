@@ -7,5 +7,6 @@ use \Closure;
 
 interface AnalyzerMiddlewareInterface {
 
-    public function analize(Activity $activity, Closure $next);
+    public function analyze(Activity $activity, Closure $next);
+
 }

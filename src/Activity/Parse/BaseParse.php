@@ -2,27 +2,24 @@
 
 namespace PhpSports\Activity\Parse;
 
+use PhpSports\Model\Activity;
 use PhpSports\Model\Athlete;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Analyzer\Middleware\ResumeAnalyzer;
 use PhpSports\Analyzer\Middleware\IntervalAnalyzer;
 use PhpSports\Analyzer\Middleware\ZoneAnalyzer;
 use PhpSports\Analyzer\Middleware\ParameterAnalyzer;
+use PhpSports\Analyzer\AnalyzerInterface;
 use PhpSports\Analyzer\Analyzer;
 
-abstract class BaseParse
+abstract class BaseParse implements AnalyzerInterface
 {
-    CONST ANALYZER_RESUME    = 0b0001;
-    CONST ANALYZER_PARAMETER = 0b0010;
-    CONST ANALYZER_ZONE      = 0b0100;
-    CONST ANALYZER_INTERVAL  = 0b1000;
-
-    protected $analizer;
+    protected $analyzer;
     protected $athlete;
 
     public function __construct(
         Athlete $athlete = null,
-        $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
+        int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     )
     {
         $this->athlete = $athlte;
@@ -41,7 +38,7 @@ abstract class BaseParse
             $middleware[] = new IntervalAnalyzer();
         }
 
-        $this->analizer = new Analyzer($middleware);
+        $this->analyzer = new Analyzer($middleware);
     }
 
     public function setAthlete(Athlete $athlete)
@@ -54,8 +51,29 @@ abstract class BaseParse
         return $this->athlete;
     }
 
-    public function getAnalizer() : Analyzer
+    public function getAnalyzer() : Analyzer
     {
-        return $this->analizer;
+        return $this->analyzer;
+    }
+
+    public function setAnalyzer(Analyzer $analyzer)
+    {
+        $this->analyzer = $analyzer;
+    }
+
+    public function analyze(Activity $activity) : Activity
+    {
+        if ($this->athlete) {
+            $activity->setAthlete($this->athlete);
+        }
+        return $this->analyzer->analyze($activity);
+    }
+
+    public static function createInstance(
+        Athlete $athlete = null,
+        int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
+    )
+    {
+        return new static($athlete, $options);
     }
 }

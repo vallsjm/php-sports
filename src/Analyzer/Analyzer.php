@@ -7,15 +7,14 @@ use PhpSports\Model\Activity;
 use InvalidArgumentException;
 use Closure;
 
-// http://esbenp.github.io/2015/07/31/implementing-before-after-middleware/
-// https://github.com/esbenp/onion
 class Analyzer {
-
     private $middlewares;
+    private $debug;
 
-    public function __construct(array $middlewares = [])
+    public function __construct(array $middlewares = [], $debug = false)
     {
         $this->middlewares = $middlewares;
+        $this->debug       = $debug;
     }
 
     public function addMiddleware($middlewares)
@@ -35,7 +34,7 @@ class Analyzer {
         return new static(array_merge($this->middlewares, $middlewares));
     }
 
-    public function analize(Activity $object)
+    public function analyze(Activity $object)
     {
         $coreFunction = $this->createCoreFunction($object);
 
@@ -62,11 +61,19 @@ class Analyzer {
 
     private function createMiddleware($nextMiddleware, $middleware)
     {
-        return function($object) use($nextMiddleware, $middleware) {
-            //$timeStart = microtime(true);
-            $ret = $middleware->analize($object, $nextMiddleware);
-            //echo PHP_EOL . "object: " . get_class($middleware) . ", duration: " . (microtime(true) - $timeStart) . "s.";
-            return $ret;
+        if ($this->debug) {
+            return function($object) use ($nextMiddleware, $middleware) {
+                $timeStart = microtime(true);
+                $className = get_class($middleware);
+                return $middleware->analyze($object, function ($object) use ($timeStart, $nextMiddleware, $className) {
+                    echo PHP_EOL . "duration: " . round(microtime(true) - $timeStart, 5) . "s. object: {$className}";
+                    return $nextMiddleware($object);
+                });
+            };
+        }
+
+        return function($object) use ($nextMiddleware, $middleware) {
+            return $middleware->analyze($object, $nextMiddleware);
         };
     }
 

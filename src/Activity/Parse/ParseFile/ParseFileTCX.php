@@ -3,14 +3,15 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
+use PhpSports\Activity\Parse\ParseFileInterface;
+use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
-use PhpSports\Model\Analysis;
 use \SimpleXMLElement;
 
-class ParseFileTCX extends BaseParseFile
+class ParseFileTCX extends BaseParseFile implements ParseFileInterface
 {
     const FILETYPE = 'TCX';
 
@@ -49,7 +50,7 @@ class ParseFileTCX extends BaseParseFile
         return null;
     }
 
-    private function read(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
+    private function createActivities(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
     {
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity();
@@ -60,10 +61,13 @@ class ParseFileTCX extends BaseParseFile
 
             $nlap = 1;
             foreach ($act->Lap as $lp) {
-                $lap = $activity->createLap("L{$nlap}");
+                $lapFrom = 999999999;
+                $lapTo   = -999999999;
                 foreach ($lp->Track->Trackpoint as $pt) {
                     $time  = new \DateTime((string) $pt->Time);
-                    $point = $lap->createPoint($time->getTimestamp());
+                    $point = new Point($time->getTimestamp());
+                    $lapFrom = min($time->getTimestamp(), $lapFrom);
+                    $lapTo   = max($time->getTimestamp(), $lapTo);
                     if ($pt->Position) {
                         $point->setLatitude((float) $pt->Position->LatitudeDegrees);
                         $point->setLongitude((float) $pt->Position->LongitudeDegrees);
@@ -81,7 +85,6 @@ class ParseFileTCX extends BaseParseFile
                         $point->setCadenceRPM((int) $pt->Cadence);
                     }
 
-
                     if ($extensions = $pt->Extensions) {
                         $extensions = $extensions->children('http://www.garmin.com/xmlschemas/ActivityExtension/v2');
                         if (count($extensions)) {
@@ -97,32 +100,41 @@ class ParseFileTCX extends BaseParseFile
                         }
                     }
 
-                    $lap->addPoint($point);
+                    $activity->addPoint($point);
                 }
 
+                $resume = [];
                 if ($lp->DistanceMeters) {
-                    $lap->setDistanceMeters((float) $lp->DistanceMeters);
+                    $resume['distanceMeters'] = (float) $lp->DistanceMeters;
                 }
                 if ($lp->TotalTimeSeconds) {
-                    $lap->setDurationSeconds((float) $lp->TotalTimeSeconds);
-                }
-                if ($lp->MaximumSpeed) {
-                    $lap->getAnalysisOrCreate('speedMetersPerSecond')->setMax((float) $lp->MaximumSpeed);
+                    $resume['durationSeconds'] = (float) $lp->TotalTimeSeconds;
                 }
                 if ($lp->Calories) {
-                    $lap->getAnalysisOrCreate('caloriesKcal')->setTotal((float) $lp->Calories);
+                    $resume['caloriesKcal'] = (float) $lp->Calories;
                 }
 
+                $lap = new Lap(
+                    "L{$nlap}",
+                    $lapFrom,
+                    $lapTo
+                );
+                if (count($resume)) {
+                    $analysis = new ResumeAnalysis($resume);
+                    $lap->addAnalysis($analysis);
+                }
                 $activity->addLap($lap);
                 $nlap++;
             }
+
+            $activity = $this->analyze($activity);
             $activities->addActivity($activity);
         }
 
         return $activities;
     }
 
-    private function save(ActivityCollection $data) : SimpleXMLElement
+    private function createXML(ActivityCollection $data) : SimpleXMLElement
     {
         $str = <<<'EOD'
 <TrainingCenterDatabase
@@ -144,27 +156,27 @@ EOD;
                 $sxml->Activities->Activity[$nactivity]->addAttribute('Sport', $this->denormalizeSport($activity->getSport()));
             }
             $sxml->Activities->Activity[$nactivity]->addChild('Id', $activity->getId());
+            $points = $activity->getPoints();
             $nlap = 0;
             foreach ($activity->getLaps() as $lap) {
                 $sxml->Activities->Activity[$nactivity]->addChild('Lap');
-                $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addAttribute('StartTime', date("Y-m-d\TH:i:s\Z", $lap->getStartedAt()->getTimestamp()));
+                $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addAttribute('StartTime', date("Y-m-d\TH:i:s\Z", $lap->getTimestampFrom()));
 
-                if ($lap->getDistanceMeters()) {
-                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('DistanceMeters', $lap->getDistanceMeters());
-                }
-                if ($lap->getDurationSeconds()) {
-                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('TotalTimeSeconds', $lap->getDurationSeconds());
-                }
-                if ($speed = $lap->getAnalysisOrNull('speedMetersPerSecond')) {
-                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('MaximumSpeed', $speed->getMax());
-                }
-                if ($calories = $lap->getAnalysisOrNull('caloriesKcal')) {
-                    $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Calories', $calories->getTotal());
+                if ($resume = $lap->getAnalysis()->filterByName('resume')) {
+                    if (isset($resume['distanceMeters'])) {
+                        $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('DistanceMeters', $resume['distanceMeters']);
+                    }
+                    if (isset($resume['durationSeconds'])) {
+                        $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('TotalTimeSeconds', $resume['durationSeconds']);
+                    }
+                    if (isset($resume['caloriesKcal'])) {
+                        $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Calories', $resume['caloriesKcal']);
+                    }
                 }
 
                 $track = $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('Track');
                 $ntrkpt = 0;
-                foreach ($lap->getPoints() as $point) {
+                foreach ($points->filterByLap($lap) as $point) {
                     $track->addChild('Trackpoint');
                     $track->Trackpoint[$ntrkpt]->addChild('Time', date("Y-m-d\TH:i:s\Z", $point->getTimestamp()));
                     if ($point->getLatitude()) {
@@ -205,66 +217,46 @@ EOD;
         return $sxml;
     }
 
-    public function readFromFile(string $fileName, ActivityCollection $activities = null) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
-        $this->startTimer();
-        if (!$activities) {
-            $activities = new ActivityCollection();
-        }
+        $activities = new ActivityCollection();
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->stopTimerAndReturn(
-            $this->read($activities, $sxml)
-        );
+        return $this->createActivities($activities, $sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
-        $this->startTimer();
-        $data   = $this->save($activities);
+        $data   = $this->createXML($activities);
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
-            return $this->stopTimerAndReturn(
-                $dom->save($fileName)
-            );
+            return $dom->save($fileName);
         } else {
-            return $this->stopTimerAndReturn(
-                $data->asXML($fileName)
-            );
+            return $data->asXML($fileName);
         }
     }
 
-    public function readFromBinary(string $data, ActivityCollection $activities = null) : ActivityCollection
+    public function readFromBinary(string $data) : ActivityCollection
     {
-        $this->startTimer();
-        if (!$activities) {
-            $activities = new ActivityCollection();
-        }
+        $activities = new ActivityCollection();
         $sxml = new SimpleXMLElement($data);
-        return $this->stopTimerAndReturn(
-            $this->read($activities, $sxml)
-        );
+        return $this->createActivities($activities, $sxml);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
-        $this->startTimer();
-        $data = $this->save($activities);
+        $data = $this->createXML($activities);
         if ($pretty) {
             $dom = new \DomDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
-            return $this->stopTimerAndReturn(
-                $dom->saveXML()
-            );
+            return $dom->saveXML();
         } else {
-            return $this->stopTimerAndReturn(
-                $data->asXML()
-            );
+            return $data->asXML();
         }
     }
 }
