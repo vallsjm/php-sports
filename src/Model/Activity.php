@@ -10,6 +10,7 @@ use PhpSports\Model\AnalysisCollection;
 use PhpSports\Model\Point;
 use PhpSports\Model\PointCollection;
 use PhpSports\Model\Athlete;
+use PhpSports\Model\Source;
 use \JsonSerializable;
 use \DateTime;
 
@@ -17,6 +18,7 @@ class Activity implements JsonSerializable
 {
     private $id;
     private $athlete;
+    private $source;
     private $sport;
     private $title;
     private $analysis;
@@ -32,6 +34,7 @@ class Activity implements JsonSerializable
         $this->id                  = null;
         $this->sport               = null;
         $this->athlete             = null;
+        $this->source              = null;
         $this->startedAt           = null;
         $this->title               = $title;
     }
@@ -54,6 +57,16 @@ class Activity implements JsonSerializable
     public function getAthlete()
     {
         return $this->athlete;
+    }
+
+    public function setSource(Source $source)
+    {
+        $this->source = $source;
+    }
+
+    public function getSource()
+    {
+        return $this->source;
     }
 
     public function getTitle()
@@ -137,10 +150,11 @@ class Activity implements JsonSerializable
     public function jsonSerialize() {
         return [
             'id'        => $this->id,
-            'athlete'   => $this->athlete,
             'sport'     => $this->sport,
-            'title'     => $this->title,
             'startedAt' => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
+            'title'     => $this->title,
+            'athlete'   => $this->athlete,
+            'source'    => $this->source,
             'analysis'  => $this->analysis,
             'laps'      => $this->laps,
             'points'    => $this->points

@@ -60,4 +60,55 @@ class Calculate
 		}
 		return null;
     }
+
+	public static function calculateKcal(
+    	float $weightKg,
+    	float $durationSeconds,
+		int $met = 9
+    ) {
+    	return $met * 0.0175 * $weightKg * ($durationSeconds / 60);
+    }
+
+    public static function calculateTss(
+		float $durationSeconds,
+    	float $maxHrBPM,
+    	float $avgHrBPM
+    ) {
+    	$intervalos = [20,30,40,50,60,70,80,100,120,140];
+    	$base       = ($maxHrBPM - 60) / count($intervalos);
+    	$ini        = 60;
+    	$fin        = 0;
+    	$value      = 0;
+    	foreach ($intervalos as $intervalo) {
+    		$fin = $ini + $base;
+    		if (($avgHrBPM >= $ini) && ($avgHrBPM <= $fin)) {
+    			$value = $intervalo;
+    		}
+    		$ini = $fin;
+    	}
+    	return $value * ($durationSeconds / 3600);
+    }
+
+    public static function calculateTssFromLevel(
+        float $durationSeconds,
+		string $level = 'NORMAL'
+    ) {
+        switch ($level) {
+            case 'SOFT':
+                $factor = 50;
+            break;
+            case 'NORMAL':
+                $factor = 70;
+            break;
+            case 'HARD':
+                $factor = 80;
+            break;
+            case 'MAX':
+                $factor = 90;
+            break;
+        }
+
+        return $factor * ($durationSeconds / 3600);
+    }
+
 }

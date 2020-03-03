@@ -22,7 +22,7 @@ abstract class BaseParse implements AnalyzerInterface
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     )
     {
-        $this->athlete = $athlte;
+        $this->athlete = $athlete;
 
         $middleware = [];
         if (self::ANALYZER_RESUME & $options) {

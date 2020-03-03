@@ -10,6 +10,7 @@ use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
+use PhpSports\Model\Source;
 
 class ParseFileFIT extends BaseParseFile implements ParseFileReadInterface
 {
@@ -93,9 +94,14 @@ class ParseFileFIT extends BaseParseFile implements ParseFileReadInterface
         return $data;
     }
 
-    private function createActivities(ActivityCollection $activities, array $data) : ActivityCollection
+    private function createActivities(
+        Source $source,
+        ActivityCollection $activities,
+        array $data
+    ) : ActivityCollection
     {
         $activity = new Activity();
+        $activity->setSource($source);
         $nlap = 1;
 
         if (isset($data['analysis']['sport'])) {
@@ -163,18 +169,33 @@ class ParseFileFIT extends BaseParseFile implements ParseFileReadInterface
 
     public function readFromFile(string $fileName) : ActivityCollection
     {
+        $pathInfo = pathinfo($fileName);
+
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat(),
+            $pathInfo['basename']
+        );
+
         $activities = new ActivityCollection();
         $parse = new phpFITFileAnalysis($fileName);
         $data  = $this->normalize($parse);
-        return $this->createActivities($activities, $data);
+        return $this->createActivities($source, $activities, $data);
     }
 
     public function readFromBinary(string $data) : ActivityCollection
     {
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat()
+        );
+
         $activities = new ActivityCollection();
         $parse = new phpFITFileAnalysis($data, ['input_is_data' => true]);
         $data  = $this->normalize($parse);
-        return $this->createActivities($activities, $data);
+        return $this->createActivities($source, $activities, $data);
     }
 
 }

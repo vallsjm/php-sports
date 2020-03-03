@@ -17,6 +17,7 @@ use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
+use PhpSports\Model\Source;
 use \SimpleXMLElement;
 
 class ParseFileKNH extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
@@ -78,12 +79,25 @@ class ParseFileKNH extends BaseParseFile implements ParseFileReadInterface, Pars
         return $analysisCollection;
     }
 
-    private function createActivities(ActivityCollection $activities, array $data) : ActivityCollection
+    private function createActivities(
+        ActivityCollection $activities,
+        array $data
+    ) : ActivityCollection
     {
         foreach ($data as $act) {
             $activity = new Activity($act['title']);
             $activity->setId($act['id']);
             $activity->setSport($act['sport']);
+
+            if (isset($act['source'])) {
+                $source = new Source(
+                    $act['source']['id'],
+                    $act['source']['type'],
+                    $act['source']['format'],
+                    $act['source']['fileName']
+                );
+                $activity->setSource($source);
+            }
             if (isset($act['analysis'])) {
                 $analysisCollection = $this->generateAnalysis($act['analysis']);
                 $activity->setAnalysis($analysisCollection);

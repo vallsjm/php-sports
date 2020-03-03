@@ -10,16 +10,22 @@ use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
+use PhpSports\Model\Source;
 use \SimpleXMLElement;
 
 class ParseFileGPX extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
 {
     const FILETYPE = 'GPX';
 
-    private function createActivities(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
+    private function createActivities(
+        Source $source,
+        ActivityCollection $activities,
+        SimpleXMLElement $data
+    ) : ActivityCollection
     {
         foreach ($data->trk as $trk) {
             $activity = new Activity((string) $trk->name);
+            $activity->setSource($source);
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
@@ -128,10 +134,19 @@ EOD;
 
     public function readFromFile(string $fileName) : ActivityCollection
     {
+        $pathInfo = pathinfo($fileName);
+
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat(),
+            $pathInfo['basename']
+        );
+
         $activities = new ActivityCollection();
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->createActivities($activities, $sxml);
+        return $this->createActivities($source, $activities, $sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -150,9 +165,15 @@ EOD;
 
     public function readFromBinary(string $data) : ActivityCollection
     {
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat()
+        );
+
         $activities = new ActivityCollection();
         $sxml = new SimpleXMLElement($data);
-        return $this->createActivities($activities, $sxml);
+        return $this->createActivities($source, $activities, $sxml);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

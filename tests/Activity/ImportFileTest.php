@@ -12,11 +12,12 @@ final class ImportFileTest extends FileCase
 
     public function testImportFiles()
     {
-        $filePath = $this->base_dir . '/source/' . 'cycling_indoor_02.fit';
+        $filePath = $this->base_dir . '/source/' . 'cycling_mountain_04.gpx';
 
         $athlete = new Athlete();
-        $athlete->setHrBPM(120);
-        $athlete->setPowerWatts(100);
+        $athlete->setMaxHrBPM(120);
+        $athlete->setWeightKg(80);
+        $athlete->setFtpPowerWatts(100);
 
         $activities = ImportFile::readFromFile($filePath, $athlete);
 
@@ -25,8 +26,8 @@ final class ImportFileTest extends FileCase
         // $parseFIT->setAthlete($athlete);
         //$activities = $parseFIT->readFromFile($filePath);
 
-        // $json = json_encode($activities, JSON_PRETTY_PRINT);
-        // print_r($json);
+        $json = json_encode($activities, JSON_PRETTY_PRINT);
+        print_r($json);
 
         // foreach ($this->testFiles as $testFile) {
         //     // if ($testFile['fileName'] == 'cycling_indoor_01.fit') {

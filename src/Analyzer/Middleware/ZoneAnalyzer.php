@@ -102,8 +102,8 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
         $this->createParameterMatrix();
 
         if ($athlete = $activity->getAthlete()) {
-            $hrBPM      = $athlete->getHrBPM();
-            $powerWatts = $athlete->getPowerWatts();
+            $hrBPM      = $athlete->getMaxHrBPM();
+            $powerWatts = $athlete->getFtpPowerWatts();
 
             if (!$hrBPM) {
                 unset($this->matrix['zonesHR']);

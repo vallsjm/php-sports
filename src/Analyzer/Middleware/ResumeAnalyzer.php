@@ -12,12 +12,13 @@ use \Closure;
 
 class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
 
-    private function calculatePoints(PointCollection $points)
+    private function calculatePointsActivity(PointCollection $points)
     {
         $distanceMeters      = 0;
         $durationSeconds     = 0;
         $elevationGainMeters = 0;
         $totalPoints         = 0;
+        $queueHrBPM          = [];
 
         $lastPoint = null;
         foreach ($points as $point) {
@@ -31,6 +32,40 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             if (!$point->getSpeedMetersPerSecond() && $duration) {
                 $point->setSpeedMetersPerSecond($distance / $duration);
             }
+            if ($hrBPM = $point->getHrBPM()) {
+                $queueHrBPM[] = $hrBPM;
+            }
+
+            $distanceMeters      += $distance;
+            $durationSeconds     += $duration;
+            $elevationGainMeters += $elevation;
+
+            $lastPoint = $point;
+            $totalPoints++;
+        }
+
+        return [
+            'distanceMeters'      => $distanceMeters,
+            'durationSeconds'     => $durationSeconds,
+            'elevationGainMeters' => $elevationGainMeters,
+            'maxHrBPM'            => ($numHrBPM = count($queueHrBPM)) ? max($queueHrBPM) : null,
+            'avgHrBPM'            => ($numHrBPM) ? (array_sum($queueHrBPM) / $numHrBPM) : null,
+            'totalPoints'         => $totalPoints
+        ];
+    }
+
+    private function calculatePointsLap(PointCollection $points)
+    {
+        $distanceMeters      = 0;
+        $durationSeconds     = 0;
+        $elevationGainMeters = 0;
+        $totalPoints         = 0;
+
+        $lastPoint = null;
+        foreach ($points as $point) {
+            $distance  = Calculate::calculateDistanceMeters($lastPoint, $point);
+            $duration  = Calculate::calculateDurationSeconds($lastPoint, $point);
+            $elevation = Calculate::calculateElevationGainMeters($lastPoint, $point);
 
             $distanceMeters      += $distance;
             $durationSeconds     += $duration;
@@ -50,11 +85,32 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
 
     public function analyze(Activity $activity, Closure $next)
     {
-        $points = $activity->getPoints();
+        $points  = $activity->getPoints();
+        $calculate = $this->calculatePointsActivity($points);
 
-        $calulate = $this->calculatePoints($points);
+        if ($athlete = $activity->getAthlete()) {
+            if ($athlete->getWeightKg()) {
+                $calculate['caloriesKcal'] = Calculate::calculateKcal(
+                    $athlete->getWeightKg(),
+                    $calculate['durationSeconds']
+                );
+            }
 
-        $analysis = new ResumeAnalysis($calulate);
+            if ($calculate['maxHrBPM']) {
+                $calculate['tss'] = Calculate::calculateTss(
+                    $calculate['durationSeconds'],
+                    max($calculate['maxHrBPM'], $athlete->getMaxHrBPM()),
+                    $calculate['avgHrBPM']
+                );
+            } else {
+                $calculate['tss'] = Calculate::calculateTssFromLevel(
+                    $calculate['durationSeconds']
+                );
+            }
+        }
+
+        unset($calculate['maxHrBPM'], $calculate['avgHrBPM']);
+        $analysis = new ResumeAnalysis($calculate);
         $activity->addAnalysis($analysis);
 
         if (!$activity->setStartedAt()) {
@@ -67,9 +123,9 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         $laps   = $activity->getLaps();
         foreach ($laps as $lap) {
             $filtered = $points->filterByLap($lap);
-            $calulate = $this->calculatePoints($filtered);
+            $calculate = $this->calculatePointsLap($filtered);
 
-            $analysis = new ResumeAnalysis($calulate);
+            $analysis = new ResumeAnalysis($calculate);
             $lap->addAnalysis($analysis);
         }
 

@@ -10,6 +10,7 @@ use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
+use PhpSports\Model\Source;
 use \SimpleXMLElement;
 
 class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
@@ -51,10 +52,15 @@ class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, Pars
         return null;
     }
 
-    private function createActivities(ActivityCollection $activities, SimpleXMLElement $data) : ActivityCollection
+    private function createActivities(
+        Source $source,
+        ActivityCollection $activities,
+        SimpleXMLElement $data
+    ) : ActivityCollection
     {
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity();
+            $activity->setSource($source);
             $activity->setId((string) $act->Id);
             $activity->setSport(
                 $this->normalizeSport($act->attributes()->Sport)
@@ -220,10 +226,19 @@ EOD;
 
     public function readFromFile(string $fileName) : ActivityCollection
     {
+        $pathInfo = pathinfo($fileName);
+
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat(),
+            $pathInfo['basename']
+        );
+
         $activities = new ActivityCollection();
         $data = file_get_contents($fileName, true);
         $sxml = new SimpleXMLElement($data);
-        return $this->createActivities($activities, $sxml);
+        return $this->createActivities($source, $activities, $sxml);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -242,9 +257,15 @@ EOD;
 
     public function readFromBinary(string $data) : ActivityCollection
     {
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat()
+        );
+
         $activities = new ActivityCollection();
         $sxml = new SimpleXMLElement($data);
-        return $this->createActivities($activities, $sxml);
+        return $this->createActivities($source, $activities, $sxml);
     }
 
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string

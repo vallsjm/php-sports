@@ -7,8 +7,8 @@ use \JsonSerializable;
 final class Athlete implements JsonSerializable
 {
     private $id;
-    private $hrBPM; // maxHr
-    private $powerWatts; // ftp
+    private $maxHrBPM; // maxHr
+    private $ftpPowerWatts; // ftp
     private $gender;
     private $ageYears;
     private $weightKg;
@@ -17,8 +17,8 @@ final class Athlete implements JsonSerializable
     public function __construct()
     {
         $this->id            = null;
-        $this->hrBPM         = null;
-        $this->powerWatts    = null;
+        $this->maxHrBPM      = null;
+        $this->ftpPowerWatts = null;
         $this->gender        = null;
         $this->ageYears      = null;
         $this->weightKg      = null;
@@ -35,24 +35,24 @@ final class Athlete implements JsonSerializable
         $this->id = $id;
     }
 
-    public function getHrBPM()
+    public function getMaxHrBPM()
     {
-        return $this->hrBPM;
+        return $this->maxHrBPM;
     }
 
-    public function setHrBPM(int $hrBPM = null)
+    public function setMaxHrBPM(int $maxHrBPM = null)
     {
-        $this->hrBPM = $hrBPM;
+        $this->maxHrBPM = $maxHrBPM;
     }
 
-    public function getPowerWatts()
+    public function getFtpPowerWatts()
     {
-        return $this->powerWatts;
+        return $this->ftpPowerWatts;
     }
 
-    public function setPowerWatts(int $powerWatts = null)
+    public function setFtpPowerWatts(int $ftpPowerWatts = null)
     {
-        $this->powerWatts = $powerWatts;
+        $this->ftpPowerWatts = $ftpPowerWatts;
     }
 
     public function getGender()
@@ -98,8 +98,8 @@ final class Athlete implements JsonSerializable
     public function jsonSerialize() {
         return [
             'id'            => $this->id,
-            'hrBPM'         => $this->hrBPM,
-            'powerWatts'    => $this->powerWatts,
+            'maxHrBPM'      => $this->maxHrBPM,
+            'ftpPowerWatts' => $this->ftpPowerWatts,
             'gender'        => $this->gender,
             'ageYears'      => $this->ageYears,
             'weightKg'      => $this->weightKg,
