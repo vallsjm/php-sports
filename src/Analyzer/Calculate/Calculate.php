@@ -12,10 +12,13 @@ class Calculate
 	)
 	{
 		if (!$from) {
-			return ($to->getDistanceMeters()) ? $to->getDistanceMeters() : 0;
+			return 0;
+		}
+		if (!is_null($to->getDistanceMeters()) && !is_null($from->getDistanceMeters())) {
+			return $to->getDistanceMeters() - $from->getDistanceMeters();
 		}
 		if (!$from->getLatitude() || !$to->getLatitude()) {
-			return $to->getDistanceMeters() - $from->getDistanceMeters();
+			return null;
 		}
 
 		$earthRadius = 6371000;

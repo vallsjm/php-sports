@@ -63,26 +63,22 @@ class ParseFileFIT extends BaseParseFile implements ParseFileReadInterface
         }
 
         $data = [
-            'analysis' => [],
-            'points'   => []
+            'analysis' => $parse->data_mesgs['session'],
+            'points'   => $points,
+            'laps'     => []
         ];
 
-        $data['points'][0] = $points;
+        $data['points'] = $points;
         if (isset($parse->data_mesgs['lap']['timestamp'])) {
             if (is_array($parse->data_mesgs['lap']['timestamp'])) {
                 foreach ($parse->data_mesgs['lap']['timestamp'] as $key => $timeEnd) {
-                    $timeStart = $parse->data_mesgs['lap']['start_time'][$key];
-                    reset($points);
-                    $data['points'][$key] = array_filter($points, function($point) use (&$points, $timeStart, $timeEnd) {
-                        $time = key($points);
-                        next($points);
-                        return (($time >= $timeStart) && ($time <= $timeEnd));
-                    });
+                    $data['laps'][] = [
+                        'from' => $parse->data_mesgs['lap']['start_time'][$key],
+                        'to'   => $timeEnd
+                    ];
                 }
             }
         }
-
-        $data['analysis'] = $parse->data_mesgs['session'];
 
         if (isset($data['analysis']['sport'])) {
             $data['analysis']['sport'] = $this->normalizeSport(
@@ -108,41 +104,42 @@ class ParseFileFIT extends BaseParseFile implements ParseFileReadInterface
             $activity->setSport($data['analysis']['sport']);
         }
 
-        foreach ($data['points'] as $lapId => $points) {
-            $times = array_keys($points);
+        foreach ($data['points'] as $timestamp => $values) {
+            $point = new Point($timestamp);
+            if (isset($values['position_lat'])) {
+                $point->setLatitude($values['position_lat']);
+                $point->setLongitude($values['position_long']);
+            }
+            if (isset($values['distance'])) {
+                $point->setDistanceKilometers($values['distance']);
+            }
+            if (isset($values['altitude'])) {
+                $point->setAltitudeMeters($values['altitude']);
+            }
+            if (isset($values['cadence'])) {
+                $point->setCadenceRPM($values['cadence']);
+            }
+            if (isset($values['power'])) {
+                $point->setPowerWatts($values['power']);
+            }
+            if (isset($values['heart_rate'])) {
+                $point->setHrBPM($values['heart_rate']);
+            }
+            if (isset($values['speed'])) {
+                $point->setSpeedKilometersPerHour($values['speed']);
+            }
+
+            $activity->addPoint($point);
+        }
+
+        $nlap = 1;
+        foreach ($data['laps'] as $values) {
             $lap = new Lap(
                 "L{$nlap}",
-                min($times),
-                max($times)
+                $values['from'],
+                $values['to']
             );
             $activity->addLap($lap);
-            foreach ($points as $timestamp => $values) {
-                $point = new Point($timestamp);
-                if (isset($values['position_lat'])) {
-                    $point->setLatitude($values['position_lat']);
-                    $point->setLongitude($values['position_long']);
-                }
-                if (isset($values['distance'])) {
-                    $point->setDistanceMeters($values['distance']*1000);
-                }
-                if (isset($values['altitude'])) {
-                    $point->setAltitudeMeters($values['altitude']);
-                }
-                if (isset($values['cadence'])) {
-                    $point->setCadenceRPM($values['cadence']);
-                }
-                if (isset($values['power'])) {
-                    $point->setPowerWatts($values['power']);
-                }
-                if (isset($values['heart_rate'])) {
-                    $point->setHrBPM($values['heart_rate']);
-                }
-                if (isset($values['speed'])) {
-                    $point->setSpeedMetersPerSecond($values['speed']);
-                }
-
-                $activity->addPoint($point);
-            }
             $nlap++;
         }
 

@@ -2,7 +2,9 @@
 
 namespace PhpSports\Model;
 
+use PhpSports\Model\Schema;
 use \JsonSerializable;
+use \Exception;
 
 final class Point implements JsonSerializable
 {
@@ -19,8 +21,14 @@ final class Point implements JsonSerializable
 
     private static $schema;
 
-    public function __construct(int $timestamp = null)
+    public function __construct(
+        int $timestamp = null
+    )
     {
+        if (!self::$schema) {
+            self::resetSchema();
+        }
+
         $this->latitude             = null;
         $this->longitude            = null;
         $this->altitudeMeters       = null;
@@ -31,11 +39,18 @@ final class Point implements JsonSerializable
         $this->powerWatts           = null;
         $this->hrBPM                = null;
 
-        if (is_null(self::$schema)) {
-            self::$schema = [];
-        }
-
         $this->setTimestamp($timestamp);
+    }
+
+    public static function resetSchema()
+    {
+        self::$schema = new Schema();
+        return self::$schema;
+    }
+
+    public static function setSchema(Schema $schema)
+    {
+        self::$schema = $schema;
     }
 
     public static function getSchema()
@@ -51,7 +66,7 @@ final class Point implements JsonSerializable
     public function setTimestamp(int $timestamp = null)
     {
         $this->timestamp = $timestamp;
-        self::$schema['timestamp'] = true;
+        self::$schema->addParameter('timestamp');
     }
 
     public function getLatitude()
@@ -62,7 +77,7 @@ final class Point implements JsonSerializable
     public function setLatitude(float $latitude = null)
     {
         $this->latitude = $latitude;
-        self::$schema['latitude'] = true;
+        self::$schema->addParameter('latitude', 5);
     }
 
     public function getLongitude()
@@ -73,7 +88,7 @@ final class Point implements JsonSerializable
     public function setLongitude(float $longitude = null)
     {
         $this->longitude = $longitude;
-        self::$schema['longitude'] = true;
+        self::$schema->addParameter('longitude', 5);
     }
 
     public function getDistanceMeters()
@@ -84,7 +99,18 @@ final class Point implements JsonSerializable
     public function setDistanceMeters(float $distanceMeters = null)
     {
         $this->distanceMeters = $distanceMeters;
-        self::$schema['distanceMeters'] = true;
+        self::$schema->addParameter('distanceMeters');
+    }
+
+    public function getDistanceKilometers()
+    {
+        return $this->distanceMeters / 1000;
+    }
+
+    public function setDistanceKilometers(float $distanceKilometers = null)
+    {
+        $this->distanceMeters = $distanceKilometers * 1000;
+        self::$schema->addParameter('distanceMeters');
     }
 
     public function getElevationMeters()
@@ -95,7 +121,7 @@ final class Point implements JsonSerializable
     public function setElevationMeters(float $elevationMeters = null)
     {
         $this->elevationMeters = $elevationMeters;
-        self::$schema['elevationMeters'] = true;
+        self::$schema->addParameter('elevationMeters');
     }
 
     public function getAltitudeMeters()
@@ -106,7 +132,7 @@ final class Point implements JsonSerializable
     public function setAltitudeMeters(float $altitudeMeters = null)
     {
         $this->altitudeMeters = $altitudeMeters;
-        self::$schema['altitudeMeters'] = true;
+        self::$schema->addParameter('altitudeMeters');
     }
 
     public function getCadenceRPM()
@@ -117,7 +143,7 @@ final class Point implements JsonSerializable
     public function setCadenceRPM(int $cadenceRPM = null)
     {
         $this->cadenceRPM = $cadenceRPM;
-        self::$schema['cadenceRPM'] = true;
+        self::$schema->addParameter('cadenceRPM');
     }
 
     public function getPowerWatts()
@@ -128,7 +154,7 @@ final class Point implements JsonSerializable
     public function setPowerWatts(int $powerWatts = null)
     {
         $this->powerWatts = $powerWatts;
-        self::$schema['powerWatts'] = true;
+        self::$schema->addParameter('powerWatts');
     }
 
     public function getHrBPM()
@@ -139,7 +165,7 @@ final class Point implements JsonSerializable
     public function setHrBPM(int $hrBPM = null)
     {
         $this->hrBPM = $hrBPM;
-        self::$schema['hrBPM'] = true;
+        self::$schema->addParameter('hrBPM');
     }
 
     public function getSpeedMetersPerSecond()
@@ -150,7 +176,18 @@ final class Point implements JsonSerializable
     public function setSpeedMetersPerSecond(float $speedMetersPerSecond = null)
     {
         $this->speedMetersPerSecond = $speedMetersPerSecond;
-        self::$schema['speedMetersPerSecond'] = true;
+        self::$schema->addParameter('speedMetersPerSecond');
+    }
+
+    public function getSpeedKilometersPerHour()
+    {
+        return $this->speedMetersPerSecond * 3.6;
+    }
+
+    public function setSpeedKilometersPerHour(float $speedKilometersPerHour = null)
+    {
+        $this->speedMetersPerSecond = $speedKilometersPerHour / 3.6;
+        self::$schema->addParameter('speedMetersPerSecond');
     }
 
     public function getParameter(string $parameter)
@@ -161,43 +198,15 @@ final class Point implements JsonSerializable
     public function setParameter(string $parameter, $value)
     {
         $this->{$parameter} = $value;
-        self::$schema[$parameter] = true;
+        self::$schema->addParameter($parameter);
     }
 
     public function jsonSerialize() {
-        $point = [
-            'timestamp' => $this->timestamp
-        ];
-
-        if ($this->latitude) {
-            $point['latitude'] = $this->latitude;
+        $ret = [];
+        foreach (self::$schema->getParameters() as $parameter => $accurency) {
+            $ret[] = round($this->{$parameter}, $accurency);
         }
-        if ($this->longitude) {
-            $point['longitude'] = $this->longitude;
-        }
-        if ($this->altitudeMeters) {
-            $point['altitudeMeters'] = $this->altitudeMeters;
-        }
-        if ($this->elevationMeters) {
-            $point['elevationMeters'] = $this->elevationMeters;
-        }
-        if ($this->distanceMeters) {
-            $point['distanceMeters'] = $this->distanceMeters;
-        }
-        if ($this->speedMetersPerSecond) {
-            $point['speedMetersPerSecond'] = $this->speedMetersPerSecond;
-        }
-        if ($this->cadenceRPM) {
-            $point['cadenceRPM'] = $this->cadenceRPM;
-        }
-        if ($this->powerWatts) {
-            $point['powerWatts'] = $this->powerWatts;
-        }
-        if ($this->hrBPM) {
-            $point['hrBPM'] = $this->hrBPM;
-        }
-
-        return $point;
+        return $ret;
     }
 
 }

@@ -13,7 +13,7 @@ use PhpSports\Model\Source;
 use \DateTime;
 use \Exception;
 
-class ParseApiGarmin extends BaseParseAPI implements ParseAPIReadInterface
+class ParseApiGARMIN extends BaseParseAPI implements ParseAPIReadInterface
 {
     const APITYPE = 'GARMIN';
 
@@ -112,8 +112,6 @@ class ParseApiGarmin extends BaseParseAPI implements ParseAPIReadInterface
                 $activity->setSport($itemInfo['activityType']);
             }
 
-            //$timestamp = $activityInfo['startTimeInSeconds'] + $activityInfo['startTimeOffsetInSeconds'];
-            $lastDistance = 0;
             foreach ($item['samples'] as $garmin) {
                 $timestamp = $garmin['startTimeInSeconds'] + $itemInfo['startTimeOffsetInSeconds'];
                 $point     = new Point($timestamp);
@@ -122,8 +120,7 @@ class ParseApiGarmin extends BaseParseAPI implements ParseAPIReadInterface
                     $point->setLongitude((float) $garmin['longitudeInDegree']);
                 }
                 if (isset($garmin['totalDistanceInMeters'])) {
-                    $point->setDistanceMeters( (float) $garmin['totalDistanceInMeters'] - $lastDistance );
-                    $lastDistance = (float) $garmin['totalDistanceInMeters'];
+                    $point->setDistanceMeters((float) $garmin['totalDistanceInMeters']);
                 }
                 if isset($garmin['elevationInMeters']) {
                     $point->setElevationMeters((float) $garmin['elevationInMeters']);
@@ -138,6 +135,17 @@ class ParseApiGarmin extends BaseParseAPI implements ParseAPIReadInterface
                     $point->setPowerWatts((int) $garmin['powerInWatts']);
                 }
                 $activity->addPoint($point);
+            }
+
+            $laps = array_column($item['laps'], 'startTimeInSeconds');
+            for ($n=count($laps), $i=0; $i<$n; $i++) {
+                $name       = 'L' . ($i+1);
+                $lap = new Lap(
+                    $name,
+                    $laps[$i],
+                    (isset($laps[$i+1])) ? $laps[$i+1] : $timestamp
+                );
+                $activity->addLap($lap);
             }
 
             $resume = [];

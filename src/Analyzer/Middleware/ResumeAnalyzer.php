@@ -26,10 +26,10 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             $duration  = Calculate::calculateDurationSeconds($lastPoint, $point);
             $elevation = Calculate::calculateElevationGainMeters($lastPoint, $point);
 
-            if (!$point->getDistanceMeters()) {
-                $point->setDistanceMeters($distance);
+            if (is_null($point->getDistanceMeters())) {
+                $point->setDistanceMeters($distanceMeters);
             }
-            if (!$point->getSpeedMetersPerSecond() && $duration) {
+            if (is_null($point->getSpeedMetersPerSecond()) && $duration) {
                 $point->setSpeedMetersPerSecond($distance / $duration);
             }
             if ($hrBPM = $point->getHrBPM()) {

@@ -68,13 +68,10 @@ class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, Pars
 
             $nlap = 1;
             foreach ($act->Lap as $lp) {
-                $lapFrom = 999999999;
-                $lapTo   = -999999999;
+                $lap = new Lap("L{$nlap}");
                 foreach ($lp->Track->Trackpoint as $pt) {
                     $time  = new \DateTime((string) $pt->Time);
                     $point = new Point($time->getTimestamp());
-                    $lapFrom = min($time->getTimestamp(), $lapFrom);
-                    $lapTo   = max($time->getTimestamp(), $lapTo);
                     if ($pt->Position) {
                         $point->setLatitude((float) $pt->Position->LatitudeDegrees);
                         $point->setLongitude((float) $pt->Position->LongitudeDegrees);
@@ -108,6 +105,7 @@ class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, Pars
                     }
 
                     $activity->addPoint($point);
+                    $lap->addPoint($point);
                 }
 
                 $resume = [];
@@ -120,12 +118,6 @@ class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, Pars
                 if ($lp->Calories) {
                     $resume['caloriesKcal'] = (float) $lp->Calories;
                 }
-
-                $lap = new Lap(
-                    "L{$nlap}",
-                    $lapFrom,
-                    $lapTo
-                );
                 if (count($resume)) {
                     $analysis = new ResumeAnalysis($resume);
                     $lap->addAnalysis($analysis);

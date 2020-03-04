@@ -29,13 +29,10 @@ class ParseFileGPX extends BaseParseFile implements ParseFileReadInterface, Pars
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
-                $lapFrom = 999999999;
-                $lapTo   = -999999999;
+                $lap = new Lap("L{$nlap}");
                 foreach ($trkseg->trkpt as $trkpt) {
                     $time    = new \DateTime((string) $trkpt->time);
                     $point   = new Point($time->getTimestamp());
-                    $lapFrom = min($time->getTimestamp(), $lapFrom);
-                    $lapTo   = max($time->getTimestamp(), $lapTo);
                     $point->setLatitude((float) $trkpt->attributes()->lat);
                     $point->setLongitude((float) $trkpt->attributes()->lon);
                     $point->setElevationMeters((float) $trkpt->ele);
@@ -58,12 +55,8 @@ class ParseFileGPX extends BaseParseFile implements ParseFileReadInterface, Pars
                         }
         			}
                     $activity->addPoint($point);
+                    $lap->addPoint($point);
                 }
-                $lap = new Lap(
-                    "L{$nlap}",
-                    $lapFrom,
-                    $lapTo
-                );
                 $activity->addLap($lap);
                 $nlap++;
             }

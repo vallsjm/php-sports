@@ -2,12 +2,24 @@
 
 namespace PhpSports\Model;
 
+use PhpSports\Model\Schema;
 use PhpSports\Model\Point;
 use PhpSports\Model\Lap;
 use \Closure;
 
 class PointCollection extends \ArrayObject implements \JsonSerializable
 {
+    private $schema;
+
+    public function __construct($points = [])
+    {
+        if ($point = current($points)) {
+            $this->schema = $point::getSchema();
+        } else {
+            $this->schema = Point::resetSchema();
+        }
+        parent::__construct($points);
+    }
 
     public function offsetSet($offset, $value)
     {
@@ -16,6 +28,11 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
         }
 
         parent::offsetSet($offset, $value);
+    }
+
+    public static function getSchema() : Schema
+    {
+        return $this->schema;
     }
 
     public function addPoint(Point $point)
@@ -62,6 +79,10 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
     }
 
     public function jsonSerialize() {
-        return array_values((array) $this);
+        Point::setSchema($this->schema);
+        return [
+            'schema' => $this->schema,
+            'points' => array_values((array) $this)
+        ];
     }
 }

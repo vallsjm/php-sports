@@ -122,12 +122,12 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
                         if ($zoneName = $this->zoneName('zonesHR', $hrPercent)) {
                             $this->matrix['zonesHR'][$zoneName]['durationSeconds'] += $durationSeconds;
                             if ($speed) {
-                                $this->matrix['zonesHR'][$zoneName]['speedQueue']['sumSpeed'] += $speed;
-                                $this->matrix['zonesHR'][$zoneName]['speedQueue']['countSpeed']++;
+                                $this->matrix['zonesHR'][$zoneName]['sumSpeed'] += $speed;
+                                $this->matrix['zonesHR'][$zoneName]['countSpeed']++;
                             }
                             if ($power) {
-                                $this->matrix['zonesHR'][$zoneName]['powerQueue']['sumPower'] = $power;
-                                $this->matrix['zonesHR'][$zoneName]['powerQueue']['countPower']++;
+                                $this->matrix['zonesHR'][$zoneName]['sumPower'] = $power;
+                                $this->matrix['zonesHR'][$zoneName]['countPower']++;
                             }
                         }
                     }
@@ -137,12 +137,12 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
                         if ($zoneName = $this->zoneName('zonesPOWER', $powerPercent)) {
                             $this->matrix['zonesPOWER'][$zoneName]['durationSeconds'] += $durationSeconds;
                             if ($speed) {
-                                $this->matrix['zonesPOWER'][$zoneName]['speedQueue']['sumSpeed'] += $speed;
-                                $this->matrix['zonesPOWER'][$zoneName]['speedQueue']['countSpeed']++;
+                                $this->matrix['zonesPOWER'][$zoneName]['sumSpeed'] += $speed;
+                                $this->matrix['zonesPOWER'][$zoneName]['countSpeed']++;
                             }
                             if ($power) {
-                                $this->matrix['zonesPOWER'][$zoneName]['powerQueue']['sumPower'] = $power;
-                                $this->matrix['zonesPOWER'][$zoneName]['powerQueue']['countPower']++;
+                                $this->matrix['zonesPOWER'][$zoneName]['sumPower'] = $power;
+                                $this->matrix['zonesPOWER'][$zoneName]['countPower']++;
                             }
                         }
                     }

@@ -2,8 +2,9 @@
 
 namespace PhpSports\Model;
 
-use PhpSports\Model\Analysis;
 use PhpSports\Model\AnalysisCollection;
+use PhpSports\Model\Analysis;
+use PhpSports\Model\Point;
 use \JsonSerializable;
 use \DateTime;
 
@@ -16,8 +17,8 @@ final class Lap implements JsonSerializable
 
     public function __construct(
         string $name = null,
-        int $timestampFrom,
-        int $timestampTo
+        int $timestampFrom = null,
+        int $timestampTo = null
     )
     {
         $this->timestampFrom       = $timestampFrom;
@@ -69,6 +70,12 @@ final class Lap implements JsonSerializable
     public function setAnalysis(AnalysisCollection $analysis)
     {
         $this->analysis = $analysis;
+    }
+
+    public function addPoint(Point $point)
+    {
+        $this->timestampFrom = (!$this->timestampFrom) ? $point->getTimestamp() : min($point->getTimestamp(), $this->timestampFrom);
+        $this->timestampTo   = (!$this->timestampTo) ? $point->getTimestamp()   : max($point->getTimestamp(), $this->timestampTo);
     }
 
     public function jsonSerialize() {
