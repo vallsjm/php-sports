@@ -14,15 +14,23 @@ final class Athlete implements JsonSerializable
     private $weightKg;
     private $heightMetters;
 
-    public function __construct()
+    public function __construct(
+        $id                  = null,
+        int $maxHrBPM        = null,
+        int $ftpPowerWatts   = null,
+        string $gender       = null,
+        int $ageYears        = null,
+        int $weightKg        = null,
+        float $heightMetters = null
+    )
     {
-        $this->id            = null;
-        $this->maxHrBPM      = null;
-        $this->ftpPowerWatts = null;
-        $this->gender        = null;
-        $this->ageYears      = null;
-        $this->weightKg      = null;
-        $this->heightMetters = null;
+        $this->id            = $id;
+        $this->maxHrBPM      = $maxHrBPM;
+        $this->ftpPowerWatts = $ftpPowerWatts;
+        $this->gender        = $gender;
+        $this->ageYears      = $ageYears;
+        $this->weightKg      = $weightKg;
+        $this->heightMetters = $heightMetters;
     }
 
     public function getId()

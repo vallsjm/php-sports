@@ -25,18 +25,20 @@ class Activity implements JsonSerializable
     private $laps;
     private $points;
     private $startedAt;
+    private $timestampOffset;
 
     public function __construct(string $title = null)
     {
-        $this->laps                = new LapCollection();
-        $this->analysis            = new AnalysisCollection();
-        $this->points              = new PointCollection();
-        $this->id                  = null;
-        $this->sport               = null;
-        $this->athlete             = null;
-        $this->source              = null;
-        $this->startedAt           = null;
-        $this->title               = $title;
+        $this->laps            = new LapCollection();
+        $this->analysis        = new AnalysisCollection();
+        $this->points          = new PointCollection();
+        $this->id              = null;
+        $this->sport           = null;
+        $this->athlete         = null;
+        $this->source          = null;
+        $this->startedAt       = null;
+        $this->timestampOffset = null;
+        $this->title           = $title;
     }
 
     public function getId()
@@ -147,17 +149,28 @@ class Activity implements JsonSerializable
         $this->startedAt = $startedAt;
     }
 
+    public function getTimestampOffset()
+    {
+        return $this->timestampOffset;
+    }
+
+    public function setTimestampOffset(int $timestampOffset = null)
+    {
+        $this->timestampOffset = $timestampOffset;
+    }
+
     public function jsonSerialize() {
         return [
-            'id'        => $this->id,
-            'sport'     => $this->sport,
-            'startedAt' => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
-            'title'     => $this->title,
-            'athlete'   => $this->athlete,
-            'source'    => $this->source,
-            'analysis'  => $this->analysis,
-            'laps'      => $this->laps,
-            'points'    => $this->points
+            'id'              => $this->id,
+            'sport'           => $this->sport,
+            'startedAt'       => ($this->startedAt) ? $this->startedAt->format('Y-m-d H:i:s') : null,
+            'timestampOffset' => $this->timestampOffset,
+            'title'           => $this->title,
+            'athlete'         => $this->athlete,
+            'source'          => $this->source,
+            'analysis'        => $this->analysis,
+            'laps'            => $this->laps,
+            'points'          => $this->points
         ];
     }
 

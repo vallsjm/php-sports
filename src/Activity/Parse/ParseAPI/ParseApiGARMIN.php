@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Application\Import\Parse\ParseAPI;
+namespace PhpSports\Activity\Parse\ParseAPI;
 
-use PhpSports\Activity\Parse\ParseAPIReadInterface;
+use PhpSports\Activity\Parse\ParseReadInterface;
 use PhpSports\Activity\Parse\BaseParseAPI;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
@@ -13,7 +13,7 @@ use PhpSports\Model\Source;
 use \DateTime;
 use \Exception;
 
-class ParseApiGARMIN extends BaseParseAPI implements ParseAPIReadInterface
+class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
 {
     const APITYPE = 'GARMIN';
 
@@ -94,26 +94,31 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseAPIReadInterface
         return $data;
     }
 
-    public function createActivities(ActivityCollection $activities, array $data) : ActivityCollection
+    public function createActivities(
+        Source $source,
+        ActivityCollection $activities,
+        array $data
+    ) : ActivityCollection
     {
         foreach ($data as $item) {
             $itemInfo = $item['summary'];
 
-            $source = new Source(
-                $item['summaryId'],
-                self::getType(),
-                self::getFormat()
-            );
+            $newSource = clone $source;
+            $newSource->setId($item['summaryId']);
 
             $activity = new Activity();
-            $activity->setSource($source);
+            $activity->setSource($newSource);
 
             if (isset($itemInfo['activityType'])) {
                 $activity->setSport($itemInfo['activityType']);
             }
+            if (isset($itemInfo['startTimeOffsetInSeconds'])) {
+                $activity->setTimestampOffset($itemInfo['startTimeOffsetInSeconds']);
+            }
 
             foreach ($item['samples'] as $garmin) {
-                $timestamp = $garmin['startTimeInSeconds'] + $itemInfo['startTimeOffsetInSeconds'];
+                $timestamp = $garmin['startTimeInSeconds'];
+
                 $point     = new Point($timestamp);
                 if (isset($garmin['latitudeInDegree'])) {
                     $point->setLatitude((float) $garmin['latitudeInDegree']);
@@ -122,7 +127,7 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseAPIReadInterface
                 if (isset($garmin['totalDistanceInMeters'])) {
                     $point->setDistanceMeters((float) $garmin['totalDistanceInMeters']);
                 }
-                if isset($garmin['elevationInMeters']) {
+                if (isset($garmin['elevationInMeters'])) {
                     $point->setElevationMeters((float) $garmin['elevationInMeters']);
                 }
                 if (isset($garmin['heartRate'])) {
@@ -173,11 +178,49 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseAPIReadInterface
         return $activities;
     }
 
-    public function readFromAPI(array $data) : ActivityCollection
+    public function readFromFile(string $fileName) : ActivityCollection
     {
+        $pathInfo = pathinfo($fileName);
+
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat(),
+            $pathInfo['basename']
+        );
+
+        $activities = new ActivityCollection();
+        $data       = file_get_contents($fileName, true);
+        $data       = json_decode($data, true);
+        $data       = $this->normalize($data);
+        return $this->createActivities($source, $activities, $data);
+    }
+
+    public function readFromArray(array $data) : ActivityCollection
+    {
+        $source = new Source(
+            null,
+            self::getType(),
+            self::getFormat()
+        );
+
         $activities = new ActivityCollection();
         $data  = $this->normalize($data);
-        return $this->createActivities($activities, $data);
+        return $this->createActivities($source, $activities, $data);
+    }
+
+    public function readFromBinary(string $data) : ActivityCollection
+    {
+        $source = new Source(
+            null,
+            self::getType(),
+            self::getFormat()
+        );
+
+        $activities = new ActivityCollection();
+        $data  = json_decode($data, true);
+        $data  = $this->normalize($data);
+        return $this->createActivities($source, $activities, $data);
     }
 
 }

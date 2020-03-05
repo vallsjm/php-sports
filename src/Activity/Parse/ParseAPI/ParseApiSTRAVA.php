@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Application\Import\Parse\ParseAPI;
+namespace PhpSports\Activity\Parse\ParseAPI;
 
-use PhpSports\Activity\Parse\ParseAPIReadInterface;
+use PhpSports\Activity\Parse\ParseReadInterface;
 use PhpSports\Activity\Parse\BaseParseAPI;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
@@ -13,7 +13,7 @@ use PhpSports\Model\Source;
 use \DateTime;
 use \Exception;
 
-class ParseApiSTRAVA extends BaseParseAPI implements ParseAPIReadInterface
+class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
 {
     const APITYPE = 'STRAVA';
 
@@ -60,98 +60,148 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseAPIReadInterface
         return $ret;
     }
 
+
+    // [[
+    //     'info' => información del activity,
+    //     'stream' => puntos,
+    //     'laps' => laps
+    // ],[
+    //     'info' => información del activity,
+    //     'stream' => puntos,
+    //     'laps' => laps
+    // ]]
     public function normalize(array $data)
     {
         foreach ($data as &$item) {
-            $item['summary']['activityType'] = $this->normalizeSport($item['summary']['activityType']);
+            $item['info']['type'] = $this->normalizeSport($item['info']['type']);
+            $points = [];
+            foreach ($item['stream'] as $stream) {
+                $type = $stream['type'];
+                switch ($type) {
+                    case 'latlng':
+                        foreach ($stream['data'] as $timestamp => $values) {
+                            if (!isset($points[$timestamp])) {
+                                $points[$timestamp] = [];
+                            }
+                            $points[$timestamp]['lat'] = $stream['data'][$timestamp][0];
+                            $points[$timestamp]['lng'] = $stream['data'][$timestamp][1];
+                        }
+                    break;
+                    default:
+                        foreach ($stream['data'] as $timestamp => $values) {
+                            if (!isset($points[$timestamp])) {
+                                $points[$timestamp] = [];
+                            }
+                            $points[$timestamp][$type] = $stream['data'][$timestamp];
+                        }
+                    break;
+                }
+            }
+            $item['points'] = $points;
+            unset($item['stream']);
         }
         return $data;
     }
 
-    public function createActivities(ActivityCollection $activities, array $data) : ActivityCollection
+    public function createActivities(
+        Source $source,
+        ActivityCollection $activities,
+        array $data
+    ) : ActivityCollection
     {
-        // foreach ($data as $item) {
-        //     $itemInfo = $item['summary'];
-        //
-        //     $source = new Source(
-        //         $item['summaryId'],
-        //         self::getType(),
-        //         self::getFormat()
-        //     );
-        //
-        //     $activity = new Activity();
-        //     $activity->setSource($source);
-        //
-        //     if (isset($itemInfo['activityType'])) {
-        //         $activity->setSport($itemInfo['activityType']);
-        //     }
-        //
-        //     foreach ($item['samples'] as $garmin) {
-        //         $timestamp = $garmin['startTimeInSeconds'] + $itemInfo['startTimeOffsetInSeconds'];
-        //         $point     = new Point($timestamp);
-        //         if (isset($garmin['latitudeInDegree'])) {
-        //             $point->setLatitude((float) $garmin['latitudeInDegree']);
-        //             $point->setLongitude((float) $garmin['longitudeInDegree']);
-        //         }
-        //         if (isset($garmin['totalDistanceInMeters'])) {
-        //             $point->setDistanceMeters((float) $garmin['totalDistanceInMeters']);
-        //         }
-        //         if isset($garmin['elevationInMeters']) {
-        //             $point->setElevationMeters((float) $garmin['elevationInMeters']);
-        //         }
-        //         if (isset($garmin['heartRate'])) {
-        //             $point->setHrBPM((int) $garmin['heartRate']);
-        //         }
-        //         if (isset($garmin['bikeCadenceInRPM'])) {
-        //             $point->setCadenceRPM((int) $garmin['bikeCadenceInRPM']);
-        //         }
-        //         if (isset($garmin['powerInWatts'])) {
-        //             $point->setPowerWatts((int) $garmin['powerInWatts']);
-        //         }
-        //         $activity->addPoint($point);
-        //     }
-        //
-        //     $laps = array_column($item['laps'], 'startTimeInSeconds');
-        //     for ($n=count($laps), $i=0; $i<$n; $i++) {
-        //         $name       = 'L' . ($i+1);
-        //         $lap = new Lap(
-        //             $name,
-        //             $laps[$i],
-        //             (isset($laps[$i+1])) ? $laps[$i+1] : $timestamp
-        //         );
-        //         $activity->addLap($lap);
-        //     }
-        //
-        //     $resume = [];
-        //     if (isset($itemInfo['distanceInMeters'])) {
-        //         $resume['distanceMeters'] = $itemInfo['distanceInMeters'];
-        //     }
-        //     if (isset($itemInfo['durationInSeconds'])) {
-        //         $resume['durationSeconds'] = round($itemInfo['durationInSeconds']);
-        //     }
-        //     if (isset($itemInfo['totalElevationGainInMeters'])) {
-        //         $resume['elevationGainMeters'] = $itemInfo['totalElevationGainInMeters'];
-        //     }
-        //     if (isset($itemInfo['activeKilocalories'])) {
-        //         $resume['caloriesKcal'] = $itemInfo['activeKilocalories'];
-        //     }
-        //     if (count($resume)) {
-        //         $analysis = new ResumeAnalysis($resume);
-        //         $activity->addAnalysis($analysis);
-        //     }
-        //
-        //     $activity = $this->analyze($activity);
-        //     $activities->addActivity($activity);
-        // }
-        //
-        // return $activities;
+        foreach ($data as $item) {
+            $itemInfo = $item['info'];
+
+            $newSource = clone $source;
+            $newSource->setId($item['id']);
+
+            $activity = new Activity();
+            $activity->setSource($newSource);
+
+            if (isset($itemInfo['type'])) {
+                $activity->setSport($itemInfo['type']);
+            }
+            if (isset($itemInfo['start_date_local'])) {
+                $activity->setTimestampOffset($itemInfo['start_date_local']);
+            }
+            foreach ($item['points'] as $strava) {
+                $timestamp = $strava['time'];
+                $point     = new Point($timestamp);
+                if (isset($strava['lat'])) {
+                    $point->setLatitude((float) $strava['lat']);
+                    $point->setLongitude((float) $strava['lng']);
+                }
+                if (isset($strava['distance'])) {
+                    $point->setDistanceMeters((float) $strava['distance']);
+                }
+                if isset($strava['altitude']) {
+                    $point->setAltitudeMeters((float) $garmin['altitude']);
+                }
+                if (isset($strava['heartrate'])) {
+                    $point->setHrBPM((int) $strava['heartrate']);
+                }
+                if (isset($strava['cadence'])) {
+                    $point->setCadenceRPM((int) $strava['cadence']);
+                }
+                if (isset($strava['watts'])) {
+                    $point->setPowerWatts((int) $strava['watts']);
+                }
+                $activity->addPoint($point);
+            }
+
+            foreach ($item['laps'] as $strava) {
+                $lap = new Lap(
+                    $strava['name'],
+                    $strava['start_index'],
+                    $strava['end_index']
+                );
+                $activity->addLap($lap);
+            }
+
+            $resume = [];
+            if (isset($itemInfo['distance'])) {
+                $resume['distanceMeters'] = $itemInfo['distance'];
+            }
+            if (isset($itemInfo['moving_time'])) {
+                $resume['durationSeconds'] = round($itemInfo['moving_time']);
+            }
+            if (isset($itemInfo['total_elevation_gain'])) {
+                $resume['elevationGainMeters'] = $itemInfo['total_elevation_gain'];
+            }
+            if (isset($itemInfo['calories'])) {
+                $resume['caloriesKcal'] = $itemInfo['calories'];
+            }
+            if (count($resume)) {
+                $analysis = new ResumeAnalysis($resume);
+                $activity->addAnalysis($analysis);
+            }
+
+            $activity = $this->analyze($activity);
+            $activities->addActivity($activity);
+        }
+
+        return $activities;
     }
 
-    public function readFromAPI(array $data) : ActivityCollection
+    public function readFromArray(array $data) : ActivityCollection
     {
         $activities = new ActivityCollection();
         $data  = $this->normalize($data);
         return $this->createActivities($activities, $data);
+    }
+
+    public function readFromBinary(string $data) : ActivityCollection
+    {
+        $source = new Source(
+            null,
+            self::getType(),
+            self::getFormat()
+        );
+
+        $activities = new ActivityCollection();
+        $data  = json_decode($data, true);
+        $data  = $this->normalize($data);
+        return $this->createActivities($source, $activities, $data);
     }
 
 }

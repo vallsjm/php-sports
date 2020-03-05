@@ -3,8 +3,8 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseFileReadInterface;
-use PhpSports\Activity\Parse\ParseFileSaveInterface;
+use PhpSports\Activity\Parse\ParseReadInterface;
+use PhpSports\Activity\Parse\ParseSaveInterface;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
@@ -13,7 +13,7 @@ use PhpSports\Model\Point;
 use PhpSports\Model\Source;
 use \SimpleXMLElement;
 
-class ParseFileGPX extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
+class ParseFileGPX extends BaseParseFile implements ParseReadInterface, ParseSaveInterface
 {
     const FILETYPE = 'GPX';
 
@@ -25,7 +25,7 @@ class ParseFileGPX extends BaseParseFile implements ParseFileReadInterface, Pars
     {
         foreach ($data->trk as $trk) {
             $activity = new Activity((string) $trk->name);
-            $activity->setSource($source);
+            $activity->setSource(clone $source);
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
@@ -182,4 +182,13 @@ EOD;
             return $data->asXML();
         }
     }
+
+    public function readFromArray(array $data) : ActivityCollection
+    {
+    }
+
+    public function saveToArray(ActivityCollection $activities) : array
+    {
+    }
+
 }

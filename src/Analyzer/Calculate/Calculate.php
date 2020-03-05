@@ -54,12 +54,12 @@ class Calculate
 		if (!$from) return 0;
 		$ini      = $from->getAltitudeMeters();
 		$fin      = $to->getAltitudeMeters();
-		if (!$ini || !$fin) {
+		if (is_null($ini) || is_null($fin)) {
 			$ini      = $from->getElevationMeters();
 			$fin      = $to->getElevationMeters();
 		}
-		if ($ini && $fin) {
-			return ($fin > $ini) ? ($fin - $ini) : 0;
+		if (!is_null($ini) && !is_null($fin)) {
+			return (($fin > $ini) && ($ini > 0)) ? ($fin - $ini) : 0;
 		}
 		return null;
     }

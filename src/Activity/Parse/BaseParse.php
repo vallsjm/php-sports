@@ -38,7 +38,7 @@ abstract class BaseParse implements AnalyzerInterface
             $middleware[] = new IntervalAnalyzer();
         }
 
-        $this->analyzer = new Analyzer($middleware, true);
+        $this->analyzer = new Analyzer($middleware);
     }
 
     public function setAthlete(Athlete $athlete)

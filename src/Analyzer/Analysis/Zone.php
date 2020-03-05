@@ -39,7 +39,7 @@ class Zone implements JsonSerializable
         $this->name = $name;
     }
 
-    public function getMinPercent() : int
+    public function getMinPercent()
     {
         return $this->minPercent;
     }
@@ -49,7 +49,7 @@ class Zone implements JsonSerializable
         $this->minPercent = $minPercent;
     }
 
-    public function getMaxPercent() : int
+    public function getMaxPercent()
     {
         return $this->maxPercent;
     }
@@ -59,7 +59,7 @@ class Zone implements JsonSerializable
         $this->maxPercent = $maxPercent;
     }
 
-    public function getDurationSeconds() : int
+    public function getDurationSeconds()
     {
         return $this->durationSeconds;
     }
@@ -69,7 +69,7 @@ class Zone implements JsonSerializable
         $this->durationSeconds = $durationSeconds;
     }
 
-    public function getAvgPowerWatts() : float
+    public function getAvgPowerWatts()
     {
         return $this->avgPowerWatts;
     }
@@ -79,7 +79,7 @@ class Zone implements JsonSerializable
         $this->avgPowerWatts = $avgPowerWatts;
     }
 
-    public function getAvgSpeedMetersPerSecond() : float
+    public function getAvgSpeedMetersPerSecond()
     {
         return $this->avgSpeedMetersPerSecond;
     }
@@ -87,6 +87,16 @@ class Zone implements JsonSerializable
     public function setAvgSpeedMetersPerSecond(float $avgSpeedMetersPerSecond = null)
     {
         $this->avgSpeedMetersPerSecond = $avgSpeedMetersPerSecond;
+    }
+
+    public function getAvgSpeedKilometersPerHour()
+    {
+        return $this->avgSpeedMetersPerSecond * 3.6;
+    }
+
+    public function setAvgSpeedKilometersPerHour(float $avgSpeedKilometersPerHour = null)
+    {
+        $this->avgSpeedMetersPerSecond = $avgSpeedKilometersPerHour / 3.6;
     }
 
     public function jsonSerialize() {

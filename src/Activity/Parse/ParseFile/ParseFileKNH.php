@@ -3,8 +3,8 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseFileReadInterface;
-use PhpSports\Activity\Parse\ParseFileSaveInterface;
+use PhpSports\Activity\Parse\ParseReadInterface;
+use PhpSports\Activity\Parse\ParseSaveInterface;
 use PhpSports\Analyzer\Analysis\Zone;
 use PhpSports\Analyzer\Analysis\Parameter;
 use PhpSports\Analyzer\Analysis\Interval;
@@ -18,9 +18,10 @@ use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 use PhpSports\Model\Source;
+use PhpSports\Model\Athlete;
 use \SimpleXMLElement;
 
-class ParseFileKNH extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
+class ParseFileKNH extends BaseParseFile implements ParseReadInterface, ParseSaveInterface
 {
     const FILETYPE = 'KNH';
 
@@ -88,6 +89,20 @@ class ParseFileKNH extends BaseParseFile implements ParseFileReadInterface, Pars
             $activity = new Activity($act['title']);
             $activity->setId($act['id']);
             $activity->setSport($act['sport']);
+            $activity->setTimestampOffset($act['timestampOffset']);
+
+            if (isset($act['athlete'])) {
+                $athlete = new Athlete(
+                    $act['athlete']['id'],
+                    $act['athlete']['maxHrBPM'],
+                    $act['athlete']['ftpPowerWatts'],
+                    $act['athlete']['gender'],
+                    $act['athlete']['ageYears'],
+                    $act['athlete']['weightKg'],
+                    $act['athlete']['heightMetters']
+                );
+                $activity->setAthlete($athlete);
+            }
 
             if (isset($act['source'])) {
                 $source = new Source(
@@ -156,5 +171,13 @@ class ParseFileKNH extends BaseParseFile implements ParseFileReadInterface, Pars
     {
         $json = json_encode($activities, ($pretty) ? JSON_PRETTY_PRINT : null);
         return file_put_contents($fileName, $json);
+    }
+
+    public function readFromArray(array $data) : ActivityCollection
+    {
+    }
+
+    public function saveToArray(ActivityCollection $activities) : array
+    {
     }
 }

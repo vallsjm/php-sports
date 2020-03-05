@@ -3,8 +3,8 @@
 namespace PhpSports\Activity\Parse\ParseFile;
 
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseFileReadInterface;
-use PhpSports\Activity\Parse\ParseFileSaveInterface;
+use PhpSports\Activity\Parse\ParseReadInterface;
+use PhpSports\Activity\Parse\ParseSaveInterface;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
@@ -13,7 +13,7 @@ use PhpSports\Model\Point;
 use PhpSports\Model\Source;
 use \SimpleXMLElement;
 
-class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, ParseFileSaveInterface
+class ParseFileTCX extends BaseParseFile implements ParseReadInterface, ParseSaveInterface
 {
     const FILETYPE = 'TCX';
 
@@ -60,7 +60,7 @@ class ParseFileTCX extends BaseParseFile implements ParseFileReadInterface, Pars
     {
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity();
-            $activity->setSource($source);
+            $activity->setSource(clone $source);
             $activity->setId((string) $act->Id);
             $activity->setSport(
                 $this->normalizeSport($act->attributes()->Sport)
@@ -273,4 +273,9 @@ EOD;
             return $data->asXML();
         }
     }
+
+    public function readFromArray(array $data) : ActivityCollection
+    {
+    }
+
 }
