@@ -45,7 +45,7 @@ final class Timer
         foreach ($this->durationSeconds as $functionName => $duration) {
             $total += $duration;
         }
-        return $duration;
+        return $total;
     }
 
     public function __toString() {
