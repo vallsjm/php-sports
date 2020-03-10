@@ -15,7 +15,7 @@ use \Exception;
 
 class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
 {
-    const APITYPE = 'STRAVA';
+    const APIFORMAT = 'STRAVA';
 
     const SPORTS = [
         'AlpineSki'       => 'OTHER',
@@ -189,7 +189,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
 
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat(),
             $pathInfo['basename']
         );

@@ -15,7 +15,7 @@ use PhpSports\Model\Source;
 
 class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, ParseReadBinaryInterface
 {
-    const FILETYPE = 'FIT';
+    const FILEFORMAT = 'FIT';
 
     const SPORTS = [
         'RUNNING'  => 1,
@@ -171,7 +171,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
 
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat(),
             $pathInfo['basename']
         );
@@ -186,7 +186,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
     {
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat()
         );
 

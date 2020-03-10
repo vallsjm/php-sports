@@ -15,7 +15,7 @@ use \SimpleXMLElement;
 
 class ParseFileGPX extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
 {
-    const FILETYPE = 'GPX';
+    const FILEFORMAT = 'GPX';
 
     private function createActivities(
         Source $source,
@@ -131,7 +131,7 @@ EOD;
 
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat(),
             $pathInfo['basename']
         );
@@ -160,7 +160,7 @@ EOD;
     {
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat()
         );
 

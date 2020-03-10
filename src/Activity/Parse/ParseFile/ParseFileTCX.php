@@ -15,7 +15,7 @@ use \SimpleXMLElement;
 
 class ParseFileTCX extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
 {
-    const FILETYPE = 'TCX';
+    const FILEFORMAT = 'TCX';
 
     const SPORTS = [
         'RUNNING_MOUNTAIN' => 'Running',
@@ -222,7 +222,7 @@ EOD;
 
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat(),
             $pathInfo['basename']
         );
@@ -251,7 +251,7 @@ EOD;
     {
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat()
         );
 

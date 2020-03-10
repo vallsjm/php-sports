@@ -8,10 +8,10 @@ abstract class BaseParseAPI extends BaseParse
 {
     static public function getFormat()
     {
-        return static::APITYPE;
+        return static::APIFORMAT;
     }
 
-    static public function getSource()
+    static public function getType()
     {
         return 'API';
     }

@@ -8,10 +8,10 @@ abstract class BaseParseFile extends BaseParse
 {
     static public function getFormat()
     {
-        return static::FILETYPE;
+        return static::FILEFORMAT;
     }
 
-    static public function getSource()
+    static public function getType()
     {
         return 'FILE';
     }

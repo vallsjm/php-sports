@@ -23,7 +23,7 @@ use \SimpleXMLElement;
 
 class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
 {
-    const FILETYPE = 'KNH';
+    const FILEFORMAT = 'KNH';
 
     private function generateAnalysis(array $data) : AnalysisCollection
     {

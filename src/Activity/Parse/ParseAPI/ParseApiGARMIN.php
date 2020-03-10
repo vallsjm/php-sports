@@ -15,7 +15,7 @@ use \Exception;
 
 class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
 {
-    const APITYPE = 'GARMIN';
+    const APIFORMAT = 'GARMIN';
 
     const SPORTS = [
         'ALL'                             => 'OTHER',
@@ -184,7 +184,7 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
 
         $source = new Source(
             null,
-            self::getSource(),
+            self::getType(),
             self::getFormat(),
             $pathInfo['basename']
         );
