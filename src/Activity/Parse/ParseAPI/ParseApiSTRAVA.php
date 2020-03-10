@@ -189,8 +189,8 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
 
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat(),
+            $this->getType(),
+            $this->getFormat(),
             $pathInfo['basename']
         );
 
@@ -205,8 +205,8 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
     {
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat()
+            $this->getType(),
+            $this->getFormat()
         );
 
         $activities = new ActivityCollection();
@@ -218,8 +218,8 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
     {
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat()
+            $this->getType(),
+            $this->getFormat()
         );
 
         $activities = new ActivityCollection();

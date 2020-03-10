@@ -69,8 +69,8 @@ abstract class BaseParse implements AnalyzerInterface
         return $this->analyzer->analyze($activity);
     }
 
-    abstract static public function getFormat();
-    abstract static public function getType();
+    abstract public function getFormat();
+    abstract public function getType();
 
     public static function createInstance(
         Athlete $athlete = null,

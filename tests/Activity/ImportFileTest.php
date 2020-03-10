@@ -5,13 +5,22 @@ use Tests\Activity\ActivityCase;
 use PHPUnit\Framework\TestCase;
 use PhpSports\Activity\ImportFile;
 use PhpSports\Model\Athlete;
+use PhpSports\Timer\Timer;
 
 final class ImportFileTest extends ActivityCase
 {
     public function testImportFile00()
     {
         $filePath = $this->base_dir . '/source/' . 'sample_file.fit';
-        $activities = ImportFile::readFromFile($filePath, $this->athlete);
+        $athlete = $this->athlete;
+        $timer = new Timer();
+        $activities = $timer->addFunction('read', function () use ($filePath, $athlete) {
+            return ImportFile::readFromFile($filePath, $athlete);
+        });
+
+        // echo $timer;
+        // $json = json_encode($activities, JSON_PRETTY_PRINT);
+        // print_r($json);
         $this->renderActivities($filePath, $activities);
     }
 

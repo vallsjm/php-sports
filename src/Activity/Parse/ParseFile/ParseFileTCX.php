@@ -222,8 +222,8 @@ EOD;
 
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat(),
+            $this->getType(),
+            $this->getFormat(),
             $pathInfo['basename']
         );
 
@@ -251,8 +251,8 @@ EOD;
     {
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat()
+            $this->getType(),
+            $this->getFormat()
         );
 
         $activities = new ActivityCollection();

@@ -171,8 +171,8 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
 
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat(),
+            $this->getType(),
+            $this->getFormat(),
             $pathInfo['basename']
         );
 
@@ -186,8 +186,8 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
     {
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat()
+            $this->getType(),
+            $this->getFormat()
         );
 
         $activities = new ActivityCollection();

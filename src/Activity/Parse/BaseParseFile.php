@@ -6,12 +6,12 @@ use PhpSports\Model\ActivityCollection;
 
 abstract class BaseParseFile extends BaseParse
 {
-    static public function getFormat()
+    public function getFormat()
     {
         return static::FILEFORMAT;
     }
 
-    static public function getType()
+    public function getType()
     {
         return 'FILE';
     }

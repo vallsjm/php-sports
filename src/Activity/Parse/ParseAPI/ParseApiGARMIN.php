@@ -184,8 +184,8 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
 
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat(),
+            $this->getType(),
+            $this->getFormat(),
             $pathInfo['basename']
         );
 
@@ -200,8 +200,8 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
     {
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat()
+            $this->getType(),
+            $this->getFormat()
         );
 
         $activities = new ActivityCollection();
@@ -213,8 +213,8 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
     {
         $source = new Source(
             null,
-            self::getType(),
-            self::getFormat()
+            $this->getType(),
+            $this->getFormat()
         );
 
         $activities = new ActivityCollection();
