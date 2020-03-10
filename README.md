@@ -14,20 +14,35 @@ $activities = ImportFile::readFromFile($filePath);
 
 /*each file return N activities (daily exercices)*/
 foreach ($activities as $activity) {
+    $points = $activity->getPoints();
 
     /*each activity return time intervals or laps */
     foreach ($activity->getLaps() as $lap) {
 
         /*each lap have trackpoints with latitude, longitude, heart rate, altitude, etc..*/
-        foreach ($lap->getPoints() as $point) {
-            ...
-        }
+        $lapPoints = $points->filterByLap($lap);
+        ...
+    }
+
+    /* all points of activity */
+    foreach ($points as $point) {
+        ...
     }
 }
 
 # Note that u can convert activities in a JSON format
 $jsonPrintable = json_encode($activities, JSON_PRETTY_PRINT);
 print_r($jsonPrintable);
+?>
+```
+
+```php
+<?php
+use PhpSports\Activity\ImportFile;
+
+$filePath = './samples/source/' . 'garmin.json';
+$activities = ImportAPI::readFromFile('GARMIN', $filePath, $athlete);
+$this->renderActivities($filePath, $activities);
 ?>
 ```
 

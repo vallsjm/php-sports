@@ -35,6 +35,11 @@ final class Schema implements JsonSerializable
         $this->parameters[$parameter] = $accurency;
     }
 
+    public function hasMap()
+    {
+        return isset($this->parameters['latitude']) && isset($this->parameters['longitude']);
+    }
+
     public function jsonSerialize() {
         return array_keys($this->parameters);
     }

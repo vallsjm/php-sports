@@ -1,6 +1,9 @@
 <?php
 namespace PhpSports\Activity;
 
+use PhpSports\Activity\Parse\ParseReadFileInterface;
+use PhpSports\Activity\Parse\ParseReadBinaryInterface;
+use PhpSports\Activity\Parse\ParseReadArrayInterface;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Athlete;
 
@@ -12,7 +15,12 @@ class ImportFile extends BaseFile
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : ActivityCollection
     {
-        return self::createInstanceFromFile($fileName, $athlete, $options)->readFromFile($fileName);
+        $instance = self::createInstanceFromFile($fileName, $athlete, $options);
+        if ($instance instanceof ParseReadFileInterface) {
+            return $instance->readFromFile($fileName);
+        } else {
+            throw new \InvalidArgumentException("read from file not suported.");
+        }
     }
 
     public static function readFromBinary(
@@ -22,7 +30,12 @@ class ImportFile extends BaseFile
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : ActivityCollection
     {
-        return self::createInstanceFromFormat($format, $athlete, $options)->readFromBinary($data);
+        $instance = self::createInstanceFromFormat($format, $athlete, $options);
+        if ($instance instanceof ParseReadBinaryInterface) {
+            return $instance->readFromBinary($data);
+        } else {
+            throw new \InvalidArgumentException("read from binary not suported.");
+        }
     }
 
     public static function readFromArray(
@@ -32,7 +45,12 @@ class ImportFile extends BaseFile
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : ActivityCollection
     {
-        return self::createInstanceFromFormat($format, $athlete, $options)->readFromArray($data);
+        $instance = self::createInstanceFromFormat($format, $athlete, $options);
+        if ($instance instanceof ParseReadArrayInterface) {
+            return $instance->readFromArray($data);
+        } else {
+            throw new \InvalidArgumentException("read from array not suported.");
+        }
     }
 
 }

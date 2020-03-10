@@ -183,11 +183,35 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         return $activities;
     }
 
+    public function readFromFile(string $fileName) : ActivityCollection
+    {
+        $pathInfo = pathinfo($fileName);
+
+        $source = new Source(
+            null,
+            self::getSource(),
+            self::getFormat(),
+            $pathInfo['basename']
+        );
+
+        $activities = new ActivityCollection();
+        $data       = file_get_contents($fileName, true);
+        $data       = json_decode($data, true);
+        $data       = $this->normalize($data);
+        return $this->createActivities($source, $activities, $data);
+    }
+
     public function readFromArray(array $data) : ActivityCollection
     {
+        $source = new Source(
+            null,
+            self::getType(),
+            self::getFormat()
+        );
+
         $activities = new ActivityCollection();
         $data  = $this->normalize($data);
-        return $this->createActivities($activities, $data);
+        return $this->createActivities($source, $activities, $data);
     }
 
     public function readFromBinary(string $data) : ActivityCollection

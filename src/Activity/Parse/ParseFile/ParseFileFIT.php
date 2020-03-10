@@ -4,7 +4,8 @@ namespace PhpSports\Activity\Parse\ParseFile;
 
 use adriangibbons\phpFITFileAnalysis;
 use PhpSports\Activity\Parse\BaseParseFile;
-use PhpSports\Activity\Parse\ParseReadInterface;
+use PhpSports\Activity\Parse\ParseReadFileInterface;
+use PhpSports\Activity\Parse\ParseReadBinaryInterface;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Model\Activity;
@@ -12,7 +13,7 @@ use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 use PhpSports\Model\Source;
 
-class ParseFileFIT extends BaseParseFile implements ParseReadInterface
+class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, ParseReadBinaryInterface
 {
     const FILETYPE = 'FIT';
 
@@ -194,9 +195,4 @@ class ParseFileFIT extends BaseParseFile implements ParseReadInterface
         $data  = $this->normalize($parse);
         return $this->createActivities($source, $activities, $data);
     }
-
-    public function readFromArray(array $data) : ActivityCollection
-    {
-    }
-
 }
