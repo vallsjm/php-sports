@@ -30,7 +30,7 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
         parent::offsetSet($offset, $value);
     }
 
-    public static function getSchema() : Schema
+    public function getSchema() : Schema
     {
         return $this->schema;
     }

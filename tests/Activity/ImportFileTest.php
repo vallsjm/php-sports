@@ -12,7 +12,7 @@ final class ImportFileTest extends ActivityCase
     public function testImportFile00()
     {
         $filePath = $this->base_dir . '/source/' . 'sample_file.fit';
-        $athlete = $this->athlete;
+        $athlete = null; //$this->athlete;
         $timer = new Timer();
         $activities = $timer->addFunction('read', function () use ($filePath, $athlete) {
             return ImportFile::readFromFile($filePath, $athlete);

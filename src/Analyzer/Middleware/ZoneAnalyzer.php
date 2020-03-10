@@ -64,17 +64,21 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
 
         foreach ($this->zonesHR as $zoneName => $values) {
             $this->matrix['zonesHR'][$zoneName] = $default;
-            list(
-                $this->matrix['zonesHR'][$zoneName]['minPercent'],
-                $this->matrix['zonesHR'][$zoneName]['maxPercent']
-            ) = $values;
+            if (isset($values[0])) {
+                $this->matrix['zonesHR'][$zoneName]['minPercent'] = $values[0];
+            }
+            if (isset($values[1])) {
+                $this->matrix['zonesHR'][$zoneName]['maxPercent'] = $values[1];
+            }
         }
         foreach ($this->zonesPOWER as $zoneName => $values) {
             $this->matrix['zonesPOWER'][$zoneName] = $default;
-            list(
-                $this->matrix['zonesPOWER'][$zoneName]['minPercent'],
-                $this->matrix['zonesPOWER'][$zoneName]['maxPercent']
-            ) = $values;
+            if (isset($values[0])) {
+                $this->matrix['zonesPOWER'][$zoneName]['minPercent'] = $values[0];
+            }
+            if (isset($values[1])) {
+                $this->matrix['zonesPOWER'][$zoneName]['maxPercent'] = $values[1];
+            }
         }
     }
 
