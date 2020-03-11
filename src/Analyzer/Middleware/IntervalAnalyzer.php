@@ -99,23 +99,6 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
         $this->parameters = array_keys($this->matrix); // borramos los parametros podados
     }
 
-    private function shiftParameterMatrix()
-    {
-        foreach ($this->parameters as $parameter) {
-            foreach ($this->timeIntervals as $timeInterval) {
-                $matrixInterval = &$this->matrix[$parameter][$timeInterval];
-                if (count($matrixInterval['pending'])) {
-                    $pushItem = array_shift($matrixInterval['pending']);
-                    array_push($matrixInterval['window'], $pushItem);
-                    $popItem = array_shift($matrixInterval['window']);
-                    if (!empty($pushItem) || !empty($popItem)) {
-                        $matrixInterval['filtered'] = array_filter($matrixInterval['window']);
-                    }
-                }
-            }
-        }
-    }
-
     public function analyze(Activity $activity, Closure $next)
     {
         $points = $activity->getPoints();
