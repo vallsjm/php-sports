@@ -4,17 +4,28 @@ namespace PhpSports\Analyzer;
 
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
 use PhpSports\Model\Activity;
+use PhpSports\Timer\Timer;
 use InvalidArgumentException;
 use Closure;
 
 class Analyzer {
     private $middlewares;
-    private $debug;
+    private $timer;
 
-    public function __construct(array $middlewares = [], $debug = false)
+    public function __construct(array $middlewares = [], Timer $timer = null)
     {
         $this->middlewares = $middlewares;
-        $this->debug       = $debug;
+        $this->timer       = $timer;
+    }
+
+    public function setTimer(Timer $timer = null)
+    {
+        $this->timer = $timer;
+    }
+
+    public function getTimer() : Timer
+    {
+        return $this->timer;
     }
 
     public function addMiddleware($middlewares)
@@ -61,12 +72,13 @@ class Analyzer {
 
     private function createMiddleware($nextMiddleware, $middleware)
     {
-        if ($this->debug) {
-            return function($object) use ($nextMiddleware, $middleware) {
+        if ($this->timer) {
+            $timer = $this->timer;
+            return function($object) use ($nextMiddleware, $middleware, $timer) {
                 $timeStart = microtime(true);
                 $className = get_class($middleware);
-                return $middleware->analyze($object, function ($object) use ($timeStart, $nextMiddleware, $className) {
-                    echo PHP_EOL . "duration: " . round(microtime(true) - $timeStart, 5) . "s. object: {$className}";
+                return $middleware->analyze($object, function ($object) use ($timeStart, $nextMiddleware, $className, $timer) {
+                    $timer->setFunctionDuration($className, microtime(true) - $timeStart);
                     return $nextMiddleware($object);
                 });
             };

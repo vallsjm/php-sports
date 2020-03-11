@@ -11,6 +11,7 @@ use PhpSports\Analyzer\Middleware\ZoneAnalyzer;
 use PhpSports\Analyzer\Middleware\ParameterAnalyzer;
 use PhpSports\Analyzer\AnalyzerInterface;
 use PhpSports\Analyzer\Analyzer;
+use PhpSports\Timer\Timer;
 
 abstract class BaseParse implements AnalyzerInterface
 {
@@ -38,7 +39,7 @@ abstract class BaseParse implements AnalyzerInterface
             $middleware[] = new IntervalAnalyzer();
         }
 
-        $this->analyzer = new Analyzer($middleware);
+        $this->analyzer = new Analyzer($middleware, new Timer());
     }
 
     public function setAthleteStatus(AthleteStatus $athleteStatus)
