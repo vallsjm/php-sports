@@ -33,8 +33,6 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
 
         $this->parameters = array_merge(
             [
-                'altitudeMeters',
-                'elevationMeters',
                 'speedMetersPerSecond',
                 'hrBPM',
                 'cadenceRPM',
@@ -51,10 +49,12 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
             $this->matrix[$parameter] = [];
             foreach ($this->timeIntervals as $timeInterval) {
                 $this->matrix[$parameter][$timeInterval] = [
-                    'max'       => -999999999,
-                    'min'       => +999999999,
-                    'window'    => [],
-                    'pending'   => []
+                    'max'     => -999999999,
+                    'min'     => +999999999,
+                    'sum'     => null,
+                    'count'   => null,
+                    'window'  => [],
+                    'pending' => []
                 ];
             }
         }
@@ -78,14 +78,18 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
             }
             if (count(array_filter($values))) {
                 foreach ($this->timeIntervals as $timeInterval) {
+                    $matrixInterval = &$this->matrix[$parameter][$timeInterval];
                     $window         = array_slice($values, 0, $timeInterval);
                     $windowFiltered = array_filter($window);
-                    $this->matrix[$parameter][$timeInterval]['window']  = $window;
-                    $this->matrix[$parameter][$timeInterval]['pending'] = array_slice($values, $timeInterval, $timeEnd - $timeStart);
+                    $matrixInterval['window']   = $window;
+                    $matrixInterval['pending']  = array_slice($values, $timeInterval, $timeEnd - $timeStart);
                     if ($numValues = count($windowFiltered)) {
-                        $avgValue = array_sum($windowFiltered) / $numValues;
-                        $this->matrix[$parameter][$timeInterval]['max'] = $avgValue;
-                        $this->matrix[$parameter][$timeInterval]['min'] = $avgValue;
+                        $sumValue = array_sum($windowFiltered);
+                        $avgValue = $sumValue / $numValues;
+                        $matrixInterval['sum']   = $sumValue;
+                        $matrixInterval['count'] = $numValues;
+                        $matrixInterval['max']   = $avgValue;
+                        $matrixInterval['min']   = $avgValue;
                     }
                 }
             } else { // podamos pq no hay valores de ese parametro
@@ -99,10 +103,14 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
     {
         foreach ($this->parameters as $parameter) {
             foreach ($this->timeIntervals as $timeInterval) {
-                if (count($this->matrix[$parameter][$timeInterval]['pending'])) {
-                    $item = array_shift($this->matrix[$parameter][$timeInterval]['pending']);
-                    array_push($this->matrix[$parameter][$timeInterval]['window'], $item);
-                    array_shift($this->matrix[$parameter][$timeInterval]['window']);
+                $matrixInterval = &$this->matrix[$parameter][$timeInterval];
+                if (count($matrixInterval['pending'])) {
+                    $pushItem = array_shift($matrixInterval['pending']);
+                    array_push($matrixInterval['window'], $pushItem);
+                    $popItem = array_shift($matrixInterval['window']);
+                    if (!empty($pushItem) || !empty($popItem)) {
+                        $matrixInterval['filtered'] = array_filter($matrixInterval['window']);
+                    }
                 }
             }
         }
@@ -122,26 +130,35 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
             $timeEnd
         );
 
-        $limitParameters = count($this->parameters) * count($this->timeIntervals);
+        $matrixInterval = [];
+        foreach ($this->parameters as $parameter) {
+            foreach ($this->timeIntervals as $timeInterval) {
+                $matrixInterval[] = &$this->matrix[$parameter][$timeInterval];
+            }
+        }
+
         for ($i=$timeStart;$i<=$timeEnd;$i++) {
-            $this->shiftParameterMatrix();
-            $doneParameters = 0;
-            foreach ($this->parameters as $parameter) {
-                foreach ($this->timeIntervals as $timeInterval) {
-                    if (count($this->matrix[$parameter][$timeInterval]['pending'])) {
-                        $windowFiltered = array_filter($this->matrix[$parameter][$timeInterval]['window']);
-                        if ($numValues = count($windowFiltered)) {
-                            $avgValue  = array_sum($windowFiltered) / $numValues;
-                            $this->matrix[$parameter][$timeInterval]['max'] = max($avgValue, $this->matrix[$parameter][$timeInterval]['max']);
-                            $this->matrix[$parameter][$timeInterval]['min'] = min($avgValue, $this->matrix[$parameter][$timeInterval]['min']);
+            foreach ($matrixInterval as $pos => &$matrix) {
+                if (count($matrix['pending'])) {
+                    $pushItem = array_shift($matrix['pending']);
+                    array_push($matrix['window'], $pushItem);
+                    $popItem = array_shift($matrix['window']);
+
+                    if (!empty($pushItem) || !empty($popItem)) {
+                        $matrix['sum']   += ($pushItem - $popItem);
+                        $matrix['count'] += !empty($pushItem) - !empty($popItem);
+                        if ($matrix['count']) {
+                            $avgValue  = $matrix['sum'] / $matrix['count'];
+                            $matrix['max'] = max($avgValue, $matrix['max']);
+                            $matrix['min'] = min($avgValue, $matrix['min']);
                         }
-                    } else {
-                        $doneParameters++;
                     }
+                } else {
+                    unset($matrixInterval[$pos]);
                 }
             }
-            // podamos en caso de haber terminado todos los parametros
-            if ($doneParameters >= $limitParameters) {
+
+            if (!count($matrixInterval)) {
                 break;
             }
         }
