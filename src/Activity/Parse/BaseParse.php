@@ -3,7 +3,7 @@
 namespace PhpSports\Activity\Parse;
 
 use PhpSports\Model\Activity;
-use PhpSports\Model\Athlete;
+use PhpSports\Model\AthleteStatus;
 use PhpSports\Model\ActivityCollection;
 use PhpSports\Analyzer\Middleware\ResumeAnalyzer;
 use PhpSports\Analyzer\Middleware\IntervalAnalyzer;
@@ -15,14 +15,14 @@ use PhpSports\Analyzer\Analyzer;
 abstract class BaseParse implements AnalyzerInterface
 {
     protected $analyzer;
-    protected $athlete;
+    protected $athleteStatus;
 
     public function __construct(
-        Athlete $athlete = null,
+        AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     )
     {
-        $this->athlete = $athlete;
+        $this->athleteStatus = $athleteStatus;
 
         $middleware = [];
         if (self::ANALYZER_RESUME & $options) {
@@ -41,14 +41,14 @@ abstract class BaseParse implements AnalyzerInterface
         $this->analyzer = new Analyzer($middleware);
     }
 
-    public function setAthlete(Athlete $athlete)
+    public function setAthleteStatus(AthleteStatus $athleteStatus)
     {
-        $this->athlete = $athlete;
+        $this->athleteStatus = $athleteStatus;
     }
 
-    public function getAthlete()
+    public function getAthleteStatus()
     {
-        return $this->athlete;
+        return $this->athleteStatus;
     }
 
     public function getAnalyzer() : Analyzer
@@ -63,8 +63,8 @@ abstract class BaseParse implements AnalyzerInterface
 
     public function analyze(Activity $activity) : Activity
     {
-        if ($this->athlete) {
-            $activity->setAthlete($this->athlete);
+        if ($this->athleteStatus) {
+            $activity->setAthleteStatus($this->athleteStatus);
         }
         return $this->analyzer->analyze($activity);
     }
@@ -73,10 +73,10 @@ abstract class BaseParse implements AnalyzerInterface
     abstract public function getType();
 
     public static function createInstance(
-        Athlete $athlete = null,
+        AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     )
     {
-        return new static($athlete, $options);
+        return new static($athleteStatus, $options);
     }
 }

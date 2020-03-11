@@ -5,7 +5,6 @@ namespace PhpSports\Analyzer\Middleware;
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
 use PhpSports\Analyzer\Calculate\Calculate;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
-use PhpSports\Model\Athlete;
 use PhpSports\Model\Activity;
 use PhpSports\Model\PointCollection;
 use \Closure;
@@ -88,10 +87,10 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         $points  = $activity->getPoints();
         $calculate = $this->calculatePointsActivity($points);
 
-        if ($athlete = $activity->getAthlete()) {
-            if ($athlete->getWeightKg()) {
+        if ($athleteStatus = $activity->getAthleteStatus()) {
+            if ($athleteStatus->getWeightKg()) {
                 $calculate['caloriesKcal'] = Calculate::calculateKcal(
-                    $athlete->getWeightKg(),
+                    $athleteStatus->getWeightKg(),
                     $calculate['durationSeconds']
                 );
             }
@@ -99,7 +98,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             if ($calculate['maxHrBPM']) {
                 $calculate['tss'] = Calculate::calculateTss(
                     $calculate['durationSeconds'],
-                    max($calculate['maxHrBPM'], $athlete->getMaxHrBPM()),
+                    max($calculate['maxHrBPM'], $athleteStatus->getMaxHrBPM()),
                     $calculate['avgHrBPM']
                 );
             } else {

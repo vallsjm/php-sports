@@ -18,7 +18,7 @@ use PhpSports\Model\Activity;
 use PhpSports\Model\Lap;
 use PhpSports\Model\Point;
 use PhpSports\Model\Source;
-use PhpSports\Model\Athlete;
+use PhpSports\Model\AthleteStatus;
 use \SimpleXMLElement;
 
 class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
@@ -91,17 +91,17 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
             $activity->setSport($act['sport']);
             $activity->setTimestampOffset($act['timestampOffset']);
 
-            if (isset($act['athlete'])) {
-                $athlete = new Athlete(
-                    $act['athlete']['id'],
-                    $act['athlete']['maxHrBPM'],
-                    $act['athlete']['ftpPowerWatts'],
-                    $act['athlete']['gender'],
-                    $act['athlete']['ageYears'],
-                    $act['athlete']['weightKg'],
-                    $act['athlete']['heightMetters']
+            if (isset($act['athleteStatus'])) {
+                $athlete = new AthleteStatus(
+                    $act['athleteStatus']['id'],
+                    $act['athleteStatus']['maxHrBPM'],
+                    $act['athleteStatus']['ftpPowerWatts'],
+                    $act['athleteStatus']['gender'],
+                    $act['athleteStatus']['ageYears'],
+                    $act['athleteStatus']['weightKg'],
+                    $act['athleteStatus']['heightMetters']
                 );
-                $activity->setAthlete($athlete);
+                $activity->setAthleteStatus($athlete);
             }
 
             if (isset($act['source'])) {

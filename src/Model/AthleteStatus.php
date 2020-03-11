@@ -4,7 +4,7 @@ namespace PhpSports\Model;
 
 use \JsonSerializable;
 
-final class Athlete implements JsonSerializable
+final class AthleteStatus implements JsonSerializable
 {
     private $id;
     private $maxHrBPM; // maxHr

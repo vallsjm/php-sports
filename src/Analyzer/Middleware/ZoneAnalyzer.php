@@ -7,7 +7,6 @@ use PhpSports\Analyzer\Calculate\Calculate;
 use PhpSports\Analyzer\Analysis\Zone;
 use PhpSports\Analyzer\Analysis\ZoneAnalysis;
 use PhpSports\Model\Activity;
-use PhpSports\Model\PointCollection;
 use \Closure;
 
 class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
@@ -105,9 +104,9 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
         $points  = $activity->getPoints();
         $this->createParameterMatrix();
 
-        if ($athlete = $activity->getAthlete()) {
-            $hrBPM      = $athlete->getMaxHrBPM();
-            $powerWatts = $athlete->getFtpPowerWatts();
+        if ($athleteStatus = $activity->getAthleteStatus()) {
+            $hrBPM      = $athleteStatus->getMaxHrBPM();
+            $powerWatts = $athleteStatus->getFtpPowerWatts();
 
             if (!$hrBPM) {
                 unset($this->matrix['zonesHR']);

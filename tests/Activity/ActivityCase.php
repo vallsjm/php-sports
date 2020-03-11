@@ -5,23 +5,23 @@ use PHPUnit\Framework\TestCase;
 use PhpSports\Activity\ExportFile;
 use PhpSports\Activity\ImportFile;
 use PhpSports\Model\ActivityCollection;
-use PhpSports\Model\Athlete;
+use PhpSports\Model\AthleteStatus;
 
 class ActivityCase extends TestCase
 {
     protected $base_dir;
-    protected $athlete;
+    protected $athleteStatus;
 
     public function setUp()
     {
         $this->base_dir = __DIR__ . '/../../samples';
 
-        $athlete = new Athlete();
-        $athlete->setMaxHrBPM(120);
-        $athlete->setWeightKg(80);
-        $athlete->setFtpPowerWatts(100);
+        $athleteStatus = new AthleteStatus();
+        $athleteStatus->setMaxHrBPM(120);
+        $athleteStatus->setWeightKg(80);
+        $athleteStatus->setFtpPowerWatts(100);
 
-        $this->athlete = $athlete;
+        $this->athleteStatus = $athleteStatus;
     }
 
     protected function consoleLog($text)

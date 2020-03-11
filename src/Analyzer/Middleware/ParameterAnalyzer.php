@@ -3,12 +3,10 @@
 namespace PhpSports\Analyzer\Middleware;
 
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
-use PhpSports\Analyzer\Calculate\Calculate;
 use PhpSports\Analyzer\Analysis\Parameter;
 use PhpSports\Analyzer\Analysis\ParameterAnalysis;
-use PhpSports\Model\Athlete;
 use PhpSports\Model\Activity;
-use PhpSports\Model\PointCollection;
+use PhpSports\Model\Type;
 use \Closure;
 
 class ParameterAnalyzer implements AnalyzerMiddlewareInterface {

@@ -1,7 +1,7 @@
 <?php
 namespace PhpSports\Activity;
 
-use PhpSports\Model\Athlete;
+use PhpSports\Model\AthleteStatus;
 use PhpSports\Analyzer\AnalyzerInterface;
 use PhpSports\Activity\Parse\BaseParseFile;
 use InvalidArgumentException;
@@ -15,7 +15,7 @@ abstract class BaseFile implements AnalyzerInterface
 
     public static function createInstanceFromFile(
         string $fileName = null,
-        Athlete $athlete = null,
+        AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : BaseParseFile
     {
@@ -23,7 +23,7 @@ abstract class BaseFile implements AnalyzerInterface
         $format    = self::getFileExtension($fileName);
         $className = 'PhpSports\Activity\Parse\ParseFile\ParseFile' . $format;
         try {
-            $instance = $className::createInstance($athlete, $options);
+            $instance = $className::createInstance($athleteSatus, $options);
         } catch (\Exception $e) {
             throw new InvalidArgumentException("Format {$format} not suported.");
         }
@@ -33,14 +33,14 @@ abstract class BaseFile implements AnalyzerInterface
 
     public static function createInstanceFromFormat(
         string $format = null,
-        Athlete $athlete = null,
+        AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : BaseParseFile
     {
         $instance  = null;
         $className = 'PhpSports\Activity\Parse\ParseFile\ParseFile' . $format;
         try {
-            $instance = $className::createInstance($athlete, $options);
+            $instance = $className::createInstance($athleteSatus, $options);
         } catch (\Exception $e) {
             throw new InvalidArgumentException("Format {$format} not suported.");
         }

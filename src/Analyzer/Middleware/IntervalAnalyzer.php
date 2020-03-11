@@ -3,7 +3,6 @@
 namespace PhpSports\Analyzer\Middleware;
 
 use PhpSports\Analyzer\AnalyzerMiddlewareInterface;
-use PhpSports\Analyzer\Calculate\Calculate;
 use PhpSports\Analyzer\Analysis\Interval;
 use PhpSports\Analyzer\Analysis\IntervalAnalysis;
 use PhpSports\Model\Activity;

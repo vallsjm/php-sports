@@ -5,18 +5,18 @@ use PhpSports\Activity\Parse\ParseReadFileInterface;
 use PhpSports\Activity\Parse\ParseReadBinaryInterface;
 use PhpSports\Activity\Parse\ParseReadArrayInterface;
 use PhpSports\Model\ActivityCollection;
-use PhpSports\Model\Athlete;
+use PhpSports\Model\AthleteStatus;
 
 class ImportAPI extends BaseAPI
 {
     public static function readFromFile(
         string $apiName,
         string $fileName,
-        Athlete $athlete = null,
+        AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : ActivityCollection
     {
-        $instance = self::createInstanceFromAPI($apiName, $athlete, $options);
+        $instance = self::createInstanceFromAPI($apiName, $athleteSatus, $options);
         if ($instance instanceof ParseReadFileInterface) {
             return $instance->readFromFile($fileName);
         } else {
@@ -27,11 +27,11 @@ class ImportAPI extends BaseAPI
     public static function readFromBinary(
         string $apiName,
         string $data,
-        Athlete $athlete = null,
+        AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : ActivityCollection
     {
-        $instance = self::createInstanceFromAPI($apiName, $athlete, $options);
+        $instance = self::createInstanceFromAPI($apiName, $athleteSatus, $options);
         if ($instance instanceof ParseReadBinaryInterface) {
             return $instance->readFromBinary($data);
         } else {
@@ -42,11 +42,11 @@ class ImportAPI extends BaseAPI
     public static function readFromArray(
         string $apiName,
         array $data,
-        Athlete $athlete = null,
+        AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
     ) : ActivityCollection
     {
-        $instance = self::createInstanceFromAPI($apiName, $athlete, $options);
+        $instance = self::createInstanceFromAPI($apiName, $athleteSatus, $options);
         if ($instance instanceof ParseReadArrayInterface) {
             return $instance->readFromArray($data);
         } else {
