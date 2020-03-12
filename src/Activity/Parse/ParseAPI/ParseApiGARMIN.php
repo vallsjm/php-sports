@@ -89,7 +89,7 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
     public function normalize(array $data)
     {
         foreach ($data as &$item) {
-            $item['summary']['activityType'] = $this->normalizeSport($item['summary']['activityType']);
+            $item['sport'] = $this->normalizeSport($item['summary']['activityType']);
         }
         return $data;
     }
@@ -109,9 +109,9 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
             $activity = new Activity();
             $activity->setAthleteStatus($this->athleteStatus);
             $activity->setSource($newSource);
-
-            if (isset($itemInfo['activityType'])) {
-                $activity->setSport($itemInfo['activityType']);
+            $activity->setSport($item['sport']);
+            if (isset($item['_id'])) {
+                $activity->setId($item['_id']);
             }
             if (isset($itemInfo['startTimeOffsetInSeconds'])) {
                 $activity->setTimestampOffset($itemInfo['startTimeOffsetInSeconds']);

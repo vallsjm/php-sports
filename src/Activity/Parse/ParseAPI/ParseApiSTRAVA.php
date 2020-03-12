@@ -73,7 +73,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
     public function normalize(array $data)
     {
         foreach ($data as &$item) {
-            $item['info']['type'] = $this->normalizeSport($item['info']['type']);
+            $item['sport'] = $this->normalizeSport($item['info']['type']);
             $points = [];
             foreach ($item['stream'] as $stream) {
                 $type = $stream['type'];
@@ -113,14 +113,15 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
             $itemInfo = $item['info'];
 
             $newSource = clone $source;
-            $newSource->setId($item['id']);
+            $newSource->setId($itemInfo['id']);
 
             $activity = new Activity();
             $activity->setAthleteStatus($this->athleteStatus);
             $activity->setSource($newSource);
+            $activity->setSport($item['sport']);
 
-            if (isset($itemInfo['type'])) {
-                $activity->setSport($itemInfo['type']);
+            if (isset($item['_id'])) {
+                $activity->setId($item['_id']);
             }
             if (isset($itemInfo['start_date_local'])) {
                 $activity->setTimestampOffset($itemInfo['start_date_local']);
