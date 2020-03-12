@@ -123,18 +123,24 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
         for ($i=$timeStart;$i<=$timeEnd;$i++) {
             foreach ($matrixInterval as $pos => &$matrix) {
                 if (count($matrix['pending'])) {
-                    $pushItem = array_shift($matrix['pending']);
-                    array_push($matrix['window'], $pushItem);
-                    $popItem = array_shift($matrix['window']);
+                    $pushItem = null;
+                    $popItem  = null;
+                    while ((empty($pushItem) && empty($popItem)) && count($matrix['pending'])) {
+                        $pushItem = reset($matrix['pending']);
+                        $pos = key($matrix['pending']);
+                        unset($matrix['pending'][$pos]);
+                        $matrix['window'][] = $pushItem;
+                        $popItem = reset($matrix['window']);
+                        $pos = key($matrix['window']);
+                        unset($matrix['window'][$pos]);
+                    }
 
-                    if (!empty($pushItem) || !empty($popItem)) {
-                        $matrix['sum']   += ($pushItem - $popItem);
-                        $matrix['count'] += !empty($pushItem) - !empty($popItem);
-                        if ($matrix['count']) {
-                            $avgValue  = $matrix['sum'] / $matrix['count'];
-                            $matrix['max'] = max($avgValue, $matrix['max']);
-                            $matrix['min'] = min($avgValue, $matrix['min']);
-                        }
+                    $matrix['sum']   += ($pushItem - $popItem);
+                    $matrix['count'] += !empty($pushItem) - !empty($popItem);
+                    if ($matrix['count']) {
+                        $avgValue  = $matrix['sum'] / $matrix['count'];
+                        $matrix['max'] = max($avgValue, $matrix['max']);
+                        $matrix['min'] = min($avgValue, $matrix['min']);
                     }
                 } else {
                     unset($matrixInterval[$pos]);

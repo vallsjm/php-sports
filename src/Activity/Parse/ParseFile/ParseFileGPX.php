@@ -25,6 +25,7 @@ class ParseFileGPX extends BaseParseFile implements ParseFileInterface, ParseBin
     {
         foreach ($data->trk as $trk) {
             $activity = new Activity((string) $trk->name);
+            $activity->setAthleteStatus($this->athleteStatus);
             $activity->setSource(clone $source);
 
             $nlap = 1;

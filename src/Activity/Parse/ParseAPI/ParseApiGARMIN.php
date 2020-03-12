@@ -107,6 +107,7 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
             $newSource->setId($item['summaryId']);
 
             $activity = new Activity();
+            $activity->setAthleteStatus($this->athleteStatus);
             $activity->setSource($newSource);
 
             if (isset($itemInfo['activityType'])) {

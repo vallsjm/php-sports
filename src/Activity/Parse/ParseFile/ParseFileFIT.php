@@ -98,6 +98,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
     ) : ActivityCollection
     {
         $activity = new Activity();
+        $activity->setAthleteStatus($this->athleteStatus);
         $activity->setSource(clone $source);
         $nlap = 1;
 

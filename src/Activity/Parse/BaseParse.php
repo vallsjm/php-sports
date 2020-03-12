@@ -64,9 +64,6 @@ abstract class BaseParse implements AnalyzerInterface
 
     public function analyze(Activity $activity) : Activity
     {
-        if ($this->athleteStatus) {
-            $activity->setAthleteStatus($this->athleteStatus);
-        }
         return $this->analyzer->analyze($activity);
     }
 

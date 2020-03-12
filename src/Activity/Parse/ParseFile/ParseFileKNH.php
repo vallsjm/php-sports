@@ -91,7 +91,9 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
             $activity->setSport($act['sport']);
             $activity->setTimestampOffset($act['timestampOffset']);
 
-            if (isset($act['athleteStatus'])) {
+            if (isset($this->athleteStatus)) {
+                $activity->setAthleteStatus($this->athleteStatus);
+            } elseif (isset($act['athleteStatus'])) {
                 $athlete = new AthleteStatus(
                     $act['athleteStatus']['id'],
                     $act['athleteStatus']['maxHrBPM'],
@@ -139,7 +141,6 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
                 $activity->addPoint($point);
             }
 
-            $activity = $this->analyze($activity);
             $activities->addActivity($activity);
         }
 

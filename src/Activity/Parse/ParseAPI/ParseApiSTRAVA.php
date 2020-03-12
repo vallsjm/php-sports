@@ -116,6 +116,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
             $newSource->setId($item['id']);
 
             $activity = new Activity();
+            $activity->setAthleteStatus($this->athleteStatus);
             $activity->setSource($newSource);
 
             if (isset($itemInfo['type'])) {

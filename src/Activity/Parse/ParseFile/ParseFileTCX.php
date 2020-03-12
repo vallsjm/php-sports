@@ -60,6 +60,7 @@ class ParseFileTCX extends BaseParseFile implements ParseFileInterface, ParseBin
     {
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity();
+            $activity->setAthleteStatus($this->athleteStatus);
             $activity->setSource(clone $source);
             $activity->setId((string) $act->Id);
             $activity->setSport(

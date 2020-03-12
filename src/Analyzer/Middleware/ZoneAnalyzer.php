@@ -62,21 +62,23 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
         ];
 
         foreach ($this->zonesHR as $zoneName => $values) {
-            $this->matrix['zonesHR'][$zoneName] = $default;
+            $matrixZone = &$this->matrix['zonesHR'][$zoneName];
+            $matrixZone = $default;
             if (isset($values[0])) {
-                $this->matrix['zonesHR'][$zoneName]['minPercent'] = $values[0];
+                $matrixZone['minPercent'] = $values[0];
             }
             if (isset($values[1])) {
-                $this->matrix['zonesHR'][$zoneName]['maxPercent'] = $values[1];
+                $matrixZone['maxPercent'] = $values[1];
             }
         }
         foreach ($this->zonesPOWER as $zoneName => $values) {
-            $this->matrix['zonesPOWER'][$zoneName] = $default;
+            $matrixZone = &$this->matrix['zonesPOWER'][$zoneName];
+            $matrixZone = $default;
             if (isset($values[0])) {
-                $this->matrix['zonesPOWER'][$zoneName]['minPercent'] = $values[0];
+                $matrixZone['minPercent'] = $values[0];
             }
             if (isset($values[1])) {
-                $this->matrix['zonesPOWER'][$zoneName]['maxPercent'] = $values[1];
+                $matrixZone['maxPercent'] = $values[1];
             }
         }
     }
@@ -123,14 +125,15 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
                 if ($hrBPM) {
                     if ($hrPercent = ($point->getHrBPM() * 100) / $hrBPM) {
                         if ($zoneName = $this->zoneName('zonesHR', $hrPercent)) {
-                            $this->matrix['zonesHR'][$zoneName]['durationSeconds'] += $durationSeconds;
+                            $matrixZone = &$this->matrix['zonesHR'][$zoneName];
+                            $matrixZone['durationSeconds'] += $durationSeconds;
                             if ($speed) {
-                                $this->matrix['zonesHR'][$zoneName]['sumSpeed'] += $speed;
-                                $this->matrix['zonesHR'][$zoneName]['countSpeed']++;
+                                $matrixZone['sumSpeed'] += $speed;
+                                $matrixZone['countSpeed']++;
                             }
                             if ($power) {
-                                $this->matrix['zonesHR'][$zoneName]['sumPower'] = $power;
-                                $this->matrix['zonesHR'][$zoneName]['countPower']++;
+                                $matrixZone['sumPower'] = $power;
+                                $matrixZone['countPower']++;
                             }
                         }
                     }
@@ -138,14 +141,15 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
                 if ($powerWatts) {
                     if ($powerPercent = ($point->getPowerWatts() * 100) / $powerWatts) {
                         if ($zoneName = $this->zoneName('zonesPOWER', $powerPercent)) {
-                            $this->matrix['zonesPOWER'][$zoneName]['durationSeconds'] += $durationSeconds;
+                            $matrixZone = &$this->matrix['zonesPOWER'][$zoneName];
+                            $matrixZone['durationSeconds'] += $durationSeconds;
                             if ($speed) {
-                                $this->matrix['zonesPOWER'][$zoneName]['sumSpeed'] += $speed;
-                                $this->matrix['zonesPOWER'][$zoneName]['countSpeed']++;
+                                $matrixZone['sumSpeed'] += $speed;
+                                $matrixZone['countSpeed']++;
                             }
                             if ($power) {
-                                $this->matrix['zonesPOWER'][$zoneName]['sumPower'] = $power;
-                                $this->matrix['zonesPOWER'][$zoneName]['countPower']++;
+                                $matrixZone['sumPower'] = $power;
+                                $matrixZone['countPower']++;
                             }
                         }
                     }
