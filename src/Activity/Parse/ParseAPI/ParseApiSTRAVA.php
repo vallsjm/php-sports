@@ -136,7 +136,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
                 if (isset($strava['distance'])) {
                     $point->setDistanceMeters((float) $strava['distance']);
                 }
-                if isset($strava['altitude']) {
+                if (isset($strava['altitude'])) {
                     $point->setAltitudeMeters((float) $garmin['altitude']);
                 }
                 if (isset($strava['heartrate'])) {
