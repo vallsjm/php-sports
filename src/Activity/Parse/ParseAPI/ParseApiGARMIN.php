@@ -114,7 +114,7 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
                 $activity->setId($item['_id']);
             }
             if (isset($itemInfo['startTimeOffsetInSeconds'])) {
-                $activity->setTimestampOffset($itemInfo['startTimeOffsetInSeconds']);
+                $activity->setTimestampOffset((int) $itemInfo['startTimeOffsetInSeconds']);
             }
 
             foreach ($item['samples'] as $garmin) {

@@ -20,6 +20,7 @@ use PhpSports\Model\Point;
 use PhpSports\Model\Source;
 use PhpSports\Model\AthleteStatus;
 use \SimpleXMLElement;
+// https://app.trainerer.com/data/athletes/d7f5f8df454117a1ef73fe136d4ad78c/resume/event-resume-255443.json
 
 class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
 {
@@ -89,7 +90,7 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
             $activity = new Activity($act['title']);
             $activity->setId($act['id']);
             $activity->setSport($act['sport']);
-            $activity->setTimestampOffset($act['timestampOffset']);
+            $activity->setTimestampOffset((int) $act['timestampOffset']);
 
             if (isset($this->athleteStatus)) {
                 $activity->setAthleteStatus($this->athleteStatus);
