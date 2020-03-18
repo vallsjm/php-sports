@@ -123,14 +123,16 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
             if (isset($item['_id'])) {
                 $activity->setId($item['_id']);
             }
+
+            $offsetTimestamp = 0;
             if (isset($itemInfo['start_date_local'])) {
                 $startDate = new \DateTime($itemInfo['start_date_local']);
                 $activity->setStartedAt($startDate);
-                //$activity->setTimestampOffset((int) $itemInfo['start_date_local']);
+                $offsetTimestamp = $startDate->getTimestamp();
             }
             foreach ($item['points'] as $strava) {
                 $timestamp = $strava['time'];
-                $point     = new Point($timestamp);
+                $point     = new Point($timestamp + $offsetTimestamp);
                 if (isset($strava['lat'])) {
                     $point->setLatitude((float) $strava['lat']);
                     $point->setLongitude((float) $strava['lng']);
@@ -153,7 +155,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
                 $activity->addPoint($point);
             }
 
-            if (count($item['points'])) {
+            if (count($item['points']) > 1) {
                 foreach ($item['laps'] as $strava) {
                     $lap = new Lap(
                         $strava['name'],

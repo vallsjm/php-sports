@@ -134,7 +134,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
             $activity->addPoint($point);
         }
 
-        if (count($data['points'])) {
+        if (count($data['points']) > 1) {
             $nlap = 1;
             foreach ($data['laps'] as $values) {
                 $lap = new Lap(

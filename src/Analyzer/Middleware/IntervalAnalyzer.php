@@ -156,6 +156,7 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
             }
         }
 
+        $nintervals = 0;
         $analysis = new IntervalAnalysis();
         foreach ($this->parameters as $parameter) {
             foreach ($this->timeIntervals as $timeInterval) {
@@ -166,9 +167,12 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
                     $this->matrix[$parameter][$timeInterval]['max']
                 );
                 $analysis->addInterval($interval);
+                $nintervals++;
             }
         }
-        $activity->addAnalysis($analysis);
+        if (count($nintervals)) {
+            $activity->addAnalysis($analysis);
+        }
 
         return $next($activity);
     }

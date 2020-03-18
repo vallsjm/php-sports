@@ -64,6 +64,7 @@ class ParameterAnalyzer implements AnalyzerMiddlewareInterface {
             }
         }
 
+        $nparameters = 0;
         $analysis = new ParameterAnalysis();
         foreach ($matrix as $parameterName => $values) {
             if ($values['count']) {
@@ -74,9 +75,12 @@ class ParameterAnalyzer implements AnalyzerMiddlewareInterface {
                     $values['max']
                 );
                 $analysis->addParameter($parameter);
+                $nparameters++;
             }
         }
-        $activity->addAnalysis($analysis);
+        if (count($nparameters)) {
+            $activity->addAnalysis($analysis);
+        }
 
         return $next($activity);
     }

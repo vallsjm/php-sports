@@ -7,12 +7,12 @@ use PhpSports\Activity\ImportAPI;
 
 final class ImportAPITest extends ActivityCase
 {
-    // public function testImportAPI00()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'garmin.json';
-    //     $activities = ImportAPI::readFromFile('GARMIN', $filePath, $this->athleteStatus);
-    //     $this->renderActivities($filePath, $activities);
-    // }
+    public function testImportAPI00()
+    {
+        $filePath = $this->base_dir . '/source/' . 'garmin.json';
+        $activities = ImportAPI::readFromFile('GARMIN', $filePath, $this->athleteStatus);
+        $this->renderActivities($filePath, $activities);
+    }
 
     public function testImportAPI01()
     {
@@ -27,6 +27,18 @@ final class ImportAPITest extends ActivityCase
         $activities = ImportAPI::readFromFile('STRAVA', $filePath, $this->athleteStatus);
         $this->renderActivities($filePath, $activities);
     }
+
+    public function testImportAPI03()
+    {
+        $filePath = $this->base_dir . '/source/' . 'strava-run.json';
+        $activities = ImportAPI::readFromFile('STRAVA', $filePath, $this->athleteStatus);
+        $this->renderActivities($filePath, $activities);
+
+        // $json = json_encode($activities, JSON_PRETTY_PRINT);
+        // print_r($json);
+
+    }
+
 
     // public function testImportFile01()
     // {
