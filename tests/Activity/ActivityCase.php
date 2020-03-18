@@ -138,7 +138,7 @@ class ActivityCase extends TestCase
         $this->consoleLog(PHP_EOL);
         $this->consoleLog('FILE: ' . $fileName);
         foreach ($activities as $activity) {
-            $this->consoleLog('ACTIVITY: ' . $activity->getTitle() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s'));
+            $this->consoleLog('ACTIVITY: ' . $activity->getTitle() . ', SPORT: ' . $activity->getSport() . ', DATE: ' . $activity->getStartedAt()->format('Y-m-d H:i:s'));
             foreach ($activity->getAnalysis() as $analysis) {
                 switch ($analysis->getName()) {
                     case 'resume':

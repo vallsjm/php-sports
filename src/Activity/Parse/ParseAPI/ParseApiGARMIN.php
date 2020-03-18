@@ -143,17 +143,19 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
                 $activity->addPoint($point);
             }
 
-            $laps = array_column($item['laps'], 'startTimeInSeconds');
-            for ($n=count($laps), $i=0; $i<$n; $i++) {
-                $name       = 'L' . ($i+1);
-                $lap = new Lap(
-                    $name,
-                    $laps[$i],
-                    (isset($laps[$i+1])) ? $laps[$i+1] : $timestamp
-                );
-                $activity->addLap($lap);
+            if (count($item['samples'])) {
+                $laps = array_column($item['laps'], 'startTimeInSeconds');
+                for ($n=count($laps), $i=0; $i<$n; $i++) {
+                    $name       = 'L' . ($i+1);
+                    $lap = new Lap(
+                        $name,
+                        $laps[$i],
+                        (isset($laps[$i+1])) ? $laps[$i+1] : $timestamp
+                    );
+                    $activity->addLap($lap);
+                }
             }
-
+            
             $resume = [];
             if (isset($itemInfo['distanceInMeters'])) {
                 $resume['distanceMeters'] = $itemInfo['distanceInMeters'];

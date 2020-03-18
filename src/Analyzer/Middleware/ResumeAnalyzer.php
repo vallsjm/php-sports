@@ -112,7 +112,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         $analysis = new ResumeAnalysis($calculate);
         $activity->addAnalysis($analysis);
 
-        if (!$activity->setStartedAt()) {
+        if ((!$activity->getStartedAt()) && count($points)) {
             reset($points);
             $time  = new \DateTime();
             if ($activity->getTimestampOffset()) {

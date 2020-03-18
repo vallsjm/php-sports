@@ -7,10 +7,24 @@ use PhpSports\Activity\ImportAPI;
 
 final class ImportAPITest extends ActivityCase
 {
-    public function testImportAPI00()
+    // public function testImportAPI00()
+    // {
+    //     $filePath = $this->base_dir . '/source/' . 'garmin.json';
+    //     $activities = ImportAPI::readFromFile('GARMIN', $filePath, $this->athleteStatus);
+    //     $this->renderActivities($filePath, $activities);
+    // }
+
+    public function testImportAPI01()
     {
-        $filePath = $this->base_dir . '/source/' . 'garmin.json';
-        $activities = ImportAPI::readFromFile('GARMIN', $filePath, $this->athleteStatus);
+        $filePath = $this->base_dir . '/source/' . 'strava-ride.json';
+        $activities = ImportAPI::readFromFile('STRAVA', $filePath, $this->athleteStatus);
+        $this->renderActivities($filePath, $activities);
+    }
+
+    public function testImportAPI02()
+    {
+        $filePath = $this->base_dir . '/source/' . 'strava-workout.json';
+        $activities = ImportAPI::readFromFile('STRAVA', $filePath, $this->athleteStatus);
         $this->renderActivities($filePath, $activities);
     }
 
