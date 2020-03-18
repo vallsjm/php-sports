@@ -107,6 +107,10 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
         end($points);
         $timeEnd  = key($points);
 
+        if (is_null($timeStart) || is_null($timeEnd)) {
+            return $next($activity);
+        }
+
         $this->loadParameterMatrix(
             $points,
             $timeStart,

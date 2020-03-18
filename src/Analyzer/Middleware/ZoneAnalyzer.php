@@ -104,8 +104,11 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
     public function analyze(Activity $activity, Closure $next)
     {
         $points  = $activity->getPoints();
+        if (!count($points)) {
+            return $next($activity);
+        }
+        
         $this->createParameterMatrix();
-
         if ($athleteStatus = $activity->getAthleteStatus()) {
             $hrBPM      = $athleteStatus->getMaxHrBPM();
             $powerWatts = $athleteStatus->getFtpPowerWatts();

@@ -39,6 +39,10 @@ class ParameterAnalyzer implements AnalyzerMiddlewareInterface {
     {
         $points = $activity->getPoints();
 
+        if (!count($points)) {
+            return $next($activity);
+        }
+
         $matrix = [];
         foreach ($this->parameters as $parameter) {
             $matrix[$parameter] = [

@@ -127,7 +127,6 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         foreach ($laps as $lap) {
             $filtered = $points->filterByLap($lap);
             $calculate = $this->calculatePointsLap($filtered);
-
             $analysis = new ResumeAnalysis($calculate);
             $lap->addAnalysis($analysis);
         }
