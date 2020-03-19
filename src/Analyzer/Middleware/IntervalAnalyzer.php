@@ -170,7 +170,7 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
                 $nintervals++;
             }
         }
-        if (count($nintervals)) {
+        if ($nintervals > 0) {
             $activity->addAnalysis($analysis);
         }
 
