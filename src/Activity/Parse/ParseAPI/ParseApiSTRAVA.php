@@ -156,13 +156,16 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
             }
 
             if (count($item['points']) > 1) {
+                $nlap = 1;
                 foreach ($item['laps'] as $strava) {
                     $lap = new Lap(
+                        $nlap,
                         $strava['name'],
                         $strava['start_index'] + $offsetTimestamp,
                         $strava['end_index'] + $offsetTimestamp
                     );
                     $activity->addLap($lap);
+                    $nlap++;
                 }
             }
 

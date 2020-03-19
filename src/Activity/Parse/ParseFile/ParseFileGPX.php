@@ -30,7 +30,7 @@ class ParseFileGPX extends BaseParseFile implements ParseFileInterface, ParseBin
 
             $nlap = 1;
             foreach ($trk->trkseg as $trkseg) {
-                $lap = new Lap("L{$nlap}");
+                $lap = new Lap($nlap, "L{$nlap}");
                 foreach ($trkseg->trkpt as $trkpt) {
                     $time    = new \DateTime((string) $trkpt->time);
                     $point   = new Point($time->getTimestamp());

@@ -10,21 +10,34 @@ use \DateTime;
 
 final class Lap implements JsonSerializable
 {
+    private $id;
     private $name;
     private $analysis;
     private $timestampFrom;
     private $timestampTo;
 
     public function __construct(
+        $id = null,
         string $name = null,
         int $timestampFrom = null,
         int $timestampTo = null
     )
     {
-        $this->timestampFrom       = $timestampFrom;
-        $this->timestampTo         = $timestampTo;
-        $this->name                = $name;
-        $this->analysis            = new AnalysisCollection();
+        $this->id            = $id;
+        $this->timestampFrom = $timestampFrom;
+        $this->timestampTo   = $timestampTo;
+        $this->name          = $name;
+        $this->analysis      = new AnalysisCollection();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id = null)
+    {
+        $this->id = $id;
     }
 
     public function getName()
@@ -80,6 +93,7 @@ final class Lap implements JsonSerializable
 
     public function jsonSerialize() {
         return [
+            'id'            => $this->id,
             'name'          => $this->name,
             'analysis'      => $this->analysis,
             'timestampFrom' => $this->timestampFrom,

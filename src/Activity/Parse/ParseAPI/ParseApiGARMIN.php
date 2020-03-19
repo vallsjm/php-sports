@@ -113,6 +113,11 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
             if (isset($item['_id'])) {
                 $activity->setId($item['_id']);
             }
+            if (isset($itemInfo['startTimeInSeconds'])) {
+                $startedAt = new \DateTime();
+                $startedAt->setTimestamp((int) $itemInfo['startTimeInSeconds']);
+                $activity->setStartedAt($startedAt);
+            }
             if (isset($itemInfo['startTimeOffsetInSeconds'])) {
                 $activity->setTimestampOffset((int) $itemInfo['startTimeOffsetInSeconds']);
             }
@@ -145,12 +150,12 @@ class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
 
             if (count($item['samples']) > 1) {
                 $laps = array_column($item['laps'], 'startTimeInSeconds');
-                for ($n=count($laps), $i=0; $i<$n; $i++) {
-                    $name       = 'L' . ($i+1);
+                for ($n=count($laps)+1, $i=1; $i<$n; $i++) {
                     $lap = new Lap(
-                        $name,
-                        $laps[$i],
-                        (isset($laps[$i+1])) ? $laps[$i+1] : $timestamp
+                        $i,
+                        "L{$i}",
+                        $laps[$i-1],
+                        (isset($laps[$i])) ? $laps[$i] : $timestamp
                     );
                     $activity->addLap($lap);
                 }

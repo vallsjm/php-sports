@@ -69,7 +69,7 @@ class ParseFileTCX extends BaseParseFile implements ParseFileInterface, ParseBin
 
             $nlap = 1;
             foreach ($act->Lap as $lp) {
-                $lap = new Lap("L{$nlap}");
+                $lap = new Lap($nlap, "L{$nlap}");
                 foreach ($lp->Track->Trackpoint as $pt) {
                     $time  = new \DateTime((string) $pt->Time);
                     $point = new Point($time->getTimestamp());

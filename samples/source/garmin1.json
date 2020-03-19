@@ -1,0 +1,22 @@
+[
+   {
+      "userId":"1b681f69-62f5-4553-a781-8011f34ce083",
+      "userAccessToken":"02394c2e-6b9c-4442-a192-685625d95c82",
+      "summaryId":"4670263691-detail",
+      "summary":{
+         "startTimeInSeconds":1584555300,
+         "startTimeOffsetInSeconds":0,
+         "activityType":"INDOOR_CARDIO",
+         "deviceName":"unknown",
+         "manual":true
+      },
+      "samples":[
+
+      ],
+      "laps":[
+         {
+            "startTimeInSeconds":1584555300
+         }
+      ]
+   }
+]

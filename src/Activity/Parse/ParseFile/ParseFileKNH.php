@@ -123,6 +123,7 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
 
             foreach ($act['laps'] as $lp) {
                 $lap = new Lap(
+                    $lp['id'],
                     $lp['name'],
                     $lp['timestampFrom'],
                     $lp['timestampTo']
