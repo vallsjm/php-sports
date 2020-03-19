@@ -39,6 +39,10 @@ class ParameterAnalyzer implements AnalyzerMiddlewareInterface {
     {
         $points = $activity->getPoints();
 
+        // test garmin warning
+        if (!count($points)) {
+
+        }
         if (!count($points)) {
             return $next($activity);
         }

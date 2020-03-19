@@ -130,42 +130,44 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
                 $activity->setStartedAt($startDate);
                 $offsetTimestamp = $startDate->getTimestamp();
             }
-            foreach ($item['points'] as $strava) {
-                $timestamp = $strava['time'];
-                $point     = new Point($timestamp + $offsetTimestamp);
-                if (isset($strava['lat'])) {
-                    $point->setLatitude((float) $strava['lat']);
-                    $point->setLongitude((float) $strava['lng']);
+            if (isset($item['points'])) {
+                foreach ($item['points'] as $strava) {
+                    $timestamp = $strava['time'];
+                    $point     = new Point($timestamp + $offsetTimestamp);
+                    if (isset($strava['lat'])) {
+                        $point->setLatitude((float) $strava['lat']);
+                        $point->setLongitude((float) $strava['lng']);
+                    }
+                    if (isset($strava['distance'])) {
+                        $point->setDistanceMeters((float) $strava['distance']);
+                    }
+                    if (isset($strava['altitude'])) {
+                        $point->setAltitudeMeters((float) $strava['altitude']);
+                    }
+                    if (isset($strava['heartrate'])) {
+                        $point->setHrBPM((int) $strava['heartrate']);
+                    }
+                    if (isset($strava['cadence'])) {
+                        $point->setCadenceRPM((int) $strava['cadence']);
+                    }
+                    if (isset($strava['watts'])) {
+                        $point->setPowerWatts((int) $strava['watts']);
+                    }
+                    $activity->addPoint($point);
                 }
-                if (isset($strava['distance'])) {
-                    $point->setDistanceMeters((float) $strava['distance']);
-                }
-                if (isset($strava['altitude'])) {
-                    $point->setAltitudeMeters((float) $strava['altitude']);
-                }
-                if (isset($strava['heartrate'])) {
-                    $point->setHrBPM((int) $strava['heartrate']);
-                }
-                if (isset($strava['cadence'])) {
-                    $point->setCadenceRPM((int) $strava['cadence']);
-                }
-                if (isset($strava['watts'])) {
-                    $point->setPowerWatts((int) $strava['watts']);
-                }
-                $activity->addPoint($point);
-            }
 
-            if (count($item['points']) > 1) {
-                $nlap = 1;
-                foreach ($item['laps'] as $strava) {
-                    $lap = new Lap(
-                        $nlap,
-                        $strava['name'],
-                        $strava['start_index'] + $offsetTimestamp,
-                        $strava['end_index'] + $offsetTimestamp
-                    );
-                    $activity->addLap($lap);
-                    $nlap++;
+                if ((count($item['points']) > 1) && isset($item['laps'])) {
+                    $nlap = 1;
+                    foreach ($item['laps'] as $strava) {
+                        $lap = new Lap(
+                            $nlap,
+                            $strava['name'],
+                            $strava['start_index'] + $offsetTimestamp,
+                            $strava['end_index'] + $offsetTimestamp
+                        );
+                        $activity->addLap($lap);
+                        $nlap++;
+                    }
                 }
             }
 

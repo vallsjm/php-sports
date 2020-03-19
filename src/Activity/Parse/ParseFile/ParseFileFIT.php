@@ -106,45 +106,47 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
             $activity->setSport($data['analysis']['sport']);
         }
 
-        foreach ($data['points'] as $timestamp => $values) {
-            $point = new Point($timestamp);
-            if (isset($values['position_lat'])) {
-                $point->setLatitude($values['position_lat']);
-                $point->setLongitude($values['position_long']);
-            }
-            if (isset($values['distance'])) {
-                $point->setDistanceKilometers($values['distance']);
-            }
-            if (isset($values['altitude'])) {
-                $point->setAltitudeMeters($values['altitude']);
-            }
-            if (isset($values['cadence'])) {
-                $point->setCadenceRPM($values['cadence']);
-            }
-            if (isset($values['power'])) {
-                $point->setPowerWatts($values['power']);
-            }
-            if (isset($values['heart_rate'])) {
-                $point->setHrBPM($values['heart_rate']);
-            }
-            if (isset($values['speed'])) {
-                $point->setSpeedKilometersPerHour($values['speed']);
+        if (isset($data['points'])) {
+            foreach ($data['points'] as $timestamp => $values) {
+                $point = new Point($timestamp);
+                if (isset($values['position_lat'])) {
+                    $point->setLatitude($values['position_lat']);
+                    $point->setLongitude($values['position_long']);
+                }
+                if (isset($values['distance'])) {
+                    $point->setDistanceKilometers($values['distance']);
+                }
+                if (isset($values['altitude'])) {
+                    $point->setAltitudeMeters($values['altitude']);
+                }
+                if (isset($values['cadence'])) {
+                    $point->setCadenceRPM($values['cadence']);
+                }
+                if (isset($values['power'])) {
+                    $point->setPowerWatts($values['power']);
+                }
+                if (isset($values['heart_rate'])) {
+                    $point->setHrBPM($values['heart_rate']);
+                }
+                if (isset($values['speed'])) {
+                    $point->setSpeedKilometersPerHour($values['speed']);
+                }
+
+                $activity->addPoint($point);
             }
 
-            $activity->addPoint($point);
-        }
-
-        if (count($data['points']) > 1) {
-            $nlap = 1;
-            foreach ($data['laps'] as $values) {
-                $lap = new Lap(,
-                    $nlap,
-                    "L{$nlap}",
-                    $values['from'],
-                    $values['to']
-                );
-                $activity->addLap($lap);
-                $nlap++;
+            if ((count($data['points']) > 1) && isset($data['laps'])) {
+                $nlap = 1;
+                foreach ($data['laps'] as $values) {
+                    $lap = new Lap(,
+                        $nlap,
+                        "L{$nlap}",
+                        $values['from'],
+                        $values['to']
+                    );
+                    $activity->addLap($lap);
+                    $nlap++;
+                }
             }
         }
 
