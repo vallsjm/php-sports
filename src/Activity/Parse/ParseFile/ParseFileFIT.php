@@ -138,7 +138,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
             if ((count($data['points']) > 1) && isset($data['laps'])) {
                 $nlap = 1;
                 foreach ($data['laps'] as $values) {
-                    $lap = new Lap(,
+                    $lap = new Lap(
                         $nlap,
                         "L{$nlap}",
                         $values['from'],
