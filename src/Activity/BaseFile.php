@@ -22,9 +22,9 @@ abstract class BaseFile implements AnalyzerInterface
         $instance  = null;
         $format    = self::getFileExtension($fileName);
         $className = 'PhpSports\Activity\Parse\ParseFile\ParseFile' . $format;
-        try {
+        if (class_exists($className)) {
             $instance = $className::createInstance($athleteSatus, $options);
-        } catch (\Exception $e) {
+        } else {
             throw new InvalidArgumentException("Format {$format} not suported.");
         }
 
@@ -39,9 +39,9 @@ abstract class BaseFile implements AnalyzerInterface
     {
         $instance  = null;
         $className = 'PhpSports\Activity\Parse\ParseFile\ParseFile' . $format;
-        try {
+        if (class_exists($className)) {
             $instance = $className::createInstance($athleteSatus, $options);
-        } catch (\Exception $e) {
+        } else {
             throw new InvalidArgumentException("Format {$format} not suported.");
         }
 

@@ -16,9 +16,9 @@ abstract class BaseAPI implements AnalyzerInterface
     {
         $instance  = null;
         $className = 'PhpSports\Activity\Parse\ParseAPI\ParseApi' . strtoupper($apiName);
-        try {
+        if (class_exists($className)) {
             $instance = $className::createInstance($athleteStatus, $options);
-        } catch (\Exception $e) {
+        } else {
             throw new InvalidArgumentException("API {$apiName} not suported.");
         }
 
