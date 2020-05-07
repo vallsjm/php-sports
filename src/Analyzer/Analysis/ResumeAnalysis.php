@@ -37,6 +37,6 @@ class ResumeAnalysis extends Analysis implements JsonSerializable, AnalysisInter
 
     public function merge(Analysis $analysis) : Analysis
     {
-        return new static(array_merge($analysis->getData(), $this->data));
+        return new static(array_replace_recursive($analysis->getData(), $this->data));
     }
 }

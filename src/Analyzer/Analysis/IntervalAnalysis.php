@@ -22,11 +22,16 @@ class IntervalAnalysis extends Analysis implements JsonSerializable, AnalysisInt
 
     public function addInterval(Interval $interval = null)
     {
-        $this->data[] = $interval;
+        $pos = $interval->getParameter();
+        if (!isset($this->data[$pos])) {
+            $this->data[$pos] = [];
+        }
+        $seconds = $interval->getTimeIntervalSeconds();
+        $this->data[$pos][$seconds] = $interval;
     }
 
     public function merge(Analysis $analysis) : Analysis
     {
-        return new static(array_merge($analysis->getData(), $this->data));
+        return new static(array_replace_recursive($analysis->getData(), $this->data));
     }
 }

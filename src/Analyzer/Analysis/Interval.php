@@ -65,8 +65,6 @@ class Interval implements JsonSerializable
 
     public function jsonSerialize() {
         return [
-            'parameter'           => $this->parameter,
-            'timeIntervalSeconds' => $this->timeIntervalSeconds,
             'minAvg'              => $this->minAvg,
             'maxAvg'              => $this->maxAvg
         ];

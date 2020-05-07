@@ -22,11 +22,12 @@ class ParameterAnalysis extends Analysis implements JsonSerializable, AnalysisIn
 
     public function addParameter(Parameter $parameter = null)
     {
-        $this->data[] = $parameter;
+        $pos = $parameter->getParameter();
+        $this->data[$pos] = $parameter;
     }
 
     public function merge(Analysis $analysis) : Analysis
     {
-        return new static(array_merge($analysis->getData(), $this->data));
+        return new static(array_replace_recursive($analysis->getData(), $this->data));
     }
 }

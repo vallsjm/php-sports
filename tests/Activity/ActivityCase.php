@@ -155,14 +155,16 @@ class ActivityCase extends TestCase
                     break;
                     case 'parameters':
                         $this->consoleLog(PHP_EOL . 'parameters: ' . PHP_EOL);
-                        foreach ($analysis->getData() as $value) {
+                        foreach ($analysis->getData() as $key => $value) {
                             $this->consoleLog(str_pad($value->getParameter(), 20, ' ') . '  min: ' . str_pad($value->getMinValue(), 20, ' ') . ' avg: ' . str_pad($value->getAvgValue(), 20, ' ') . ' max: ' . str_pad($value->getMaxValue(), 20, ' '));
                         }
                     break;
                     case 'intervals':
                         $this->consoleLog(PHP_EOL . 'intervals: ' . PHP_EOL);
-                        foreach ($analysis->getData() as $value) {
-                            $this->consoleLog(str_pad($value->getParameter(), 20, ' ') . '  interval: ' . str_pad('(' . gmdate("H:i:s", $value->getTimeIntervalSeconds()) . ') ' . $value->getTimeIntervalSeconds() . 's.', 20, ' ')  . ' min: ' . str_pad($value->getMinAvg(), 20, ' ') . ' max: ' . str_pad($value->getMaxAvg(), 20, ' '));
+                        foreach ($analysis->getData() as $parameter => $values) {
+                            foreach ($values as $interval => $value) {
+                                $this->consoleLog(str_pad($value->getParameter(), 20, ' ') . '  interval: ' . str_pad('(' . gmdate("H:i:s", $value->getTimeIntervalSeconds()) . ') ' . $value->getTimeIntervalSeconds() . 's.', 20, ' ')  . ' min: ' . str_pad($value->getMinAvg(), 20, ' ') . ' max: ' . str_pad($value->getMaxAvg(), 20, ' '));
+                            }
                         }
                     break;
                     case 'zonesHR':

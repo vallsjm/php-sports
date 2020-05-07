@@ -46,4 +46,4 @@ $this->renderActivities($filePath, $activities);
 ?>
 ```
 
-/vendor/bin/phpunit --bootstrap ./vendor/autoload.php tests/Model/ActivityTest
+./vendor/bin/phpunit --bootstrap ./vendor/autoload.php tests/Model/ActivityTest

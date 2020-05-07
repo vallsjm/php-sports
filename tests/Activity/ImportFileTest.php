@@ -10,7 +10,7 @@ final class ImportFileTest extends ActivityCase
 {
     public function testImportFile00()
     {
-        $filePath = $this->base_dir . '/source/' . 'sample.fit';
+        $filePath = $this->base_dir . '/source/' . 'cycling_indoor_01.fit';
         $athleteStatus = $this->athleteStatus;
         $timer = new Timer();
 
@@ -19,9 +19,9 @@ final class ImportFileTest extends ActivityCase
             return $import->readFromFile($filePath);
         });
 
-        echo $import->getAnalyzer()->getTimer();
-        echo $timer;
-        // $json = json_encode($activities, JSON_PRETTY_PRINT);
+        // echo $import->getAnalyzer()->getTimer();
+        // echo $timer;
+        // $json = json_encode($activities[0]->getAnalysis(), JSON_PRETTY_PRINT);
         // print_r($json);
         $this->renderActivities($filePath, $activities);
     }

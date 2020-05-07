@@ -36,9 +36,9 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
         }
         if (isset($data['parameters'])) {
             $analysis = new ParameterAnalysis();
-            foreach ($data['parameters'] as $value) {
+            foreach ($data['parameters'] as $parameterName => $value) {
                 $parameter = new Parameter(
-                    $value['parameter'],
+                    $parameterName,
                     $value['minValue'],
                     $value['avgValue'],
                     $value['maxValue']
@@ -49,23 +49,25 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
         }
         if (isset($data['intervals'])) {
             $analysis = new IntervalAnalysis();
-            foreach ($data['intervals'] as $value) {
-                $parameter = new Interval(
-                    $value['parameter'],
-                    $value['timeIntervalSeconds'],
-                    $value['minAvg'],
-                    $value['maxAvg']
-                );
-                $analysis->addInterval($parameter);
+            foreach ($data['intervals'] as $parameterName => $values) {
+                foreach ($values as $timeIntervalSeconds => $value) {
+                    $parameter = new Interval(
+                        $parameterName,
+                        $timeIntervalSeconds,
+                        $value['minAvg'],
+                        $value['maxAvg']
+                    );
+                    $analysis->addInterval($parameter);
+                }
             }
             $analysisCollection->addAnalysis($analysis);
         }
         foreach (['zonesHR','zonesPOWER'] as $zoneName) {
             if (isset($data[$zoneName])) {
                 $analysis = new ZoneAnalysis($zoneName);
-                foreach ($data[$zoneName] as $value) {
+                foreach ($data[$zoneName] as $name => $value) {
                     $parameter = new Zone(
-                        $value['name'],
+                        $name,
                         $value['minPercent'],
                         $value['maxPercent'],
                         $value['durationSeconds'],

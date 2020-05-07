@@ -25,11 +25,12 @@ class ZoneAnalysis extends Analysis implements JsonSerializable, AnalysisInterfa
 
     public function addZone(Zone $zone = null)
     {
-        $this->data[] = $zone;
+        $pos = $zone->getName();
+        $this->data[$pos] = $zone;
     }
 
     public function merge(Analysis $analysis) : Analysis
     {
-        return new static(array_merge($analysis->getData(), $this->data));
+        return new static(array_replace_recursive($analysis->getData(), $this->data));
     }
 }

@@ -101,7 +101,6 @@ class Zone implements JsonSerializable
 
     public function jsonSerialize() {
         return [
-            'name'                    => $this->name,
             'minPercent'              => $this->minPercent,
             'maxPercent'              => $this->maxPercent,
             'durationSeconds'         => $this->durationSeconds,
