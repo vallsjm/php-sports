@@ -148,6 +148,8 @@ class ActivityCase extends TestCase
                                 $this->consoleLog(str_pad($key, 20, ' ') . ': ' . $value . ' m. (' . round($value /1000, 2). ' Km)');
                             } elseif ($key == 'durationSeconds') {
                                 $this->consoleLog(str_pad($key, 20, ' ') . ': ' . $value . ' s. (' . gmdate("H:i:s", $value) . ')');
+                            } elseif ($key == 'speedMetersPerSecond') {
+                                $this->consoleLog(str_pad($key, 20, ' ') . ': ' . $value . ' m/s. (' . round($value * 3.6, 2) . ' Km/h)');
                             } else {
                                 $this->consoleLog(str_pad($key, 20, ' ') . ': ' . $value);
                             }
@@ -185,7 +187,7 @@ class ActivityCase extends TestCase
             $this->consoleLog(PHP_EOL . 'laps: ' . PHP_EOL);
             foreach ($activity->getLaps() as $lap) {
                 $analysisResume = $lap->getAnalysis()->filterByName('resume')->getData();
-                $this->consoleLog($lap->getName() . ' ' . date('Y-m-d H:i:s', $lap->getTimestampFrom()) . ' duration: ' . gmdate("H:i:s", $analysisResume['durationSeconds']) . ' distance: ' . str_pad($analysisResume['distanceMeters'] . 'm (' . round($analysisResume['distanceMeters'] / 1000, 2) . ' km)', 20, ' ') . ' points: ' . $analysisResume['totalPoints']);
+                $this->consoleLog($lap->getName() . ' ' . date('Y-m-d H:i:s', $lap->getTimestampFrom()) . ' duration: ' . gmdate("H:i:s", $analysisResume['durationSeconds']) . ' distance: ' . str_pad($analysisResume['distanceMeters'] . 'm (' . round($analysisResume['distanceMeters'] / 1000, 2) . ' km)', 20, ' ') . ' speed: '.  str_pad(round($analysisResume['speedMetersPerSecond'], 2) . 'm/s (' . round($analysisResume['speedMetersPerSecond'] * 3.6, 2). ' km/h)', 20, ' '). ' points: ' . $analysisResume['totalPoints']);
             }
         }
     }

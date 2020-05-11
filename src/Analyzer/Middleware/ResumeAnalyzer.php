@@ -18,6 +18,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         $elevationGainMeters = 0;
         $totalPoints         = 0;
         $queueHrBPM          = [];
+        $queueSpeed          = [];
 
         $lastPoint = null;
         foreach ($points as $point) {
@@ -30,6 +31,9 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             }
             if (is_null($point->getSpeedMetersPerSecond()) && $duration) {
                 $point->setSpeedMetersPerSecond($distance / $duration);
+            }
+            if ($speedMetersPerSecond = $point->getSpeedMetersPerSecond()) {
+                $queueSpeed[] = $speedMetersPerSecond;
             }
             if ($hrBPM = $point->getHrBPM()) {
                 $queueHrBPM[] = $hrBPM;
@@ -44,12 +48,13 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         }
 
         return [
-            'distanceMeters'      => $distanceMeters,
-            'durationSeconds'     => $durationSeconds,
-            'elevationGainMeters' => $elevationGainMeters,
-            'maxHrBPM'            => ($numHrBPM = count($queueHrBPM)) ? max($queueHrBPM) : null,
-            'avgHrBPM'            => ($numHrBPM) ? (array_sum($queueHrBPM) / $numHrBPM) : null,
-            'totalPoints'         => $totalPoints
+            'distanceMeters'       => $distanceMeters,
+            'durationSeconds'      => $durationSeconds,
+            'elevationGainMeters'  => $elevationGainMeters,
+            'maxHrBPM'             => ($numHrBPM = count($queueHrBPM)) ? max($queueHrBPM) : null,
+            'avgHrBPM'             => ($numHrBPM) ? (array_sum($queueHrBPM) / $numHrBPM) : null,
+            'speedMetersPerSecond' => ($numSpeed = count($queueSpeed)) ? (array_sum($queueSpeed) / $numSpeed) : null,
+            'totalPoints'          => $totalPoints
         ];
     }
 
@@ -59,6 +64,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         $durationSeconds     = 0;
         $elevationGainMeters = 0;
         $totalPoints         = 0;
+        $queueSpeed          = [];
 
         $lastPoint = null;
         foreach ($points as $point) {
@@ -70,15 +76,20 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
             $durationSeconds     += $duration;
             $elevationGainMeters += $elevation;
 
+            if ($speedMetersPerSecond = $point->getSpeedMetersPerSecond()) {
+                $queueSpeed[] = $speedMetersPerSecond;
+            }
+
             $lastPoint = $point;
             $totalPoints++;
         }
 
         return [
-            'distanceMeters'      => $distanceMeters,
-            'durationSeconds'     => $durationSeconds,
-            'elevationGainMeters' => $elevationGainMeters,
-            'totalPoints'         => $totalPoints
+            'distanceMeters'       => $distanceMeters,
+            'durationSeconds'      => $durationSeconds,
+            'elevationGainMeters'  => $elevationGainMeters,
+            'speedMetersPerSecond' => ($numSpeed = count($queueSpeed)) ? (array_sum($queueSpeed) / $numSpeed) : null,
+            'totalPoints'          => $totalPoints
         ];
     }
 
@@ -115,11 +126,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
         if ((!$activity->getStartedAt()) && count($points)) {
             reset($points);
             $time  = new \DateTime();
-            if ($activity->getTimestampOffset()) {
-                $time->setTimestamp(key($points) + $activity->getTimestampOffset());
-            } else {
-                $time->setTimestamp(key($points));
-            }
+            $time->setTimestamp(key($points));
             $activity->setStartedAt($time);
         }
 
