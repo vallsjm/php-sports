@@ -234,6 +234,15 @@ EOD;
         return $this->createActivities($source, $activities, $sxml);
     }
 
+    public function readOneFromFile(string $fileName) : Activity
+    {
+        $activities = $this->readFromFile($fileName);
+        if (count($activities) == 1) {
+            return $activities[0];
+        }
+        return null;
+    }
+
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
         $data   = $this->createXML($activities);
@@ -246,6 +255,13 @@ EOD;
         } else {
             return $data->asXML($fileName);
         }
+    }
+
+    public function saveOneToFile(Activity $activity, string $fileName, bool $pretty = false)
+    {
+        $activities = new ActivityCollection();
+        $activities->addActivity($activity);
+        return $this->saveToFile($activities, $fileName, $pretty);
     }
 
     public function readFromBinary(string $data) : ActivityCollection
@@ -261,6 +277,15 @@ EOD;
         return $this->createActivities($source, $activities, $sxml);
     }
 
+    public function readOneFromBinary(string $data) : Activity
+    {
+        $activities = $this->readFromBinary($data);
+        if (count($activities) == 1)
+            return $activities[0];
+
+        return null;
+    }
+
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $data = $this->createXML($activities);
@@ -273,6 +298,13 @@ EOD;
         } else {
             return $data->asXML();
         }
+    }
+
+    public function saveOneToBinary(Activity $activity, bool $pretty = false) : string
+    {
+        $activities = new ActivityCollection();
+        $activities->addActivity($activity);
+        return $this->saveToBinary($activities, $pretty);
     }
 
 }

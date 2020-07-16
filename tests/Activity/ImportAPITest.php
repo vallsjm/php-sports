@@ -53,7 +53,6 @@ final class ImportAPITest extends ActivityCase
         $this->renderActivities($filePath, $activities);
     }
 
-
     // public function testImportFile01()
     // {
     //     $filePath = $this->base_dir . '/source/' . 'strava.json';

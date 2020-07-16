@@ -60,47 +60,136 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         return $ret;
     }
 
+    // [
+    //     'info' => información del activity,
+    //     'stream' => puntos,
+    //     'laps' => laps
+    // ]
+    public function normalizeOne(array $item)
+    {
+        $item['_sport'] = $this->normalizeSport($item['info']['type']);
+        $points = [];
+        foreach ($item['stream'] as $stream) {
+            $type = $stream['type'];
+            switch ($type) {
+                case 'latlng':
+                    foreach ($stream['data'] as $timestamp => $values) {
+                        if (!isset($points[$timestamp])) {
+                            $points[$timestamp] = [];
+                        }
+                        $points[$timestamp]['lat'] = $stream['data'][$timestamp][0];
+                        $points[$timestamp]['lng'] = $stream['data'][$timestamp][1];
+                    }
+                break;
+                default:
+                    foreach ($stream['data'] as $timestamp => $values) {
+                        if (!isset($points[$timestamp])) {
+                            $points[$timestamp] = [];
+                        }
+                        $points[$timestamp][$type] = $stream['data'][$timestamp];
+                    }
+                break;
+            }
+        }
+        $item['_points'] = $points;
+        unset($item['stream']);
 
-    // [[
-    //     'info' => información del activity,
-    //     'stream' => puntos,
-    //     'laps' => laps
-    // ],[
-    //     'info' => información del activity,
-    //     'stream' => puntos,
-    //     'laps' => laps
-    // ]]
+        return $item;
+    }
+
     public function normalize(array $data)
     {
         foreach ($data as &$item) {
-            $item['sport'] = $this->normalizeSport($item['info']['type']);
-            $points = [];
-            foreach ($item['stream'] as $stream) {
-                $type = $stream['type'];
-                switch ($type) {
-                    case 'latlng':
-                        foreach ($stream['data'] as $timestamp => $values) {
-                            if (!isset($points[$timestamp])) {
-                                $points[$timestamp] = [];
-                            }
-                            $points[$timestamp]['lat'] = $stream['data'][$timestamp][0];
-                            $points[$timestamp]['lng'] = $stream['data'][$timestamp][1];
-                        }
-                    break;
-                    default:
-                        foreach ($stream['data'] as $timestamp => $values) {
-                            if (!isset($points[$timestamp])) {
-                                $points[$timestamp] = [];
-                            }
-                            $points[$timestamp][$type] = $stream['data'][$timestamp];
-                        }
-                    break;
-                }
-            }
-            $item['points'] = $points;
-            unset($item['stream']);
+            $item = $this->normalizeOne($item);
         }
         return $data;
+    }
+
+    public function createActivity(
+        Source $source,
+        array $item
+    ) : Activity
+    {
+        $itemInfo = $item['info'];
+
+        $newSource = clone $source;
+        $newSource->setId($itemInfo['id']);
+
+        $activity = new Activity();
+        $activity->setAthleteStatus($this->athleteStatus);
+        $activity->setSource($newSource);
+        $activity->setSport($item['_sport']);
+
+        if (isset($item['_id'])) {
+            $activity->setId($item['_id']);
+        }
+
+        $offsetTimestamp = 0;
+        if (isset($itemInfo['start_date_local'])) {
+            $startDate = new \DateTime($itemInfo['start_date_local']);
+            $activity->setStartedAt($startDate);
+            $offsetTimestamp = $startDate->getTimestamp();
+        }
+        if (isset($item['_points'])) {
+            foreach ($item['_points'] as $strava) {
+                $timestamp = $strava['time'];
+                $point     = new Point($timestamp + $offsetTimestamp);
+                if (isset($strava['lat'])) {
+                    $point->setLatitude((float) $strava['lat']);
+                    $point->setLongitude((float) $strava['lng']);
+                }
+                if (isset($strava['distance'])) {
+                    $point->setDistanceMeters((float) $strava['distance']);
+                }
+                if (isset($strava['altitude'])) {
+                    $point->setAltitudeMeters((float) $strava['altitude']);
+                }
+                if (isset($strava['heartrate'])) {
+                    $point->setHrBPM((int) $strava['heartrate']);
+                }
+                if (isset($strava['cadence'])) {
+                    $point->setCadenceRPM((int) $strava['cadence']);
+                }
+                if (isset($strava['watts'])) {
+                    $point->setPowerWatts((int) $strava['watts']);
+                }
+                $activity->addPoint($point);
+            }
+
+            if ((count($item['_points']) > 1) && isset($item['laps'])) {
+                $nlap = 1;
+                foreach ($item['laps'] as $strava) {
+                    $lap = new Lap(
+                        $nlap,
+                        $strava['name'],
+                        $strava['start_index'] + $offsetTimestamp,
+                        $strava['end_index'] + $offsetTimestamp
+                    );
+                    $activity->addLap($lap);
+                    $nlap++;
+                }
+            }
+        }
+
+        $resume = [];
+        if (isset($itemInfo['distance'])) {
+            $resume['distanceMeters'] = $itemInfo['distance'];
+        }
+        if (isset($itemInfo['moving_time'])) {
+            $resume['durationSeconds'] = round($itemInfo['moving_time']);
+        }
+        if (isset($itemInfo['total_elevation_gain'])) {
+            $resume['elevationGainMeters'] = $itemInfo['total_elevation_gain'];
+        }
+        if (isset($itemInfo['calories'])) {
+            $resume['caloriesKcal'] = $itemInfo['calories'];
+        }
+        if (count($resume)) {
+            $analysis = new ResumeAnalysis($resume);
+            $activity->addAnalysis($analysis);
+        }
+
+        return $this->analyze($activity);
     }
 
     public function createActivities(
@@ -110,86 +199,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
     ) : ActivityCollection
     {
         foreach ($data as $item) {
-            $itemInfo = $item['info'];
-
-            $newSource = clone $source;
-            $newSource->setId($itemInfo['id']);
-
-            $activity = new Activity();
-            $activity->setAthleteStatus($this->athleteStatus);
-            $activity->setSource($newSource);
-            $activity->setSport($item['sport']);
-
-            if (isset($item['_id'])) {
-                $activity->setId($item['_id']);
-            }
-
-            $offsetTimestamp = 0;
-            if (isset($itemInfo['start_date_local'])) {
-                $startDate = new \DateTime($itemInfo['start_date_local']);
-                $activity->setStartedAt($startDate);
-                $offsetTimestamp = $startDate->getTimestamp();
-            }
-            if (isset($item['points'])) {
-                foreach ($item['points'] as $strava) {
-                    $timestamp = $strava['time'];
-                    $point     = new Point($timestamp + $offsetTimestamp);
-                    if (isset($strava['lat'])) {
-                        $point->setLatitude((float) $strava['lat']);
-                        $point->setLongitude((float) $strava['lng']);
-                    }
-                    if (isset($strava['distance'])) {
-                        $point->setDistanceMeters((float) $strava['distance']);
-                    }
-                    if (isset($strava['altitude'])) {
-                        $point->setAltitudeMeters((float) $strava['altitude']);
-                    }
-                    if (isset($strava['heartrate'])) {
-                        $point->setHrBPM((int) $strava['heartrate']);
-                    }
-                    if (isset($strava['cadence'])) {
-                        $point->setCadenceRPM((int) $strava['cadence']);
-                    }
-                    if (isset($strava['watts'])) {
-                        $point->setPowerWatts((int) $strava['watts']);
-                    }
-                    $activity->addPoint($point);
-                }
-
-                if ((count($item['points']) > 1) && isset($item['laps'])) {
-                    $nlap = 1;
-                    foreach ($item['laps'] as $strava) {
-                        $lap = new Lap(
-                            $nlap,
-                            $strava['name'],
-                            $strava['start_index'] + $offsetTimestamp,
-                            $strava['end_index'] + $offsetTimestamp
-                        );
-                        $activity->addLap($lap);
-                        $nlap++;
-                    }
-                }
-            }
-
-            $resume = [];
-            if (isset($itemInfo['distance'])) {
-                $resume['distanceMeters'] = $itemInfo['distance'];
-            }
-            if (isset($itemInfo['moving_time'])) {
-                $resume['durationSeconds'] = round($itemInfo['moving_time']);
-            }
-            if (isset($itemInfo['total_elevation_gain'])) {
-                $resume['elevationGainMeters'] = $itemInfo['total_elevation_gain'];
-            }
-            if (isset($itemInfo['calories'])) {
-                $resume['caloriesKcal'] = $itemInfo['calories'];
-            }
-            if (count($resume)) {
-                $analysis = new ResumeAnalysis($resume);
-                $activity->addAnalysis($analysis);
-            }
-
-            $activity = $this->analyze($activity);
+            $activity = $this->createActivity($source, $item);
             $activities->addActivity($activity);
         }
 
@@ -214,6 +224,23 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         return $this->createActivities($source, $activities, $data);
     }
 
+    public function readOneFromFile(string $fileName) : Activity
+    {
+        $pathInfo = pathinfo($fileName);
+
+        $source = new Source(
+            null,
+            $this->getType(),
+            $this->getFormat(),
+            $pathInfo['basename']
+        );
+
+        $data       = file_get_contents($fileName, true);
+        $data       = json_decode($data, true);
+        $data       = $this->normalizeOne($data);
+        return $this->createActivities($source, $data);
+    }
+
     public function readFromArray(array $data) : ActivityCollection
     {
         $source = new Source(
@@ -225,6 +252,18 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         $activities = new ActivityCollection();
         $data  = $this->normalize($data);
         return $this->createActivities($source, $activities, $data);
+    }
+
+    public function readOneFromArray(array $data) : Activity
+    {
+        $source = new Source(
+            null,
+            $this->getType(),
+            $this->getFormat()
+        );
+
+        $data  = $this->normalizeOne($data);
+        return $this->createActivities($source, $data);
     }
 
     public function readFromBinary(string $data) : ActivityCollection
@@ -239,6 +278,19 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         $data  = json_decode($data, true);
         $data  = $this->normalize($data);
         return $this->createActivities($source, $activities, $data);
+    }
+
+    public function readOneFromBinary(string $data) : Activity
+    {
+        $source = new Source(
+            null,
+            $this->getType(),
+            $this->getFormat()
+        );
+
+        $data  = json_decode($data, true);
+        $data  = $this->normalizeOne($data);
+        return $this->createActivities($source, $data);
     }
 
 }

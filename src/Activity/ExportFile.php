@@ -4,6 +4,7 @@ namespace PhpSports\Activity;
 use PhpSports\Activity\Parse\ParseSaveFileInterface;
 use PhpSports\Activity\Parse\ParseSaveBinaryInterface;
 use PhpSports\Activity\Parse\ParseSaveArrayInterface;
+use PhpSports\Model\Activity;
 use PhpSports\Model\ActivityCollection;
 
 class ExportFile extends BaseFile
@@ -13,6 +14,16 @@ class ExportFile extends BaseFile
         $instance = self::createInstanceFromFile($fileName, null, 0);
         if ($instance instanceof ParseSaveFileInterface) {
             return $instance->saveToFile($activities, $fileName, $pretty);
+        } else {
+            throw new \InvalidArgumentException("save to file not suported.");
+        }
+    }
+
+    public static function saveOneToFile(Activity $activity, string $fileName, bool $pretty = false)
+    {
+        $instance = self::createInstanceFromFile($fileName, null, 0);
+        if ($instance instanceof ParseSaveFileInterface) {
+            return $instance->saveOneToFile($activity, $fileName, $pretty);
         } else {
             throw new \InvalidArgumentException("save to file not suported.");
         }
@@ -28,11 +39,31 @@ class ExportFile extends BaseFile
         }
     }
 
+    public static function saveOneToBinary(Activity $activity, string $format, bool $pretty = false) : string
+    {
+        $instance = self::createInstanceFromFormat($format, null, 0);
+        if ($instance instanceof ParseSaveBinaryInterface) {
+            return $instance->saveOneToBinary($activity, $pretty);
+        } else {
+            throw new \InvalidArgumentException("save to binary not suported.");
+        }
+    }
+
     public static function saveToArray(ActivityCollection $activities, string $format) : array
     {
         $instance = self::createInstanceFromFormat($format, null, 0);
         if ($instance instanceof ParseSaveArrayInterface) {
             return $instance->saveToArray($activities);
+        } else {
+            throw new \InvalidArgumentException("save to array not suported.");
+        }
+    }
+
+    public static function saveOneToArray(Activity $activity, string $format) : array
+    {
+        $instance = self::createInstanceFromFormat($format, null, 0);
+        if ($instance instanceof ParseSaveArrayInterface) {
+            return $instance->saveOneToArray($activity);
         } else {
             throw new \InvalidArgumentException("save to array not suported.");
         }
