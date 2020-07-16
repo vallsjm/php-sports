@@ -52,7 +52,7 @@ final class ImportFileTest extends ActivityCase
         ];
 
         $filePath = '';
-        $activities = ImportFile::readFromArray('KNH', [$data], $this->athleteStatus);
+        $activities = ImportFile::readFromBinary('KNH', json_encode($data), $this->athleteStatus);
         $this->renderActivities($filePath, $activities);
     }
 

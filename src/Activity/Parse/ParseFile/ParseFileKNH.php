@@ -22,7 +22,7 @@ use PhpSports\Model\Source;
 use PhpSports\Model\AthleteStatus;
 use \SimpleXMLElement;
 
-class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface, ParseArrayInterface
+class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
 {
     const FILEFORMAT = 'KNH';
 
@@ -163,15 +163,6 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
         return $this->createActivities($source, $activities, $data);
     }
 
-    public function readOneFromFile(string $fileName) : Activity
-    {
-        $activities = $this->readFromFile($fileName);
-        if (count($activities) == 1) {
-            return $activities[0];
-        }
-        return null;
-    }
-
     public function readFromBinary(string $data) : ActivityCollection
     {
         $source = new Source(
@@ -182,16 +173,7 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
 
         $activities = new ActivityCollection();
         $data = json_decode($data, true);
-        return $this->createActivities($source, $activities, $data);
-    }
-
-    public function readOneFromBinary(string $data) : Activity
-    {
-        $activities = $this->readFromBinary($data);
-        if (count($activities) == 1) {
-            return $activities[0];
-        }
-        return null;
+        return $this->createActivities($source, $activities, [$data]);
     }
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
@@ -200,54 +182,10 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
         return file_put_contents($fileName, $json);
     }
 
-    public function saveOneToFile(Activity $activity, string $fileName, bool $pretty = false)
-    {
-        $json = json_encode($activity, ($pretty) ? JSON_PRETTY_PRINT : null);
-        return file_put_contents($fileName, $json);
-    }
-
-
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $json = json_encode($activities, ($pretty) ? JSON_PRETTY_PRINT : null);
         return $json;
-    }
-
-    public function saveOneToBinary(Activity $activity, bool $pretty = false) : string
-    {
-        $json = json_encode($activity, ($pretty) ? JSON_PRETTY_PRINT : null);
-        return $json;
-    }
-
-    public function readFromArray(array $data) : ActivityCollection
-    {
-        $source = new Source(
-            null,
-            $this->getType(),
-            $this->getFormat()
-        );
-
-        $activities = new ActivityCollection();
-        return $this->createActivities($source, $activities, $data);
-    }
-
-    public function readOneFromArray(array $data) : Activity
-    {
-        $activities = $this->readFromArray([$data]);
-        if (count($activities) == 1) {
-            return $activities[0];
-        }
-        return null;
-    }
-
-    public function saveToArray(ActivityCollection $activities) : array
-    {
-        return json_decode(json_encode($activities), true);
-    }
-
-    public function saveOneToArray(Activity $activity) : array
-    {
-        return json_decode(json_encode($activity), true);
     }
 
 }

@@ -4,7 +4,7 @@ namespace PhpSports\Activity\Parse;
 
 use PhpSports\Model\ActivityCollection;
 
-interface ParseReadInterface extends ParseReadArrayInterface, ParseReadBinaryInterface, ParseReadFileInterface
+interface ParseReadInterface extends ParseReadBinaryInterface, ParseReadFileInterface
 {
 
 }

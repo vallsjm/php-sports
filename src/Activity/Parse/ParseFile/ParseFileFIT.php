@@ -188,15 +188,6 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
         return $this->createActivities($source, $activities, $data);
     }
 
-    public function readOneFromFile(string $fileName) : Activity
-    {
-        $activities = $this->readOneFromFile($fileName);
-        if (count($activities) == 1)
-            return $activities[0];
-
-        return null;
-    }
-
     public function readFromBinary(string $data) : ActivityCollection
     {
         $source = new Source(
@@ -209,15 +200,6 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
         $parse = new phpFITFileAnalysis($data, ['input_is_data' => true]);
         $data  = $this->normalize($parse);
         return $this->createActivities($source, $activities, $data);
-    }
-
-    public function readOneFromBinary(string $data) : Activity
-    {
-        $activities = $this->readFromBinary($data);
-        if (count($activities) == 1)
-            return $activities[0];
-
-        return null;
     }
 
 }

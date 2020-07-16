@@ -159,24 +159,9 @@ class ParseFileJSON extends BaseParseFile implements ParseFileInterface, ParseBi
         return $this->createActivities($activities, $data);
     }
 
-    public function readOneFromFile(string $fileName) : Activity
-    {
-        $activities = $this->readFromFile($fileName);
-        if (count($activities) == 1) {
-            return $activities[0];
-        }
-        return null;
-    }
-
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
         $json = json_encode($activities, ($pretty) ? JSON_PRETTY_PRINT : null);
-        return file_put_contents($fileName, $json);
-    }
-
-    public function saveOneToFile(Activity $activity, string $fileName, bool $pretty = false)
-    {
-        $json = json_encode($activity, ($pretty) ? JSON_PRETTY_PRINT : null);
         return file_put_contents($fileName, $json);
     }
 
@@ -187,25 +172,9 @@ class ParseFileJSON extends BaseParseFile implements ParseFileInterface, ParseBi
         return $this->createActivities($activities, $data);
     }
 
-    public function readOneFromBinary(string $data) : Activity
-    {
-        $activities = $this->readFromBinary($data);
-        if (count($activities) == 1) {
-            return $activities[0];
-        }
-        return null;
-    }
-
     public function saveToBinary(ActivityCollection $activities, bool $pretty = false) : string
     {
         $json = json_encode($activities, ($pretty) ? JSON_PRETTY_PRINT : null);
         return $json;
     }
-
-    public function saveOneToBinary(Activity $activity, bool $pretty = false) : string
-    {
-        $json = json_encode($activity, ($pretty) ? JSON_PRETTY_PRINT : null);
-        return $json;
-    }
-
 }
