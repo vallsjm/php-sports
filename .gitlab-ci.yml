@@ -1,7 +1,14 @@
 image: php:7.1
 
+cache:
+  paths:
+    - vendor/
+
 before_script:
- - php composer install
+ - apt-get update -yqq
+ - apt-get install git -yqq
+ - curl -sS https://getcomposer.org/installer | php
+ - php composer.phar install
 
 test:
   script:
