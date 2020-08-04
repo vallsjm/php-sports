@@ -50,14 +50,16 @@ final class ImportAPITest extends ActivityCase
     {
         $filePath = $this->base_dir . '/source/' . 'garmin2.json';
         $activities = ImportAPI::readFromFile('GARMIN', $filePath, $this->athleteStatus);
-        $this->renderActivities($filePath, $activities);
+        $this->assertActivities($activities, [
+            'sport' => 'CYCLING',
+            'timestampOffset' => 3600,
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 3720
+                ]
+            ]
+        ]);
+        // $this->renderActivities($filePath, $activities);
     }
-
-    // public function testImportFile01()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'strava.json';
-    //     $activities = ImportAPI::readFromFile('STRAVA', $filePath, $this->athlete);
-    //     $this->renderActivities($filePath, $activities);
-    // }
 
 }

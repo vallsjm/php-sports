@@ -49,6 +49,7 @@ final class ActivityTest extends TestCase
         $activity->addPoint($p3);
 
         $lap = new Lap(
+            null,
             'L1',
             1575990461,
             1575990464

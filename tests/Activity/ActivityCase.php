@@ -29,106 +29,48 @@ class ActivityCase extends TestCase
         fwrite(STDERR, $text . PHP_EOL);
     }
 
-    // protected function generateAnalysisAsserts(
-    //     $fileName,
-    //     ActivityCollection $activities,
-    //     array $testFile
-    // )
-    // {
-    //     $debug = function ($message, $fileName, $nactivity) {
-    //         return "MESSAGE: {$message} " . PHP_EOL . "FILE: {$fileName}" . PHP_EOL . "ACTIVITY: {$nactivity}" . PHP_EOL . PHP_EOL;
-    //     };
-    //
-    //     $nactivity = 0;
-    //     foreach ($activities as $activity) {
-    //         if (isset($testFile['asserts'][$nactivity]['id'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['id'],
-    //                 $activity->getId(),
-    //                 $debug('Id field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['sport'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['sport'],
-    //                 $activity->getSport(),
-    //                 $debug('Sport field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['name'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['name'],
-    //                 $activity->getName(),
-    //                 $debug('Name field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['startedAt'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['startedAt'],
-    //                 $activity->getStartedAt()->format('Y-m-d H:i:s'),
-    //                 $debug('StartedAt field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['resume']['durationSeconds'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['resume']['durationSeconds'],
-    //                 round($activity->getDurationSeconds()),
-    //                 $debug('DurationSeconds field doesn\'t match', $fileName, $nactivity),
-    //                 1
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['resume']['distanceMeters'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['resume']['distanceMeters'],
-    //                 round($activity->getDistanceMeters()),
-    //                 $debug('DistanceMeters field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['resume']['numLaps'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['resume']['numLaps'],
-    //                 count($activity->getLaps()),
-    //                 $debug('numLaps field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         if (isset($testFile['asserts'][$nactivity]['resume']['numPoints'])) {
-    //             $this->assertEquals(
-    //                 $testFile['asserts'][$nactivity]['resume']['numPoints'],
-    //                 $activity->getNumPoints(),
-    //                 $debug('numPoints field doesn\'t match', $fileName, $nactivity)
-    //             );
-    //         }
-    //         foreach ($testFile['asserts'][$nactivity]['analysis'] as $values) {
-    //             $this->assertTrue(
-    //                 ($analysis = $activity->getAnalysisOrNull($values['parameter'], $values['intervalTimeSeconds'])) ? true : false,
-    //                 $debug($values['parameter'] . ' analysis doesn\'t found', $fileName, $nactivity)
-    //             );
-    //
-    //             $this->assertEquals(
-    //                 $values['min'],
-    //                 $analysis->getMin(),
-    //                 $debug('minValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity)
-    //             );
-    //             $this->assertEquals(
-    //                 $values['avg'],
-    //                 $analysis->getAvg(),
-    //                 $debug('avgValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity)
-    //             );
-    //             $this->assertEquals(
-    //                 $values['max'],
-    //                 $analysis->getMax(),
-    //                 $debug('maxValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity)
-    //             );
-    //             $this->assertEquals(
-    //                 $values['total'],
-    //                 $analysis->getTotal(),
-    //                 $debug('totalValue of ' . $values['parameter'] . ' analysis doesn\'t match', $fileName, $nactivity),
-    //                 1
-    //             );
-    //         }
-    //         $nactivity++;
-    //     }
-    // }
+    private function assertArray(
+        array $values,
+        array $data
+    )
+    {
+        $debug = function ($message) {
+            return "MESSAGE: {$message} " . PHP_EOL ;
+        };
+
+        foreach ($data as $key => $value) {
+            if (isset($values[$key])) {
+                if (is_array($value)) {
+                    $this->assertArray($values[$key], $value);
+                } else {
+                    $this->assertEquals(
+                        $values[$key],
+                        $value,
+                        $debug("{$key}: {$values[$key]} vs {$value} analysis doesn't match"),
+                        0.5
+                    );
+                }
+            } else {
+                $this->assertTrue(
+                    false,
+                    $debug("{$key} doesn't found")
+                );
+            }
+        }
+    }
+
+    protected function assertActivities(
+        ActivityCollection $activities,
+        array $data
+    )
+    {
+        foreach ($activities as $activity) {
+            $values = json_decode(json_encode($activity), true);
+            unset($values['points']);
+            // print_r($values);
+            $this->assertArray($values, $data);
+        }
+    }
 
     protected function renderActivities(
         string $fileName,
