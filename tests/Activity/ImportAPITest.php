@@ -52,7 +52,7 @@ final class ImportAPITest extends ActivityCase
         $activities = ImportAPI::readFromFile('GARMIN', $filePath, $this->athleteStatus);
         $this->assertActivities($activities, [
             'sport' => 'CYCLING',
-            'timestampOffset' => 3609,
+            'timestampOffset' => 3600,
             'analysis' => [
                 'resume' => [
                     'durationSeconds' => 3720
