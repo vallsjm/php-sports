@@ -163,6 +163,7 @@ EOD;
                 $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addAttribute('StartTime', date("Y-m-d\TH:i:s\Z", $lap->getTimestampFrom()));
 
                 if ($resume = $lap->getAnalysis()->filterByName('resume')) {
+                    $resume = $resume->jsonSerialize();
                     if (isset($resume['distanceMeters'])) {
                         $sxml->Activities->Activity[$nactivity]->Lap[$nlap]->addChild('DistanceMeters', $resume['distanceMeters']);
                     }
