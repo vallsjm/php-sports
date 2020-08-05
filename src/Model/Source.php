@@ -68,8 +68,10 @@ final class Source implements JsonSerializable
     {
         switch ($this->format) {
             case 'GPX':
+                return 'gpx';
+            break;
             case 'TCX':
-                return 'xml';
+                return 'tcx';
             break;
             case 'FIT':
                 return 'fit';
@@ -83,6 +85,8 @@ final class Source implements JsonSerializable
     public function getMineType()
     {
         switch ($this->getFileExtension()) {
+            case 'gpx':
+            case 'tcx':
             case 'xml':
                 return 'application/xml';
             break;
