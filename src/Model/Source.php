@@ -64,6 +64,37 @@ final class Source implements JsonSerializable
         $this->fileName = $fileName;
     }
 
+    public function getFileExtension()
+    {
+        switch ($this->format) {
+            case 'GPX':
+            case 'TCX':
+                return 'xml';
+            break;
+            case 'FIT':
+                return 'fit';
+            break;
+            default:
+                return 'json';
+            break;
+        }
+    }
+
+    public function getMineType()
+    {
+        switch ($this->getFileExtension()) {
+            case 'xml':
+                return 'application/xml';
+            break;
+            case 'fit':
+                return 'application/octet-stream';
+            break;
+            case 'json':
+                return 'application/json';
+            break;
+        }
+    }
+
     public function jsonSerialize() {
         return [
             'id'       => $this->id,
