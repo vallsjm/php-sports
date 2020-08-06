@@ -18,7 +18,7 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
-    },    
+    },
     "require": {
         "php": ">=7.0",
         "adriangibbons/php-fit-file-analysis": "^3.2.0",
@@ -26,6 +26,12 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6",
-        "phpstan/phpstan": "^0.9.3"
+        "phpstan/phpstan": "^0.9.3",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+    "scripts": {
+        "test": "phpunit tests/ --colors=always",
+        "analyse": "phpstan analyse src/ --level=1",
+        "cs-fix": "php-cs-fixer fix $1"
     }
 }
