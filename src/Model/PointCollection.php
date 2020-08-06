@@ -65,7 +65,7 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
             return $this;
         }
 
-        return $this->filter(function($point) use ($timestampFrom, $timestampTo) {
+        return $this->filter(function ($point) use ($timestampFrom, $timestampTo) {
             $time = $point->getTimestamp();
             return (($time >= $timestampFrom) && ($time <= $timestampTo));
         });
@@ -78,7 +78,8 @@ class PointCollection extends \ArrayObject implements \JsonSerializable
         return new static($filtered);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         Point::setSchema($this->schema);
         return [
             'schema' => $this->schema,

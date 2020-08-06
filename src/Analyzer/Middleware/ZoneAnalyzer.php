@@ -9,7 +9,8 @@ use PhpSports\Analyzer\Analysis\ZoneAnalysis;
 use PhpSports\Model\Activity;
 use \Closure;
 
-class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
+class ZoneAnalyzer implements AnalyzerMiddlewareInterface
+{
     private $matrix;
     private $zonesHR;
     private $zonesPOWER;
@@ -17,8 +18,7 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
     public function __construct(
         array $zonesHR = [],
         array $zonesPOWER = []
-    )
-    {
+    ) {
         $this->zonesHR = array_merge(
             [
                 'A0' => [30, 65],
@@ -188,5 +188,4 @@ class ZoneAnalyzer implements AnalyzerMiddlewareInterface {
 
         return $next($activity);
     }
-
 }

@@ -36,7 +36,9 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
 
     public function normalizeSport(int $sport = null, int $sub_sport = null)
     {
-        if (!$sport) return null;
+        if (!$sport) {
+            return null;
+        }
         $ret = null;
         $mapSports = array_flip(self::SPORTS);
         if (isset($mapSports[$sport])) {
@@ -59,7 +61,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
         unset($parse->data_mesgs['record']['timestamp']);
         foreach ($parse->data_mesgs['record'] as $key => $values) {
             foreach ($values as $timestamp => $value) {
-                 $points[$timestamp][$key] = $value;
+                $points[$timestamp][$key] = $value;
             }
         }
 
@@ -95,8 +97,7 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
         Source $source,
         ActivityCollection $activities,
         array $data
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         $activity = new Activity();
         $activity->setAthleteStatus($this->athleteStatus);
         $activity->setSource(clone $source);
@@ -201,5 +202,4 @@ class ParseFileFIT extends BaseParseFile implements ParseReadFileInterface, Pars
         $data  = $this->normalize($parse);
         return $this->createActivities($source, $activities, $data);
     }
-
 }

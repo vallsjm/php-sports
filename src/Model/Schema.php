@@ -10,8 +10,7 @@ final class Schema implements JsonSerializable
 
     public function __construct(
         array $parameters = []
-    )
-    {
+    ) {
         $this->parameters = $parameters;
     }
 
@@ -40,7 +39,8 @@ final class Schema implements JsonSerializable
         return isset($this->parameters['latitude']) && isset($this->parameters['longitude']);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return array_keys($this->parameters);
     }
 }

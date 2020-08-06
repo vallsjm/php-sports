@@ -16,8 +16,7 @@ final class Source implements JsonSerializable
         string $type = null,
         string $format = null,
         string $fileName = null
-    )
-    {
+    ) {
         $this->id       = $id;
         $this->type     = $type;
         $this->format   = $format;
@@ -99,7 +98,8 @@ final class Source implements JsonSerializable
         }
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'id'       => $this->id,
             'type'     => $this->type,

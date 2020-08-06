@@ -28,5 +28,4 @@ class ExportFile extends BaseFile
             throw new \InvalidArgumentException("save to binary not suported.");
         }
     }
-
 }

@@ -9,8 +9,8 @@ use PhpSports\Model\Activity;
 use PhpSports\Model\PointCollection;
 use \Closure;
 
-class ResumeAnalyzer implements AnalyzerMiddlewareInterface {
-
+class ResumeAnalyzer implements AnalyzerMiddlewareInterface
+{
     private function calculatePointsActivity(PointCollection $points)
     {
         $distanceMeters      = 0;

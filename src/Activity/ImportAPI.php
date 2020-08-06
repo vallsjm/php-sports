@@ -15,8 +15,7 @@ class ImportAPI extends BaseAPI
         string $fileName,
         AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         $instance = self::createInstanceFromAPI($apiName, $athleteSatus, $options);
         if ($instance instanceof ParseReadFileInterface) {
             return $instance->readFromFile($fileName);
@@ -30,8 +29,7 @@ class ImportAPI extends BaseAPI
         string $data,
         AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         $instance = self::createInstanceFromAPI($apiName, $athleteSatus, $options);
         if ($instance instanceof ParseReadBinaryInterface) {
             return $instance->readFromBinary($data);

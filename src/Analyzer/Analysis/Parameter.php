@@ -63,7 +63,8 @@ class Parameter implements JsonSerializable
         $this->maxValue = $maxValue;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'minValue'  => $this->minValue,
             'avgValue'  => $this->avgValue,

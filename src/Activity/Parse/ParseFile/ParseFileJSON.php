@@ -20,6 +20,7 @@ use PhpSports\Model\Point;
 use PhpSports\Model\Source;
 use PhpSports\Model\AthleteStatus;
 use \SimpleXMLElement;
+
 // https://app.trainerer.com/data/athletes/d7f5f8df454117a1ef73fe136d4ad78c/resume/event-resume-255443.json
 
 class ParseFileJSON extends BaseParseFile implements ParseFileInterface, ParseBinaryInterface
@@ -86,8 +87,7 @@ class ParseFileJSON extends BaseParseFile implements ParseFileInterface, ParseBi
     private function createActivities(
         ActivityCollection $activities,
         array $data
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         foreach ($data as $act) {
             $activity = new Activity($act['title']);
             $activity->setId($act['id']);

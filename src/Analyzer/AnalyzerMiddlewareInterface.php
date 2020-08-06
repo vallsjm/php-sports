@@ -5,8 +5,7 @@ namespace PhpSports\Analyzer;
 use PhpSports\Model\Activity;
 use \Closure;
 
-interface AnalyzerMiddlewareInterface {
-
+interface AnalyzerMiddlewareInterface
+{
     public function analyze(Activity $activity, Closure $next);
-
 }

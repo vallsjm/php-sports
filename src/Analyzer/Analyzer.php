@@ -8,7 +8,8 @@ use PhpSports\Timer\Timer;
 use InvalidArgumentException;
 use Closure;
 
-class Analyzer {
+class Analyzer
+{
     private $middlewares;
     private $timer;
 
@@ -51,7 +52,7 @@ class Analyzer {
 
         $middlewares = array_reverse($this->middlewares);
 
-        $completeObject = array_reduce($middlewares, function($nextMiddleware, $middleware){
+        $completeObject = array_reduce($middlewares, function ($nextMiddleware, $middleware) {
             return $this->createMiddleware($nextMiddleware, $middleware);
         }, $coreFunction);
 
@@ -65,7 +66,7 @@ class Analyzer {
 
     private function createCoreFunction(Activity $object)
     {
-        return function($object)  {
+        return function ($object) {
             return $object;
         };
     }
@@ -74,7 +75,7 @@ class Analyzer {
     {
         if ($this->timer) {
             $timer = $this->timer;
-            return function($object) use ($nextMiddleware, $middleware, $timer) {
+            return function ($object) use ($nextMiddleware, $middleware, $timer) {
                 $timeStart = microtime(true);
                 $className = get_class($middleware);
                 return $middleware->analyze($object, function ($object) use ($timeStart, $nextMiddleware, $className, $timer) {
@@ -84,9 +85,8 @@ class Analyzer {
             };
         }
 
-        return function($object) use ($nextMiddleware, $middleware) {
+        return function ($object) use ($nextMiddleware, $middleware) {
             return $middleware->analyze($object, $nextMiddleware);
         };
     }
-
 }

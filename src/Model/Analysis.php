@@ -24,10 +24,11 @@ abstract class Analysis implements JsonSerializable
         return $this->data;
     }
 
-    abstract function getName() : string;
-    abstract function merge(Analysis $analysis) : Analysis;
+    abstract public function getName() : string;
+    abstract public function merge(Analysis $analysis) : Analysis;
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return $this->getData();
     }
 }

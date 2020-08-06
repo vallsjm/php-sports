@@ -21,8 +21,7 @@ abstract class BaseParse implements AnalyzerInterface
     public function __construct(
         AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    )
-    {
+    ) {
         $this->athleteStatus = $athleteStatus;
 
         $middleware = [];
@@ -73,8 +72,7 @@ abstract class BaseParse implements AnalyzerInterface
     public static function createInstance(
         AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    )
-    {
+    ) {
         return new static($athleteStatus, $options);
     }
 }

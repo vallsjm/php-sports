@@ -22,8 +22,7 @@ final class AthleteStatus implements JsonSerializable
         int $ageYears        = null,
         int $weightKg        = null,
         float $heightMetters = null
-    )
-    {
+    ) {
         $this->id            = $id;
         $this->maxHrBPM      = $maxHrBPM;
         $this->ftpPowerWatts = $ftpPowerWatts;
@@ -103,7 +102,8 @@ final class AthleteStatus implements JsonSerializable
         $this->heightMetters = $heightMetters;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'id'            => $this->id,
             'maxHrBPM'      => $this->maxHrBPM,

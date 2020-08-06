@@ -20,7 +20,8 @@ class ActivityCollection extends \ArrayObject implements \JsonSerializable
         parent::append($activity);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return (array) $this;
     }
 }

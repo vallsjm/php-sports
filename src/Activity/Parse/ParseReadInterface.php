@@ -6,5 +6,4 @@ use PhpSports\Model\ActivityCollection;
 
 interface ParseReadInterface extends ParseReadBinaryInterface, ParseReadFileInterface
 {
-
 }
