@@ -99,7 +99,8 @@ class Zone implements JsonSerializable
         $this->avgSpeedMetersPerSecond = $avgSpeedKilometersPerHour / 3.6;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'minPercent'              => $this->minPercent,
             'maxPercent'              => $this->maxPercent,

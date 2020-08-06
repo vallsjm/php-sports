@@ -51,7 +51,9 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
 
     public function normalizeSport(string $sport = null)
     {
-        if (!$sport) return null;
+        if (!$sport) {
+            return null;
+        }
         $ret = 'OTHER';
         if (isset(self::SPORTS[$sport])) {
             $ret = self::SPORTS[$sport];
@@ -107,8 +109,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
     public function createActivity(
         Source $source,
         array $item
-    ) : Activity
-    {
+    ) : Activity {
         $itemInfo = $item['info'];
 
         $newSource = clone $source;
@@ -195,8 +196,7 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         Source $source,
         ActivityCollection $activities,
         array $data
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         foreach ($data as $item) {
             $activity = $this->createActivity($source, $item);
             $activities->addActivity($activity);
@@ -236,6 +236,4 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         $data  = $this->normalize($data);
         return $this->createActivities($source, $activities, $data);
     }
-
-
 }

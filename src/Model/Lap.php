@@ -21,8 +21,7 @@ final class Lap implements JsonSerializable
         string $name = null,
         int $timestampFrom = null,
         int $timestampTo = null
-    )
-    {
+    ) {
         $this->id            = $id;
         $this->timestampFrom = $timestampFrom;
         $this->timestampTo   = $timestampTo;
@@ -91,7 +90,8 @@ final class Lap implements JsonSerializable
         $this->timestampTo   = (!$this->timestampTo) ? $point->getTimestamp()   : max($point->getTimestamp(), $this->timestampTo);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'id'            => $this->id,
             'name'          => $this->name,

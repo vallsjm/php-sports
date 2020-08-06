@@ -74,9 +74,7 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
     public function createActivity(
         Source $source,
         array $item
-    ) : Activity
-    {
-
+    ) : Activity {
         $newSource = clone $source;
 
         $activity = new Activity();
@@ -136,8 +134,7 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
         Source $source,
         ActivityCollection $activities,
         array $data
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         foreach ($data as $item) {
             $activity = $this->createActivity($source, $item);
             $activities->addActivity($activity);
@@ -187,5 +184,4 @@ class ParseFileKNH extends BaseParseFile implements ParseFileInterface, ParseBin
         $json = json_encode($activities, ($pretty) ? JSON_PRETTY_PRINT : null);
         return $json;
     }
-
 }

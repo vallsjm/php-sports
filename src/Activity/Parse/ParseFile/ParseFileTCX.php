@@ -33,7 +33,9 @@ class ParseFileTCX extends BaseParseFile implements ParseFileInterface, ParseBin
 
     public function normalizeSport(string $sport = null)
     {
-        if (!$sport) return null;
+        if (!$sport) {
+            return null;
+        }
         $key = ucfirst(strtolower($sport));
         $mapSports = array_flip(self::SPORTS);
         if (isset($mapSports[$key])) {
@@ -44,7 +46,9 @@ class ParseFileTCX extends BaseParseFile implements ParseFileInterface, ParseBin
 
     public function denormalizeSport(string $sport = null)
     {
-        if (!$sport) return null;
+        if (!$sport) {
+            return null;
+        }
         $key = strtoupper($sport);
         if (isset(self::SPORTS[$key])) {
             return self::SPORTS[$key];
@@ -56,8 +60,7 @@ class ParseFileTCX extends BaseParseFile implements ParseFileInterface, ParseBin
         Source $source,
         ActivityCollection $activities,
         SimpleXMLElement $data
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         foreach ($data->Activities->Activity as $act) {
             $activity = new Activity();
             $activity->setAthleteStatus($this->athleteStatus);
@@ -275,5 +278,4 @@ EOD;
             return $data->asXML();
         }
     }
-
 }

@@ -159,7 +159,8 @@ class Activity implements JsonSerializable
         $this->timestampOffset = $timestampOffset;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'id'              => $this->id,
             'sport'           => $this->sport,
@@ -173,5 +174,4 @@ class Activity implements JsonSerializable
             'points'          => $this->points
         ];
     }
-
 }

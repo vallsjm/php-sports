@@ -31,7 +31,7 @@
     },
     "scripts": {
         "test": "phpunit tests/ --colors=always",
-        "analyse": "phpstan analyse src/ --level=1",
+        "analyze": "phpstan analyse src/ --level=1",
         "cs-fix": "php-cs-fixer fix $1"
     }
 }

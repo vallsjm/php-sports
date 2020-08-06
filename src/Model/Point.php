@@ -23,8 +23,7 @@ final class Point implements JsonSerializable
 
     public function __construct(
         int $timestamp = null
-    )
-    {
+    ) {
         if (!self::$schema) {
             self::resetSchema();
         }
@@ -201,12 +200,12 @@ final class Point implements JsonSerializable
         self::$schema->addParameter($parameter);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         $ret = [];
         foreach (self::$schema->getParameters() as $parameter => $accurency) {
             $ret[] = round($this->{$parameter}, $accurency);
         }
         return $ret;
     }
-
 }

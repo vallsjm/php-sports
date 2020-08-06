@@ -63,7 +63,8 @@ class Interval implements JsonSerializable
         $this->maxAvg = $maxAvg;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'minAvg'              => $this->minAvg,
             'maxAvg'              => $this->maxAvg

@@ -45,7 +45,8 @@ final class Timer
         return $this->resume;
     }
 
-    private function toString($break = PHP_EOL) {
+    private function toString($break = PHP_EOL)
+    {
         $total = $this->getTotalDuration();
         $ret = '';
         foreach ($this->resume as $functionName => $duration) {

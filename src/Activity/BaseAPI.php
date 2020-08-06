@@ -12,8 +12,7 @@ abstract class BaseAPI implements AnalyzerInterface
         string $apiName = null,
         AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : BaseParseAPI
-    {
+    ) : BaseParseAPI {
         $instance  = null;
         $className = 'PhpSports\Activity\Parse\ParseAPI\ParseApi' . strtoupper($apiName);
         if (class_exists($className)) {
@@ -24,5 +23,4 @@ abstract class BaseAPI implements AnalyzerInterface
 
         return $instance;
     }
-
 }

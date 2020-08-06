@@ -10,7 +10,8 @@ use PhpSports\Model\PointCollection;
 use PhpSports\Model\Type;
 use \Closure;
 
-class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
+class IntervalAnalyzer implements AnalyzerMiddlewareInterface
+{
     private $timeIntervals;
     private $parameters;
     private $matrix;
@@ -18,8 +19,7 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
     public function __construct(
         array $timeIntervals = [],
         array $parameters    = []
-    )
-    {
+    ) {
         foreach ($parameters as $key) {
             if (!in_array($key, Type::POINT)) {
                 throw new \Exception('parameter "' . $key . '" is not valid analysis parameter');
@@ -64,8 +64,7 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
         PointCollection $points,
         int $timeStart,
         int $timeEnd
-    )
-    {
+    ) {
         $this->createParameterMatrix();
         $defaultValues = array_fill($timeStart, $timeEnd - $timeStart, null);
         foreach ($this->parameters as $parameter) {
@@ -176,5 +175,4 @@ class IntervalAnalyzer implements AnalyzerMiddlewareInterface {
 
         return $next($activity);
     }
-
 }

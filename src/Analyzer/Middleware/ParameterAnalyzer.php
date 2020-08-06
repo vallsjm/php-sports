@@ -9,13 +9,13 @@ use PhpSports\Model\Activity;
 use PhpSports\Model\Type;
 use \Closure;
 
-class ParameterAnalyzer implements AnalyzerMiddlewareInterface {
+class ParameterAnalyzer implements AnalyzerMiddlewareInterface
+{
     private $parameters;
 
     public function __construct(
         array $parameters = []
-    )
-    {
+    ) {
         foreach ($parameters as $key) {
             if (!in_array($key, Type::POINT)) {
                 throw new \Exception('parameter "' . $key . '" is not valid analysis parameter');

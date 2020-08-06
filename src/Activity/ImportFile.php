@@ -14,8 +14,7 @@ class ImportFile extends BaseFile
         string $fileName,
         AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         $instance = self::createInstanceFromFile($fileName, $athleteStatus, $options);
         if ($instance instanceof ParseReadFileInterface) {
             return $instance->readFromFile($fileName);
@@ -29,8 +28,7 @@ class ImportFile extends BaseFile
         string $data,
         AthleteStatus $athleteStatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         $instance = self::createInstanceFromFormat($format, $athleteStatus, $options);
         if ($instance instanceof ParseReadBinaryInterface) {
             return $instance->readFromBinary($data);

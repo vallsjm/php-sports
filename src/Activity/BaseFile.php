@@ -10,15 +10,14 @@ abstract class BaseFile implements AnalyzerInterface
 {
     public static function getFileExtension(string $fileName) : string
     {
-		return strtoupper(pathinfo($fileName, \PATHINFO_EXTENSION));
+        return strtoupper(pathinfo($fileName, \PATHINFO_EXTENSION));
     }
 
     public static function createInstanceFromFile(
         string $fileName = null,
         AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : BaseParseFile
-    {
+    ) : BaseParseFile {
         $instance  = null;
         $format    = self::getFileExtension($fileName);
         $className = 'PhpSports\Activity\Parse\ParseFile\ParseFile' . $format;
@@ -35,8 +34,7 @@ abstract class BaseFile implements AnalyzerInterface
         string $format = null,
         AthleteStatus $athleteSatus = null,
         int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
-    ) : BaseParseFile
-    {
+    ) : BaseParseFile {
         $instance  = null;
         $className = 'PhpSports\Activity\Parse\ParseFile\ParseFile' . $format;
         if (class_exists($className)) {
@@ -47,5 +45,4 @@ abstract class BaseFile implements AnalyzerInterface
 
         return $instance;
     }
-
 }

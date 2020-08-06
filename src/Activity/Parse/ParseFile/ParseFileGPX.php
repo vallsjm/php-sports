@@ -21,8 +21,7 @@ class ParseFileGPX extends BaseParseFile implements ParseFileInterface, ParseBin
         Source $source,
         ActivityCollection $activities,
         SimpleXMLElement $data
-    ) : ActivityCollection
-    {
+    ) : ActivityCollection {
         foreach ($data->trk as $trk) {
             $activity = new Activity((string) $trk->name);
             $activity->setAthleteStatus($this->athleteStatus);
@@ -39,7 +38,7 @@ class ParseFileGPX extends BaseParseFile implements ParseFileInterface, ParseBin
                     $point->setElevationMeters((float) $trkpt->ele);
 
                     if ($extensions = $trkpt->extensions) {
-    					$extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
+                        $extensions = $extensions->children('http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
                         if (count($extensions)) {
                             if ($extensions[0]->speed) {
                                 $point->setSpeedMetersPerSecond((float) $extensions[0]->speed);
@@ -54,7 +53,7 @@ class ParseFileGPX extends BaseParseFile implements ParseFileInterface, ParseBin
                                 $point->setPowerWatts((int) $extensions[0]->power);
                             }
                         }
-        			}
+                    }
                     $activity->addPoint($point);
                     $lap->addPoint($point);
                 }
