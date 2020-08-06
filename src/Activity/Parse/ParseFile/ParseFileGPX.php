@@ -145,9 +145,9 @@ EOD;
 
     public function saveToFile(ActivityCollection $activities, string $fileName, bool $pretty = false)
     {
-        $data   = $this->save($activities);
+        $data   = $this->createXML($activities);
         if ($pretty) {
-            $dom = new \DomDocument('1.0');
+            $dom = new \DOMDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());
@@ -174,7 +174,7 @@ EOD;
     {
         $data = $this->createXML($activities);
         if ($pretty) {
-            $dom = new \DomDocument('1.0');
+            $dom = new \DOMDocument('1.0');
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
             $dom->loadXML($data->asXML());

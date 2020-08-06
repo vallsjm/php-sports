@@ -77,6 +77,9 @@ class ActivityCase extends TestCase
         ActivityCollection $activities
     )
     {
+        // $json = json_encode($activities, JSON_PRETTY_PRINT);
+        // print_r($json);
+
         $this->consoleLog(PHP_EOL);
         $this->consoleLog('FILE: ' . $fileName);
         foreach ($activities as $activity) {

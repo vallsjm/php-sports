@@ -15,7 +15,7 @@ class ZoneAnalysis extends Analysis implements JsonSerializable, AnalysisInterfa
         $name = null
     ) {
         $this->name = $name;
-        $this->data = [];
+        parent::__construct([]);
     }
 
     public function getName() : string

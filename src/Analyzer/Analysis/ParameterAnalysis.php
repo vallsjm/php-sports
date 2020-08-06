@@ -12,7 +12,7 @@ class ParameterAnalysis extends Analysis implements JsonSerializable, AnalysisIn
     public function __construct(
         $data = null
     ) {
-        $this->data = [];
+        parent::__construct($data);
     }
 
     public function getName() : string

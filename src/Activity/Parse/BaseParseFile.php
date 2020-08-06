@@ -6,6 +6,8 @@ use PhpSports\Model\ActivityCollection;
 
 abstract class BaseParseFile extends BaseParse
 {
+    const FILEFORMAT = 'UNDEFINED';
+
     public function getFormat()
     {
         return static::FILEFORMAT;

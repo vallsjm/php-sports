@@ -12,6 +12,7 @@ class ResumeAnalysis extends Analysis implements JsonSerializable, AnalysisInter
     public function __construct(
         $data = null
     ) {
+        parent::__construct();
         $this->setData($data);
     }
 

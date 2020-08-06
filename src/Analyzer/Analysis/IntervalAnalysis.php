@@ -12,7 +12,7 @@ class IntervalAnalysis extends Analysis implements JsonSerializable, AnalysisInt
     public function __construct(
         $data = null
     ) {
-        $this->data = [];
+        parent::__construct($data);
     }
 
     public function getName() : string

@@ -8,23 +8,126 @@ use PhpSports\Timer\Timer;
 
 final class ImportFileTest extends ActivityCase
 {
-    // public function testImportFile00()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'cycling_indoor_01.fit';
-    //     $athleteStatus = $this->athleteStatus;
-    //     $timer = new Timer();
-    //
-    //     $import = ImportFile::createInstanceFromFile($filePath, $athleteStatus);
-    //     $activities = $timer->addFunction('read', function () use ($filePath, $import) {
-    //         return $import->readFromFile($filePath);
-    //     });
-    //
-    //     // echo $import->getAnalyzer()->getTimer();
-    //     // echo $timer;
-    //     // $json = json_encode($activities[0]->getAnalysis(), JSON_PRETTY_PRINT);
-    //     // print_r($json);
-    //     $this->renderActivities($filePath, $activities);
-    // }
+    public function testImportFile00()
+    {
+        $filePath = $this->base_dir . '/source/' . 'cycling_indoor_01.fit';
+        $athleteStatus = $this->athleteStatus;
+        $timer = new Timer();
+
+        $import = ImportFile::createInstanceFromFile($filePath, $athleteStatus);
+        $activities = $timer->addFunction('read', function () use ($filePath, $import) {
+            return $import->readFromFile($filePath);
+        });
+
+        $this->assertActivities($activities, [
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 3638,
+                    'distanceMeters' => 24730,
+                    'speedMetersPerSecond' => 6.80,
+                    'caloriesKcal' => 711
+                ]
+            ]
+        ]);
+
+        // $this->renderActivities($filePath, $activities);
+    }
+
+    public function testImportFile01()
+    {
+        $filePath = $this->base_dir . '/source/' . 'SERIES_GOIKO.fit';
+        $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
+
+        $this->assertActivities($activities, [
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 7210,
+                    'distanceMeters' => 76790,
+                    'speedMetersPerSecond' => 10.65,
+                    'caloriesKcal' => 2274
+                ]
+            ]
+        ]);
+
+        // $this->renderActivities($filePath, $activities);
+    }
+
+    public function testImportFile02()
+    {
+        $filePath = $this->base_dir . '/source/' . 'cycling_indoor_02.fit';
+        $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
+
+        $this->assertActivities($activities, [
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 3460,
+                    'distanceMeters' => 27850,
+                    'speedMetersPerSecond' => 8.32,
+                    'caloriesKcal' => 326
+                ]
+            ]
+        ]);
+
+        // $this->renderActivities($filePath, $activities);
+    }
+
+    public function testImportFile03()
+    {
+        $filePath = $this->base_dir . '/source/' . 'cycling_mountain_03.fit';
+        $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
+
+        $this->assertActivities($activities, [
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 1844,
+                    'distanceMeters' => 16740,
+                    'elevationGainMeters' => 116.2,
+                    'speedMetersPerSecond' => 9.12,
+                    'caloriesKcal' => 387.24
+                ]
+            ]
+        ]);
+
+        // $this->renderActivities($filePath, $activities);
+    }
+
+    public function testImportFile04()
+    {
+        $filePath = $this->base_dir . '/source/' . 'cycling_mountain_04.gpx';
+        $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
+
+        $this->assertActivities($activities, [
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 6326,
+                    'distanceMeters' => 47971.42,
+                    'speedMetersPerSecond' => 7.67,
+                    'caloriesKcal' => 1328.46
+                ]
+            ]
+        ]);
+
+        //$this->renderActivities($filePath, $activities);
+    }
+
+    public function testImportFile05()
+    {
+        $filePath = $this->base_dir . '/source/' . 'cycling_mountain_05.gpx';
+        $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
+
+        $this->assertActivities($activities, [
+            'analysis' => [
+                'resume' => [
+                    'durationSeconds' => 7194,
+                    'distanceMeters' => 52948.05,
+                    'speedMetersPerSecond' => 7.43,
+                    'caloriesKcal' => 1510.74
+                ]
+            ]
+        ]);
+
+        // $this->renderActivities($filePath, $activities);
+    }
 
     public function testImportFile06()
     {
@@ -53,6 +156,7 @@ final class ImportFileTest extends ActivityCase
 
         $filePath = '';
         $activities = ImportFile::readFromBinary('KNH', json_encode($data), $this->athleteStatus);
+
         $this->assertActivities($activities, [
             'analysis' => [
                 'resume' => [
@@ -61,43 +165,8 @@ final class ImportFileTest extends ActivityCase
                 ]
             ]
         ]);
+
         // $this->renderActivities($filePath, $activities);
     }
-
-
-    // public function testImportFile01()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'cycling_indoor_01.fit';
-    //     $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
-    //     $this->renderActivities($filePath, $activities);
-    // }
-    //
-    // public function testImportFile02()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'cycling_indoor_02.fit';
-    //     $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
-    //     $this->renderActivities($filePath, $activities);
-    // }
-    //
-    // public function testImportFile03()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'cycling_mountain_03.fit';
-    //     $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
-    //     $this->renderActivities($filePath, $activities);
-    // }
-    //
-    // public function testImportFile04()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'cycling_mountain_04.gpx';
-    //     $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
-    //     $this->renderActivities($filePath, $activities);
-    // }
-    //
-    // public function testImportFile05()
-    // {
-    //     $filePath = $this->base_dir . '/source/' . 'cycling_mountain_05.gpx';
-    //     $activities = ImportFile::readFromFile($filePath, $this->athleteStatus);
-    //     $this->renderActivities($filePath, $activities);
-    // }
 
 }

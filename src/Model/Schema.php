@@ -12,7 +12,7 @@ final class Schema implements JsonSerializable
         array $parameters = []
     )
     {
-        $this->parameters = [];
+        $this->parameters = $parameters;
     }
 
     public function setParameters(array $parameters)

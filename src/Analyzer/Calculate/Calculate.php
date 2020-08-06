@@ -100,15 +100,16 @@ class Calculate
             case 'SOFT':
                 $factor = 50;
             break;
-            case 'NORMAL':
-                $factor = 70;
-            break;
             case 'HARD':
                 $factor = 80;
             break;
             case 'MAX':
                 $factor = 90;
             break;
+			case 'NORMAL':
+			default:
+				$factor = 70;
+			break;
         }
 
         return $factor * ($durationSeconds / 3600);

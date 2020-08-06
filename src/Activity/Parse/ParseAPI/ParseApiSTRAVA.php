@@ -29,7 +29,6 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         'InlineSkate'     => 'OTHER',
         'Kayaking'        => 'OTHER',
         'Kitesurf'        => 'OTHER',
-        'Kayaking'        => 'OTHER',
         'NordicSki'       => 'OTHER',
         'Ride'            => 'CYCLING_STREET',
         'RockClimbing'    => 'OTHER',
@@ -224,48 +223,6 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         return $this->createActivities($source, $activities, $data);
     }
 
-    public function readOneFromFile(string $fileName) : Activity
-    {
-        $pathInfo = pathinfo($fileName);
-
-        $source = new Source(
-            null,
-            $this->getType(),
-            $this->getFormat(),
-            $pathInfo['basename']
-        );
-
-        $data       = file_get_contents($fileName, true);
-        $data       = json_decode($data, true);
-        $data       = $this->normalizeOne($data);
-        return $this->createActivities($source, $data);
-    }
-
-    public function readFromArray(array $data) : ActivityCollection
-    {
-        $source = new Source(
-            null,
-            $this->getType(),
-            $this->getFormat()
-        );
-
-        $activities = new ActivityCollection();
-        $data  = $this->normalize($data);
-        return $this->createActivities($source, $activities, $data);
-    }
-
-    public function readOneFromArray(array $data) : Activity
-    {
-        $source = new Source(
-            null,
-            $this->getType(),
-            $this->getFormat()
-        );
-
-        $data  = $this->normalizeOne($data);
-        return $this->createActivities($source, $data);
-    }
-
     public function readFromBinary(string $data) : ActivityCollection
     {
         $source = new Source(
@@ -280,17 +237,5 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         return $this->createActivities($source, $activities, $data);
     }
 
-    public function readOneFromBinary(string $data) : Activity
-    {
-        $source = new Source(
-            null,
-            $this->getType(),
-            $this->getFormat()
-        );
-
-        $data  = json_decode($data, true);
-        $data  = $this->normalizeOne($data);
-        return $this->createActivities($source, $data);
-    }
 
 }
