@@ -10,6 +10,16 @@ before_script:
  - curl -sS https://getcomposer.org/installer | php
  - php composer.phar install
 
-test:
+phpstan:
+  stage: analysis
+  script:
+    - php ./vendor/bin/phpstan analyse src --level=1
+
+phpunit:
+  stage: test
   script:
     - php ./vendor/bin/phpunit tests/
+
+stages:
+  - analysis
+  - test
