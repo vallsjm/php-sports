@@ -56,7 +56,7 @@ class Activity implements JsonSerializable
         $this->athleteStatus = $athleteStatus;
     }
 
-    public function getAthleteStatus() : AthleteStatus
+    public function getAthleteStatus()
     {
         return $this->athleteStatus;
     }

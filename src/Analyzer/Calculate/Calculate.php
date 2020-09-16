@@ -3,6 +3,7 @@
 namespace PhpSports\Analyzer\Calculate;
 
 use PhpSports\Model\Point;
+use PhpSports\Model\AthleteStatus;
 
 class Calculate
 {
