@@ -71,13 +71,14 @@ class Calculate
         return $met * 0.0175 * $weightKg * ($durationSeconds / 60);
     }
 
-    public static function calculateTss(
+    public static function calculateTssFromHR(
         float $durationSeconds,
-        float $maxHrBPM,
-        float $avgHrBPM
+        float $avgHrBPM,
+        AthleteStatus $athleteStatus
     ) {
+
         $intervalos = [20,30,40,50,60,70,80,100,120,140];
-        $base       = ($maxHrBPM - 60) / count($intervalos);
+        $base       = ($athleteStatus->getMaxHrBPM() - 60) / count($intervalos);
         $ini        = 60;
         $fin        = 0;
         $value      = 0;
@@ -91,13 +92,37 @@ class Calculate
         return $value * ($durationSeconds / 3600);
     }
 
+    public static function calculateActivityIntensity(
+        float $avgPowerWatts,
+        AthleteStatus $athleteSatus
+    ) {
+        return $avgPowerWatts / $athleteSatus->getFtpPowerWatts();
+    }
+
+    public static function calculateTssFromDuration(
+        float $durationSeconds
+    ) {
+        return ($durationSeconds / 3600) * 70;
+    }
+
+    public static function calculateTssFromFTP(
+        float $durationSeconds,
+        float $avgPowerWatts,
+        AthleteStatus $athleteSatus
+    ) {
+        return ($durationSeconds * ($avgPowerWatts + 15) * self::calculateActivityIntensity($avgPowerWatts, $athleteSatus)) / ($athleteSatus->getFtpPowerWatts() * 3600) * 100;
+    }
+
     public static function calculateTssFromLevel(
         float $durationSeconds,
         string $level = 'NORMAL'
     ) {
         switch ($level) {
+            case 'MIN':
+                $factor = 30;
+            break;
             case 'SOFT':
-                $factor = 50;
+                $factor = 55;
             break;
             case 'HARD':
                 $factor = 80;

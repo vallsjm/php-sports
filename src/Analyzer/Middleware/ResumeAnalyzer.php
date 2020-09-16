@@ -17,6 +17,7 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface
         $durationSeconds     = 0;
         $elevationGainMeters = 0;
         $totalPoints         = 0;
+        $queuePowerWatts     = [];
         $queueHrBPM          = [];
         $queueSpeed          = [];
 
@@ -34,6 +35,9 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface
             }
             if ($speedMetersPerSecond = $point->getSpeedMetersPerSecond()) {
                 $queueSpeed[] = $speedMetersPerSecond;
+            }
+            if ($powerWatts = $point->getPowerWatts()) {
+                $queuePowerWatts[] = $powerWatts;
             }
             if ($hrBPM = $point->getHrBPM()) {
                 $queueHrBPM[] = $hrBPM;
@@ -53,6 +57,8 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface
             'elevationGainMeters'  => $elevationGainMeters,
             'maxHrBPM'             => ($numHrBPM = count($queueHrBPM)) ? max($queueHrBPM) : null,
             'avgHrBPM'             => ($numHrBPM) ? (array_sum($queueHrBPM) / $numHrBPM) : null,
+            'maxPowerWatts'        => ($numPowerWatts = count($queuePowerWatts)) ? max($queuePowerWatts) : null,
+            'avgPowerWatts'        => ($numPowerWatts) ? (array_sum($queuePowerWatts) / $numPowerWatts) : null,
             'speedMetersPerSecond' => ($numSpeed = count($queueSpeed)) ? (array_sum($queueSpeed) / $numSpeed) : null,
             'totalPoints'          => $totalPoints
         ];
@@ -106,20 +112,30 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface
                 );
             }
 
-            if ($calculate['maxHrBPM']) {
-                $calculate['tss'] = Calculate::calculateTss(
+            if ($calculate['avgPowerWatts']) {
+                $calculate['tss'] = Calculate::calculateTssFromFTP(
                     $calculate['durationSeconds'],
-                    max($calculate['maxHrBPM'], $athleteStatus->getMaxHrBPM()),
-                    $calculate['avgHrBPM']
+                    $calculate['avgPowerWatts'],
+                    $athleteStatus
+                );
+            } elseif ($calculate['avgHrBPM']) {
+                $calculate['tss'] = Calculate::calculateTssFromHR(
+                    $calculate['durationSeconds'],
+                    $calculate['avgHrBPM'],
+                    $athleteStatus
                 );
             } else {
-                $calculate['tss'] = Calculate::calculateTssFromLevel(
+                $calculate['tss'] = Calculate::calculateTssFromDuration(
                     $calculate['durationSeconds']
                 );
             }
         }
 
-        unset($calculate['maxHrBPM'], $calculate['avgHrBPM']);
+        unset($calculate['maxHrBPM'],
+              $calculate['avgHrBPM'],
+              $calculate['maxPowerWatts'],
+              $calculate['avgPowerWatts']);
+
         $analysis = new ResumeAnalysis($calculate);
         $activity->addAnalysis($analysis);
 
