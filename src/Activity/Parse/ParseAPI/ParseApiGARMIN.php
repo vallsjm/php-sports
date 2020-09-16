@@ -3,6 +3,7 @@
 namespace PhpSports\Activity\Parse\ParseAPI;
 
 use PhpSports\Activity\Parse\ParseReadInterface;
+use PhpSports\Activity\Parse\ParseReadArrayInterface;
 use PhpSports\Activity\Parse\BaseParseAPI;
 use PhpSports\Analyzer\Analysis\ResumeAnalysis;
 use PhpSports\Model\ActivityCollection;
@@ -13,7 +14,7 @@ use PhpSports\Model\Source;
 use \DateTime;
 use \Exception;
 
-class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface
+class ParseApiGARMIN extends BaseParseAPI implements ParseReadInterface, ParseReadArrayInterface
 {
     const APIFORMAT = 'GARMIN';
 
