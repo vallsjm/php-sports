@@ -223,6 +223,19 @@ class ParseApiSTRAVA extends BaseParseAPI implements ParseReadInterface
         return $this->createActivities($source, $activities, $data);
     }
 
+    public function readFromArray(array $data) : ActivityCollection
+    {
+        $source = new Source(
+            null,
+            $this->getType(),
+            $this->getFormat()
+        );
+
+        $activities = new ActivityCollection();
+        $data  = $this->normalize($data);
+        return $this->createActivities($source, $activities, $data);
+    }
+
     public function readFromBinary(string $data) : ActivityCollection
     {
         $source = new Source(

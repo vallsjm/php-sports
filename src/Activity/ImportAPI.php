@@ -24,6 +24,21 @@ class ImportAPI extends BaseAPI
         }
     }
 
+    public static function readFromArray(
+        string $apiName,
+        array $data,
+        AthleteStatus $athleteSatus = null,
+        int $options = self::ANALYZER_RESUME | self::ANALYZER_PARAMETER | self::ANALYZER_ZONE | self::ANALYZER_INTERVAL
+    ) : ActivityCollection
+    {
+        $instance = self::createInstanceFromAPI($apiName, $athleteSatus, $options);
+        if ($instance instanceof ParseReadArrayInterface) {
+            return $instance->readFromArray($data);
+        } else {
+            throw new \InvalidArgumentException("read from array not suported.");
+        }
+    }
+
     public static function readFromBinary(
         string $apiName,
         string $data,
