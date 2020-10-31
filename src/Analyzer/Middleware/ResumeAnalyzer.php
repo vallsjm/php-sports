@@ -112,13 +112,13 @@ class ResumeAnalyzer implements AnalyzerMiddlewareInterface
                 );
             }
 
-            if ($calculate['avgPowerWatts']) {
+            if ($calculate['avgPowerWatts'] && ($athleteStatus->getFtpPowerWatts() > 0)) {
                 $calculate['tss'] = Calculate::calculateTssFromFTP(
                     $calculate['durationSeconds'],
                     $calculate['avgPowerWatts'],
                     $athleteStatus
                 );
-            } elseif ($calculate['avgHrBPM']) {
+            } elseif ($calculate['avgHrBPM'] && ($athleteStatus->getMaxHrBPM() > 0)) {
                 $calculate['tss'] = Calculate::calculateTssFromHR(
                     $calculate['durationSeconds'],
                     $calculate['avgHrBPM'],
