@@ -97,7 +97,7 @@ class Calculate
         float $avgPowerWatts,
         AthleteStatus $athleteSatus
     ) {
-        return $avgPowerWatts / $athleteSatus->getFtpPowerWatts();
+        return ($athleteSatus->getFtpPowerWatts() > 0) ? $avgPowerWatts / $athleteSatus->getFtpPowerWatts() : 0;
     }
 
     public static function calculateTssFromDuration(
